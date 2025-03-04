@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExplorerDB</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+</head>
+
+<body class="mythology-theme">
+    <div class="container mt-5">
+        <h1 class="text-center title">Mythology Exploration CRUD</h1>
+
+        <!-- Mythology Table -->
+        <div>
+            <h3 class="table-title">Mythologies</h3>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <!-- Insertar Datos -->
+                    <div>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Insertar Datos
+                        </button>
+                    </div>
+
+                    <!-- Espacio vacío para separar -->
+                    <div class="flex-grow-1"></div>
+
+                    <!-- Search Bar -->
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="search-container d-flex align-items-center">
+                            <input type="text" id="searchInput" class="search-input"
+                                placeholder="Buscar en la lista...">
+                            <button class="btn btn-warning"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <table class="table table-bordered mythology-table mt-2">
+                <thead>
+                    <tr class="text-center">
+                        <th><strong>ID</strong></th>
+                        <th><strong>Name</strong></th>
+                        <th><strong>Region</strong></th>
+                        <th><strong>Era</strong></th>
+                        <th><strong>Actions</strong></th>
+                    </tr>
+                </thead>
+                <tbody id="mythologyTableBody">
+                    <!-- Dynamic content -->
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Region</th>
+                        <th>Era</th>
+                        <th class="text-center">
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            <button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </th>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modales -->
+    <!-- Modal de insertar datos -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body">
+                    <!-- Mythology Form -->
+                    <div class="p-4 mt-4 fondo-modal">
+                        <h3 class="form-title text-center">Insertar Datos</h3>
+                        <form id="mythologyForm">
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control input-field" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Region</label>
+                                <input type="text" class="form-control input-field" id="region" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Era</label>
+                                <input type="text" class="form-control input-field" id="era" required>
+                            </div>
+
+                            <!-- Botones en la parte inferior -->
+                            <div class="modal-footer border-0">
+                                <button type="submit" class="btn btn-warning">Guardar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
