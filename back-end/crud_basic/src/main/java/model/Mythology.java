@@ -1,4 +1,4 @@
-package com.sena.crud_basic.model;
+package model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
  */
 
 @Entity(name = "mythology")
-public class mythology {
+public class Mythology {
 
     /*
      * atributos o columnas de entidad
@@ -38,14 +38,14 @@ public class mythology {
     private String era;
 
     // creo el constructor
-    public mythology(Integer id_mythology, String name, String region, String era) {
+    public Mythology(Integer id_mythology, String name, String region, String era) {
         this.id_mythology = id_mythology;
         this.name = name;
         this.region = region;
         this.era = era;
     }
 
-    // Encpasulo el id 
+    // Encpasulo el id
     public void setMythologyId(int id_mythology) {
         this.id_mythology = id_mythology;
     }

@@ -1,4 +1,4 @@
-package com.sena.crud_basic.model;
+package model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name = "explorer")
-public class explorer {
+public class Explorer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class explorer {
     private Integer reputation;
 
     // creo el constructor
-    public explorer(int id_explorer, String name, Integer reputation) {
+    public Explorer(int id_explorer, String name, Integer reputation) {
         this.id_explorer = id_explorer;
         this.name = name;
         this.reputation = reputation;
@@ -45,7 +45,7 @@ public class explorer {
         return name;
     }
 
-    // Encpasulo la reputacion
+    // Encpasulo la reputación
     public void setReputation(int reputation) {
         this.reputation = reputation;
     }
@@ -53,5 +53,4 @@ public class explorer {
     public int getReputation() {
         return reputation;
     }
-
 }
