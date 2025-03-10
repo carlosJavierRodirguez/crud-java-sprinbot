@@ -6,12 +6,14 @@ public class ExplorerDTO {
     private String name;
     private String nationality;
     private int age;
+    private int reputation;
 
-    public ExplorerDTO(int id, String name, String nationality, int age) {
+    public ExplorerDTO(int id, String name, String nationality, int age, int reputation) {
         this.id = id;
         this.name = name;
         this.nationality = nationality;
         this.age = age;
+        this.reputation = reputation;
     }
 
     public int getId() {
@@ -45,5 +47,12 @@ public class ExplorerDTO {
     public void setAge(int age) {
         this.age = age;
     }
-}
 
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
+}
