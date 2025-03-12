@@ -31,11 +31,15 @@ public class Relic {
     @Column(name = "history", nullable = false, columnDefinition = "TEXT")
     private String history;
 
-    public Relic(int id_relic, Artifacts artifacts, MysticLocation mysticLocation, String history) {
+    @Column(name = "image_relic", nullable = false)
+    private String image_relic;
+
+    public Relic(int id_relic, Artifacts artifacts, MysticLocation mysticLocation, String history, String image_relic) {
         this.id_relic = id_relic;
         this.artifacts = artifacts;
         this.mysticLocation = mysticLocation;
         this.history = history;
+        this.image_relic = image_relic;
     }
 
     public void setId(int id_relic) {
@@ -68,5 +72,13 @@ public class Relic {
 
     public String getHistory() {
         return history;
+    }
+
+    public void setImageRelic(String image_relic) {
+        this.image_relic = image_relic;
+    }
+
+    public String getImageRelic() {
+        return image_relic;
     }
 }

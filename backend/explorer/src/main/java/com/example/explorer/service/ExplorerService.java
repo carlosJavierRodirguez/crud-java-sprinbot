@@ -1,5 +1,8 @@
 package com.example.explorer.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +27,8 @@ public class ExplorerService {
                 explorerDTO.getName(),
                 explorerDTO.getNationality(),
                 explorerDTO.getAge(),
-                explorerDTO.getReputation()
-        );
+                explorerDTO.getReputation(),
+                explorerDTO.getImageExplorer());
     }
 
     public ExplorerDTO convertToDTO(Explorer explorer) {
@@ -34,7 +37,15 @@ public class ExplorerService {
                 explorer.getName(),
                 explorer.getNationality(),
                 explorer.getAge(),
-                explorer.getReputation()
-        );
+                explorer.getReputation(),
+                explorer.getImageExplorer());
+    }
+
+    // método para obtener todos los exploradores
+    public List<ExplorerDTO> getAllExplorers() {
+        return repository.findAll()
+                .stream()
+                .map(this::convertToDTO) // Usamos convertToDTO para asegurar consistencia en la conversión
+                .collect(Collectors.toList());
     }
 }

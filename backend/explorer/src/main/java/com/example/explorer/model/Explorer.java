@@ -26,17 +26,21 @@ public class Explorer {
     @Column(name = "reputation", nullable = false)
     private Integer reputation;
 
-    // Constructor vacío (obligatorio para JPA)
+    @Column(name = "image_explorer", nullable = false)
+    private String image_explorer;
+
     public Explorer() {
     }
 
     // Constructor con parámetros
-    public Explorer(int id_explorer, String name, String nationality, int age, Integer reputation) {
+    public Explorer(int id_explorer, String name, String nationality, int age, Integer reputation,
+            String image_explorer) {
         this.id_explorer = id_explorer;
         this.name = name;
         this.nationality = nationality;
         this.age = age;
         this.reputation = reputation;
+        this.image_explorer = image_explorer;
     }
 
     // Getters y Setters
@@ -78,5 +82,13 @@ public class Explorer {
 
     public void setReputation(Integer reputation) {
         this.reputation = reputation;
+    }
+
+    public String getImageExplorer() {
+        return image_explorer;
+    }
+
+    public void setImageExplorer(String image_explorer) {
+        this.image_explorer = image_explorer;
     }
 }

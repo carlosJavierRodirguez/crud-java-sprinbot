@@ -7,13 +7,15 @@ public class ExplorerDTO {
     private String nationality;
     private int age;
     private int reputation;
+    private String image_explorer;
 
-    public ExplorerDTO(int id, String name, String nationality, int age, int reputation) {
+    public ExplorerDTO(int id, String name, String nationality, int age, int reputation, String image_explorer) {
         this.id = id;
         this.name = name;
         this.nationality = nationality;
         this.age = age;
         this.reputation = reputation;
+        this.image_explorer = image_explorer;
     }
 
     public int getId() {
@@ -54,5 +56,13 @@ public class ExplorerDTO {
 
     public void setReputation(int reputation) {
         this.reputation = reputation;
+    }
+
+    public String getImageExplorer() {
+        return image_explorer;
+    }
+
+    public void setImageExplorer(String image_explorer) {
+        this.image_explorer = image_explorer;
     }
 }

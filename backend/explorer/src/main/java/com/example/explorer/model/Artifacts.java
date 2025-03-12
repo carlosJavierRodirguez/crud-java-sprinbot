@@ -27,11 +27,15 @@ public class Artifacts {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
-    public Artifacts(int id_artifact, String name, String power, Mythology mythology) {
+    @Column(name = "image_artifact", nullable = false)
+    private String image_artifact;
+
+    public Artifacts(int id_artifact, String name, String power, Mythology mythology, String image_artifact) {
         this.id_artifact = id_artifact;
         this.name = name;
         this.power = power;
         this.mythology = mythology;
+        this.image_artifact = image_artifact;
     }
 
     public void setId(int id_artifact) {
@@ -64,5 +68,13 @@ public class Artifacts {
 
     public Mythology getMythology() {
         return mythology;
+    }
+
+    public void setImageArtifact(String image_artifact) {
+        this.image_artifact = image_artifact;
+    }
+
+    public String getImageArtifact() {
+        return image_artifact;
     }
 }

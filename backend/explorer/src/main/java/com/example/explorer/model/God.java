@@ -27,6 +27,9 @@ public class God {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
+    @Column(name = "image_god", nullable = false)
+    private String image_god;
+
     public God(int id_god, String name, String domain, Mythology mythology) {
         this.id_god = id_god;
         this.name = name;
@@ -64,5 +67,13 @@ public class God {
 
     public Mythology getMythology() {
         return mythology;
+    }
+
+    public void setImageGod(String image_god) {
+        this.image_god = image_god;
+    }
+
+    public String getImageGod() {
+        return image_god;
     }
 }

@@ -30,12 +30,16 @@ public class Creature {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
-    public Creature(int id_creature, String name, String type, String danger, Mythology mythology) {
+    @Column(name= "image_creature",nullable = false)
+    private String image_creature;
+
+    public Creature(int id_creature, String name, String type, String danger, Mythology mythology,String image_creature) {
         this.id_creature = id_creature;
         this.name = name;
         this.type = type;
         this.danger = danger;
         this.mythology = mythology;
+        this.image_creature= image_creature;
     }
 
     public void setId(int id_creature) {
@@ -76,5 +80,13 @@ public class Creature {
 
     public Mythology getMythology() {
         return mythology;
+    }
+
+    public void setImageCreature(String image_creature) {
+        this.image_creature= image_creature;
+    }
+
+    public String getImageCreature(){
+        return image_creature;
     }
 }
