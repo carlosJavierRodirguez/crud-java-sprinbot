@@ -1,7 +1,5 @@
 package com.example.explorer.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,11 +34,11 @@ public class ExplorerController {
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 
-    // lista lo datos de la tabla explorer
+    // lista los datos de la tabla explorer
     @GetMapping("/")
-    public ResponseEntity<List<ExplorerDTO>> getAllExplorers() {
-        List<ExplorerDTO> explorers = explorerService.getAllExplorers();
-        return ResponseEntity.ok(explorers);
+    public ResponseEntity<Object> getAllUser() {
+        var listaUsuario = explorerService.findAll();
+        return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
     }
 
     // listar segun el ID

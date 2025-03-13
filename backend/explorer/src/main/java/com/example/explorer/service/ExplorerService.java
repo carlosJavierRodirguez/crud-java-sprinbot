@@ -2,7 +2,6 @@ package com.example.explorer.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +17,16 @@ public class ExplorerService {
 
     @Autowired
     private IExplorer repository;
+
+    // listar todas las columnas
+    public List<Explorer> findAll() {
+        return repository.findAll();
+    }
+
+    // lista el explorador segun el id
+    public Optional<Explorer> findById(int id) {
+        return repository.findById(id);
+    }
 
     // registra y actualiza
     public responseDTO save(ExplorerDTO explorerDTO) {
@@ -56,19 +65,6 @@ public class ExplorerService {
                 explorer.getAge(),
                 explorer.getReputation(),
                 explorer.getImageExplorer());
-    }
-
-    // método para obtener todos los exploradores
-    public List<ExplorerDTO> getAllExplorers() {
-        return repository.findAll()
-                .stream()
-                .map(this::convertToDTO) // Usamos convertToDTO para asegurar consistencia en la conversión
-                .collect(Collectors.toList());
-    }
-
-    // lista el explorador segun el id
-    public Optional<Explorer> findById(int id) {
-        return repository.findById(id);
     }
 
     // borrar por explorador por el ID
