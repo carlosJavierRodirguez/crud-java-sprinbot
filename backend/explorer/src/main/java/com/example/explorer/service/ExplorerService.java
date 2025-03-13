@@ -1,6 +1,7 @@
 package com.example.explorer.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class ExplorerService {
     @Autowired
     private IExplorer repository;
 
+    // registra y actualiza
     public responseDTO save(ExplorerDTO explorerDTO) {
         // validación longitud del nombre
         if (explorerDTO.getName().length() < 1 ||
@@ -62,5 +64,10 @@ public class ExplorerService {
                 .stream()
                 .map(this::convertToDTO) // Usamos convertToDTO para asegurar consistencia en la conversión
                 .collect(Collectors.toList());
+    }
+
+    // lista el explorador segun el id
+    public Optional<Explorer> findById(int id) {
+        return repository.findById(id);
     }
 }

@@ -48,13 +48,13 @@ public class ExplorerController {
      * PathVariable=captura de información por la URL
      */
 
-    // @GetMapping("/{id}")
-    // public ResponseEntity<Object> getOneExplorers(@PathVariable int id) {
-    //     var explorers = explorerService.findById(id);
-    //     if (!explorers.isPresent())
-    //         return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
-    //     return new ResponseEntity<>(explorers, HttpStatus.OK);
-    // }
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getOneExplorer(@PathVariable int id) {
+        var explorer = explorerService.findById(id);
+        if (!explorer.isPresent())
+            return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(explorer, HttpStatus.OK);
+    }
 
     // borrar por ID
 }
