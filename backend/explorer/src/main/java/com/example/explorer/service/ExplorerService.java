@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.explorer.DTO.ExplorerDTO;
+import com.example.explorer.DTO.responseDTO;
 import com.example.explorer.model.Explorer;
 import com.example.explorer.repository.IExplorer;
 
@@ -16,9 +18,22 @@ public class ExplorerService {
     @Autowired
     private IExplorer repository;
 
-    public void save(ExplorerDTO explorerDTO) {
+    public responseDTO save(ExplorerDTO explorerDTO) {
+        // validación longitud del nombre
+        if (explorerDTO.getName().length() < 1 ||
+                explorerDTO.getName().length() > 45) {
+            responseDTO respuesta = new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "El nombre debe estar entre 1 y 45 caracteres");
+            return respuesta;
+        }
+
         Explorer explorer = convertToModel(explorerDTO);
         repository.save(explorer);
+        responseDTO respuesta = new responseDTO(
+                HttpStatus.OK.toString(),
+                "Se guardó correctamente");
+        return respuesta;
     }
 
     public Explorer convertToModel(ExplorerDTO explorerDTO) {

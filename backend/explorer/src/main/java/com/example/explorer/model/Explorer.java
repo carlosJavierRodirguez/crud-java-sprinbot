@@ -14,10 +14,10 @@ public class Explorer {
     @Column(name = "id_explorer")
     private int id_explorer;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 45, nullable = false)
     private String name;
 
-    @Column(name = "nationality", nullable = false)
+    @Column(name = "nationality", length = 45, nullable = false)
     private String nationality;
 
     @Column(name = "age", nullable = false)
