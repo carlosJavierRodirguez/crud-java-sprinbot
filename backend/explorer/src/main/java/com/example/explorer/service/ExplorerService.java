@@ -70,4 +70,20 @@ public class ExplorerService {
     public Optional<Explorer> findById(int id) {
         return repository.findById(id);
     }
+
+    // borrar por explorador por el ID
+    public responseDTO deleteExplorer(int id) {
+        if (!findById(id).isPresent()) {
+            responseDTO respuesta = new responseDTO(
+                    HttpStatus.OK.toString(),
+                    "The register does not exist");
+            return respuesta;
+        }
+        repository.deleteById(id);
+        responseDTO respuesta = new responseDTO(
+                HttpStatus.OK.toString(),
+                "Se eliminó correctamente");
+        return respuesta;
+    }
+
 }
