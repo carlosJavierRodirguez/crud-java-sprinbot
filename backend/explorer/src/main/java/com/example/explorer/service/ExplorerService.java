@@ -19,9 +19,9 @@ public class ExplorerService {
     private IExplorer repository;
 
     // listar todas las columnas
-    // public List<Explorer> findAll() {
-    // return repository.getListExplorerActive();
-    // }
+    public List<Explorer> findAll() {
+        return repository.getListExplorerActive();
+    }
 
     // listar por palabra clave en el nombre
     public List<Explorer> getListExplorerForName(String filter) {
