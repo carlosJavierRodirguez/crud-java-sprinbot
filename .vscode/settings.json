@@ -1,3 +1,11 @@
 {
-    "livePreview.defaultPreviewPath": "/frontend/free-travel-website-template/index.html"
+    "livePreview.defaultPreviewPath": "/frontend/free-travel-website-template/index.html",
+    "spellright.language": [
+        "es"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ]
 }

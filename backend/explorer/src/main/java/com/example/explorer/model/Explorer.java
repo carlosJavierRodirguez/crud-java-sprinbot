@@ -29,18 +29,22 @@ public class Explorer {
     @Column(name = "image_explorer", nullable = false)
     private String image_explorer;
 
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     public Explorer() {
     }
 
     // Constructor con parámetros
     public Explorer(int id_explorer, String name, String nationality, int age, Integer reputation,
-            String image_explorer) {
+            String image_explorer, boolean status) {
         this.id_explorer = id_explorer;
         this.name = name;
         this.nationality = nationality;
         this.age = age;
         this.reputation = reputation;
         this.image_explorer = image_explorer;
+        this.status = status;
     }
 
     // Getters y Setters
@@ -91,4 +95,13 @@ public class Explorer {
     public void setImageExplorer(String image_explorer) {
         this.image_explorer = image_explorer;
     }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
 }

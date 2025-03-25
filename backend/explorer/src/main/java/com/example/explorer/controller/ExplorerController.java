@@ -35,11 +35,11 @@ public class ExplorerController {
     }
 
     // lista los datos de la tabla explorer
-    @GetMapping("/")
-    public ResponseEntity<Object> getAllUser() {
-        var listaUsuario = explorerService.findAll();
-        return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
-    }
+    // @GetMapping("/")
+    // public ResponseEntity<Object> getAllUser() {
+    //     var listaUsuario = explorerService.findAll();
+    //     return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
+    // }
 
     // listar segun el ID
     /*
@@ -59,7 +59,14 @@ public class ExplorerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteExplorer(@PathVariable int id) {
         var message = explorerService.deleteExplorer(id);
-
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    // filtrar por palabra clave
+    @GetMapping("/filter/{filter}")
+    public ResponseEntity<Object> getListExplorerForName(@PathVariable String filter) {
+        var explorerList = explorerService.getListExplorerForName(filter);
+        return new ResponseEntity<>(explorerList, HttpStatus.OK);
+    }
+
 }
