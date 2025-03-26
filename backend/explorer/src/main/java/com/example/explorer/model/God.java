@@ -30,11 +30,27 @@ public class God {
     @Column(name = "image_god", nullable = false)
     private String image_god;
 
-    public God(int id_god, String name, String domain, Mythology mythology) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public God() {
+    }
+
+    public God(int id_god, String name, String domain, Mythology mythology, String image_god, boolean status) {
         this.id_god = id_god;
         this.name = name;
         this.domain = domain;
         this.mythology = mythology;
+        this.image_god = image_god;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_god) {

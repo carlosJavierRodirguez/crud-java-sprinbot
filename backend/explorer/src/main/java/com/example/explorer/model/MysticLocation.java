@@ -26,11 +26,26 @@ public class MysticLocation {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
-    public MysticLocation(int id_location, String name, String coordinates, Mythology mythology) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public MysticLocation() {
+    }
+
+    public MysticLocation(int id_location, String name, String coordinates, Mythology mythology, boolean status) {
         this.id_location = id_location;
         this.name = name;
         this.coordinates = coordinates;
         this.mythology = mythology;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_location) {

@@ -34,12 +34,28 @@ public class Relic {
     @Column(name = "image_relic", nullable = false)
     private String image_relic;
 
-    public Relic(int id_relic, Artifacts artifacts, MysticLocation mysticLocation, String history, String image_relic) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public Relic() {
+    }
+
+    public Relic(int id_relic, Artifacts artifacts, MysticLocation mysticLocation, String history, String image_relic,
+            boolean status) {
         this.id_relic = id_relic;
         this.artifacts = artifacts;
         this.mysticLocation = mysticLocation;
         this.history = history;
         this.image_relic = image_relic;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_relic) {

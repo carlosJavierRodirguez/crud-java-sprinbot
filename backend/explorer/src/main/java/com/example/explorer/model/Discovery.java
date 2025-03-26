@@ -30,11 +30,27 @@ public class Discovery {
     @Column(name = "fecha", nullable = false)
     private LocalDate date;
 
-    public Discovery(int id_discovery, Explorer explorer, MysticLocation mysticLocation, LocalDate date) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public Discovery() {
+    }
+
+    public Discovery(int id_discovery, Explorer explorer, MysticLocation mysticLocation, LocalDate date,
+            boolean status) {
         this.id_discovery = id_discovery;
         this.explorer = explorer;
         this.mysticLocation = mysticLocation;
         this.date = date;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_discovery) {

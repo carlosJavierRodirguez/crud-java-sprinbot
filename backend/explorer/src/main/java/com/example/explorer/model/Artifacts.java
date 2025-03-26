@@ -30,12 +30,28 @@ public class Artifacts {
     @Column(name = "image_artifact", nullable = false)
     private String image_artifact;
 
-    public Artifacts(int id_artifact, String name, String power, Mythology mythology, String image_artifact) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public Artifacts() {
+    }
+
+    public Artifacts(int id_artifact, String name, String power, Mythology mythology, String image_artifact,
+            boolean status) {
         this.id_artifact = id_artifact;
         this.name = name;
         this.power = power;
         this.mythology = mythology;
         this.image_artifact = image_artifact;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_artifact) {

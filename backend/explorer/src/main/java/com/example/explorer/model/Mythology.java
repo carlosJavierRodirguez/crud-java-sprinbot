@@ -37,12 +37,29 @@ public class Mythology {
     @Column(name = "era", length = 100, nullable = true)
     private String era;
 
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    // constructor vacio
+    public Mythology() {
+    }
+
     // creo el constructor
-    public Mythology(Integer id_mythology, String name, String region, String era) {
+    public Mythology(int id_mythology, String name, String region, String era, boolean status) {
         this.id_mythology = id_mythology;
         this.name = name;
         this.region = region;
         this.era = era;
+        this.status = status;
+    }
+
+    // Encpasulo el status
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
     }
 
     // Encpasulo el id

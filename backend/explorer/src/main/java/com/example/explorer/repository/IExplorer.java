@@ -14,4 +14,6 @@ public interface IExplorer extends JpaRepository<Explorer, Integer> {
 
     @Query("SELECT e FROM explorer e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', ?1, '%'))")
     List<Explorer> getListExplorerForName(String filter);
+
+    
 }

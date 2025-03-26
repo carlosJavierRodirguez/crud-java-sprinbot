@@ -26,10 +26,25 @@ public class Legend {
     @Column(name = "story", nullable = false, columnDefinition = "TEXT")
     private String story;
 
-    public Legend(int id_legend, Mythology mythology, String story) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public Legend() {
+    }
+
+    public Legend(int id_legend, Mythology mythology, String story, boolean status) {
         this.id_legend = id_legend;
         this.mythology = mythology;
         this.story = story;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_legend) {

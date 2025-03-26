@@ -30,16 +30,32 @@ public class Creature {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
-    @Column(name= "image_creature",nullable = false)
+    @Column(name = "image_creature", nullable = false)
     private String image_creature;
 
-    public Creature(int id_creature, String name, String type, String danger, Mythology mythology,String image_creature) {
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
+    public Creature() {
+    }
+
+    public Creature(int id_creature, String name, String type, String danger, Mythology mythology,
+            String image_creature, boolean status) {
         this.id_creature = id_creature;
         this.name = name;
         this.type = type;
         this.danger = danger;
         this.mythology = mythology;
-        this.image_creature= image_creature;
+        this.image_creature = image_creature;
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setId(int id_creature) {
@@ -83,10 +99,10 @@ public class Creature {
     }
 
     public void setImageCreature(String image_creature) {
-        this.image_creature= image_creature;
+        this.image_creature = image_creature;
     }
 
-    public String getImageCreature(){
+    public String getImageCreature() {
         return image_creature;
     }
 }
