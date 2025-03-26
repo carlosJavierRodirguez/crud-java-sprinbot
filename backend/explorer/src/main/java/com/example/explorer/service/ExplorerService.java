@@ -30,6 +30,21 @@ public class ExplorerService {
 
     }
 
+    // listar por edad
+    public List<Explorer> getListExplorerForAge(int filter) {
+        return repository.getListExplorerForAge(filter);
+    }
+
+    // listar por reputación
+    public List<Explorer> getListExplorerForReputation(int filter) {
+        return repository.getListExplorerForReputation(filter);
+    }
+
+    // listar por nacionalidad
+    public List<Explorer> getListExplorerForNationality(String filter) {
+        return repository.getListExplorerForNationality(filter);
+    }
+
     // lista el explorador segun el id
     public Optional<Explorer> findById(int id) {
         return repository.findById(id);

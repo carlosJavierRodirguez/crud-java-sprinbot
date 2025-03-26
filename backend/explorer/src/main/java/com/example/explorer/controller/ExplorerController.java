@@ -69,4 +69,26 @@ public class ExplorerController {
         return new ResponseEntity<>(explorerList, HttpStatus.OK);
     }
 
+    // filtrar por edad
+    @GetMapping("/filter/age/{filter}")
+    public ResponseEntity<Object> getListExplorerForAge(@PathVariable int filter) {
+        var explorerList = explorerService.getListExplorerForAge(filter);
+        return new ResponseEntity<>(explorerList, HttpStatus.OK);
+    }
+
+    // filtrar por nacionalidad
+    @GetMapping("/filter/nationality/{filter}")
+    public ResponseEntity<Object> getListExplorerForNationality(@PathVariable String filter) {
+        var explorerList = explorerService.getListExplorerForNationality(filter);
+        return new ResponseEntity<>(explorerList, HttpStatus.OK);
+    }
+
+    // filtrar por reputación
+    @GetMapping("/filter/reputation/{filter}")
+    public ResponseEntity<Object> getListExplorerForReputation(@PathVariable int filter) {
+        var explorerList = explorerService.getListExplorerForReputation(filter);
+        return new ResponseEntity<>(explorerList, HttpStatus.OK);
+    }
+
+
 }
