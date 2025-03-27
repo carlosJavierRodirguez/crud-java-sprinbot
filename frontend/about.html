@@ -211,31 +211,38 @@
                             <form>
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input type="text" id="nombre" class="form-control p-4" placeholder="Nombre"
+                                    <input type="text" id="txtNombre" class="form-control p-4" placeholder="Nombre"
                                         required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="edad">Edad</label>
-                                    <input type="number" id="edad" class="form-control p-4" placeholder="Edad" min="1"
-                                        required />
+                                    <input type="number" id="txtEdad" class="form-control p-4" placeholder="Edad"
+                                        min="1" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="nacionalidad">Nacionalidad</label>
-                                    <input type="text" id="nacionalidad" class="form-control p-4"
+                                    <input type="text" id="txtNacionalidad" class="form-control p-4"
                                         placeholder="Nacionalidad" required />
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="nacionalidad">Reputación</label>
+                                    <input type="text" id="txtReputacion" class="form-control p-4" min="0" max="100"
+                                        placeholder="Numero de 0-100" required />
+                                </div>
+
+                                <div class="form-group">
                                     <label for="imagen">Imagen del explorador (URL)</label>
-                                    <input type="url" id="imagen" class="form-control p-4"
+                                    <input type="url" id="txtImagen" class="form-control p-4"
                                         placeholder="Ej: https://misitio.com/imagen.jpg" pattern="https?://.+"
                                         required />
                                 </div>
 
                                 <div>
-                                    <button class="btn btn-primary btn-block py-3" type="submit">Regístrate
+                                    <button class="btn btn-primary btn-block py-3" type="button"
+                                        onclick="registerExplorer()">Regístrate
                                         Ahora</button>
                                 </div>
                             </form>
@@ -307,56 +314,10 @@
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todos</h6>
                 <h1>Nuestos Exploradores</h1>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="team-item bg-white mb-4">
-                        <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
-
-                        </div>
-                        <div class="text-center py-4">
-                            <h5 class="text-truncate">Guide Name</h5>
-                            <p class="m-0">Designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="team-item bg-white mb-4">
-                        <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
-
-                        </div>
-                        <div class="text-center py-4">
-                            <h5 class="text-truncate">Guide Name</h5>
-                            <p class="m-0">Designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="team-item bg-white mb-4">
-                        <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
-
-                        </div>
-                        <div class="text-center py-4">
-                            <h5 class="text-truncate">Guide Name</h5>
-                            <p class="m-0">Designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="team-item bg-white mb-4">
-                        <div class="team-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
-
-                        </div>
-                        <div class="text-center py-4">
-                            <h5 class="text-truncate">Guide Name</h5>
-                            <p class="m-0">Designation</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="row" id="exploradoresContainer">
+                <!-- Aquí se mostrarán las tarjetas automáticamente -->
             </div>
+            
         </div>
     </div>
     <!-- Team End -->
@@ -415,9 +376,11 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <!-- explorer -->
+    <script type="module" src="js/explorer/registerExplorer.js"></script>
+    <script src="js/explorer/getDataExplorer.js"></script>
+    <!--Alertas-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
