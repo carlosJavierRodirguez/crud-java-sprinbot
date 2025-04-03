@@ -41,6 +41,13 @@ public class ExplorerController {
         return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
     }
 
+    //listar mejores 4 exploradores
+    @GetMapping("/top")
+    public ResponseEntity<Object> getTopExplorer() {
+        var listaUsuario = explorerService.getTopExplorer();
+        return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
+    }
+
     // listar segun el ID
     /*
      * Se requiere un dato, el ID
@@ -62,7 +69,7 @@ public class ExplorerController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    // filtrar por palabra clave
+    // filtrar por palabra clave en el nombre
     @GetMapping("/filter/{filter}")
     public ResponseEntity<Object> getListExplorerForName(@PathVariable String filter) {
         var explorerList = explorerService.getListExplorerForName(filter);

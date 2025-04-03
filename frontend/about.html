@@ -65,12 +65,10 @@
                             <div class="dropdown-menu border-0 rounded-0 m-0">
                                 <a href="blog.html" class="dropdown-item">Blog Grid</a>
                                 <a href="single.html" class="dropdown-item">Blog Detail</a>
-                                <a href="destination.html" class="dropdown-item">Destination</a>
-                                <a href="guide.html" class="dropdown-item">Travel Guides</a>
                                 <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+
                     </div>
                 </div>
             </nav>
@@ -262,44 +260,41 @@
                 <div class="row align-items-center" style="min-height: 60px;">
                     <div class="col-md-10">
                         <div class="row">
+                            <!-- Input para Nombre -->
                             <div class="col-md-3">
                                 <div class="mb-3 mb-md-0">
-                                    <div class="date" id="date1" data-target-input="nearest">
-                                        <input type="text" class="form-control p-4 datetimepicker-input" name="" id=""
-                                            placeholder="Nombre">
-                                    </div>
+                                    <input type="text" class="form-control p-4" id="filterName" placeholder="Nombre">
                                 </div>
                             </div>
+                            <!-- Input para Nacionalidad -->
                             <div class="col-md-3">
                                 <div class="mb-3 mb-md-0">
-                                    <div class="date" id="date2" data-target-input="nearest">
-                                        <input type="text" class="form-control p-4 datetimepicker-input" name="" id=""
-                                            placeholder="Nacionalidad">
-                                    </div>
+                                    <input type="text" class="form-control p-4" id="filterNationality"
+                                        placeholder="Nacionalidad">
                                 </div>
                             </div>
+                            <!-- Input para Reputación -->
                             <div class="col-md-3">
                                 <div class="mb-3 mb-md-0">
-                                    <div class="date" id="date2" data-target-input="nearest">
-                                        <input type="number" class="form-control p-4 datetimepicker-input" name="" id=""
-                                            placeholder="Reputación">
-                                    </div>
+                                    <input type="number" class="form-control p-4" id="filterReputation"
+                                        placeholder="Reputación">
                                 </div>
                             </div>
+                            <!-- Input para Edad -->
                             <div class="col-md-3">
                                 <div class="mb-3 mb-md-0">
-                                    <div class="date" id="date2" data-target-input="nearest">
-                                        <input type="number" class="form-control p-4 datetimepicker-input" min="0"
-                                            name="" id="" placeholder="edad">
-                                    </div>
+                                    <input type="number" class="form-control p-4" id="filterAge" placeholder="Edad"
+                                        min="0">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Botón para aplicar el filtro -->
                     <div class="col-md-2">
-                        <button class="btn btn-primary btn-block" type="submit"
-                            style="height: 47px; margin-top: -2px;"><i class="fa-solid fa-magnifying-glass"></i>
-                            Filtrar</button>
+                        <button class="btn btn-primary btn-block" type="button" onclick="filterExplorer()"
+                            style="height: 47px; margin-top: -2px;">
+                            <i class="fa-solid fa-magnifying-glass"></i> Filtrar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -379,6 +374,8 @@
     <!-- explorer -->
     <script type="module" src="js/explorer/registerExplorer.js"></script>
     <script type="module" src="js/explorer/getDataExplorer.js"></script>
+    <script type="module" src="js/explorer/filterExplorer.js"></script>
+
     <!--Alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

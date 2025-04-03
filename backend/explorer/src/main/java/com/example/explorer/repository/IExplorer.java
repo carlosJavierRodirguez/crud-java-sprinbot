@@ -28,4 +28,8 @@ public interface IExplorer extends JpaRepository<Explorer, Integer> {
     @Query("SELECT e FROM explorer e WHERE CAST(e.reputation AS string) LIKE CONCAT('%', ?1, '%')")
     List<Explorer> getListExplorerForReputation(int filter);
 
+    //Listar mejores 4 exploradores
+    @Query("SELECT e FROM explorer e ORDER BY reputation DESC LIMIT 4")
+    List<Explorer> getTopExplorer();
+
 }

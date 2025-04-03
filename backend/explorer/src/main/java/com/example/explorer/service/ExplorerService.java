@@ -23,6 +23,11 @@ public class ExplorerService {
         return repository.getListExplorerActive();
     }
 
+    //listar mejores 4 exploradores
+    public List<Explorer> getTopExplorer() {
+        return repository.getTopExplorer();
+    }
+    
     // listar por palabra clave en el nombre
     public List<Explorer> getListExplorerForName(String filter) {
 

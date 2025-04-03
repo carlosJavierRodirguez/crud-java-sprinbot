@@ -18,7 +18,7 @@ async function getAllExplorer() {
         let data = await response.json();
 
         // Llamamos a la función para mostrar los exploradores en el DOM
-        showExplorers(data);
+        showExplorers(data, "exploradoresContainer");
 
     } catch (error) {
         // Mostramos el error en la consola si ocurre algún problema
@@ -26,10 +26,39 @@ async function getAllExplorer() {
     }
 }
 
+//Función que obtene los mejores 4 exploradores
+async function getTopExplorer() {
+    try {
+        // Realizamos una solicitud GET al endpoint del backend
+        let response = await fetch("http://localhost:8085/api/v1/explorer/top", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
+            }
+        });
+
+        // Verificamos si la respuesta no es exitosa
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`); // Lanzamos un error con el código y mensaje
+        }
+
+        // Convertimos la respuesta a JSON
+        let data = await response.json();
+
+        // Llamamos a la función para mostrar los exploradores en el DOM
+        showExplorers(data, "topExplorersContainer");
+
+
+    } catch (error) {
+        console.error("Error al obtener los mejores exploradores:", error);
+
+    }
+}
+
 // Función para mostrar los exploradores en el DOM
-function showExplorers(exploradores) {
+export function showExplorers(exploradores, containerId) {
     // Obtenemos el contenedor donde se mostrarán los exploradores
-    let contenedor = document.getElementById("exploradoresContainer");
+    let contenedor = document.getElementById(containerId);
 
     // Limpiamos el contenido del contenedor antes de agregar nuevos datos
     contenedor.innerHTML = "";
@@ -50,6 +79,7 @@ function showExplorers(exploradores) {
                     <h5 class="text-truncate">${explorador.name}</h5>
                     <p class="m-0"><i class="fas fa-flag"></i> ${explorador.nationality}</p>
                     <p class="m-0"><i class="fas fa-birthday-cake"></i> Edad: ${explorador.age}</p>
+                    <p class="m-0"><i class="fa-solid fa-star"></i> Reputación </p>
                     
                    <div class="progress rounded-pill border border-black">
                      <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
@@ -79,6 +109,11 @@ export function updateRangeColor(reputation) {
 
 // Llamamos a la función para obtener exploradores al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-    getAllExplorer(); // Ejecutamos la función al cargar el DOM
-});
+    if (document.getElementById("exploradoresContainer")) {
+        getAllExplorer(); // Solo ejecuta si el ID existe
+    }
 
+    if (document.getElementById("topExplorersContainer")) {
+        getTopExplorer(); // Solo ejecuta si el ID existe
+    }
+});

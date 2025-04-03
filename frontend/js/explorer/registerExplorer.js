@@ -61,13 +61,14 @@ function agregarExploradorAlDOM(explorador) {
     card.innerHTML = `
     <div class="team-item bg-white mb-4">
         <div class="team-img position-relative overflow-hidden">
-            <img class="img-fluid w-100 largo-imagen" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
+            <img class="img-fluid w-100 largo-imagen" src="${explorador.image_explorer}" alt="Imagen de ${explorador.name}">
         </div>
         <div class="text-center py-4 p-3">
             <h5 class="text-truncate">${explorador.name}</h5>
             <p class="m-0"><i class="fas fa-flag"></i> ${explorador.nationality}</p>
             <p class="m-0"><i class="fas fa-birthday-cake"></i> Edad: ${explorador.age}</p>
-            
+             <p class="m-0"><i class="fa-solid fa-star"></i> Reputación </p>
+
            <div class="progress rounded-pill border border-black">
              <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
              ${explorador.reputation}%
