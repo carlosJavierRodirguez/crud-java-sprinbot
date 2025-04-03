@@ -1,67 +1,84 @@
+// Función para obtener todos los exploradores desde el backend
 async function getAllExplorer() {
     try {
+        // Realizamos una solicitud GET al endpoint del backend
         let response = await fetch("http://localhost:8085/api/v1/explorer/", {
             method: "GET",
             headers: {
-                "Accept": "application/json"
+                "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
             }
         });
 
+        // Verificamos si la respuesta no es exitosa
         if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
+            throw new Error(`Error ${response.status}: ${response.statusText}`); // Lanzamos un error con el código y mensaje
         }
 
-        let data = await response.json(); // Convertimos la respuesta a JSON
-        showExplorers(data); // Llamamos a la función para mostrarlos
+        // Convertimos la respuesta a JSON
+        let data = await response.json();
+
+        // Llamamos a la función para mostrar los exploradores en el DOM
+        showExplorers(data);
 
     } catch (error) {
+        // Mostramos el error en la consola si ocurre algún problema
         console.error("Error al obtener los exploradores:", error);
     }
 }
 
+// Función para mostrar los exploradores en el DOM
 function showExplorers(exploradores) {
+    // Obtenemos el contenedor donde se mostrarán los exploradores
     let contenedor = document.getElementById("exploradoresContainer");
-    contenedor.innerHTML = ""; // Limpiamos antes de agregar nuevos datos
 
+    // Limpiamos el contenido del contenedor antes de agregar nuevos datos
+    contenedor.innerHTML = "";
+
+    // Iteramos sobre cada explorador recibido
     exploradores.forEach(explorador => {
+        // Creamos un elemento div para la tarjeta del explorador
         let card = document.createElement("div");
-        card.classList.add("col-lg-3", "col-md-4", "col-sm-6", "pb-1");
+        card.classList.add("col-lg-3", "col-md-4", "col-sm-6", "pb-1"); // Agregamos clases de Bootstrap
 
+        // Definimos el contenido HTML de la tarjeta
         card.innerHTML = `
             <div class="team-item bg-white mb-4">
                 <div class="team-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
+                    <img class="img-fluid w-100 largo-imagen" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
                 </div>
-                <div class="text-center py-4">
+                <div class="text-center py-4 p-3">
                     <h5 class="text-truncate">${explorador.name}</h5>
-                    <p class="m-0">Nacionalidad: ${explorador.nationality}</p>
-                    <p class="m-0">Edad: ${explorador.age}</p>
-                    <input type="range" class="form-range custom-range" id="range-${explorador.id_explorer}" 
-                        min="0" max="100" value="${explorador.reputation}" disabled>
+                    <p class="m-0"><i class="fas fa-flag"></i> ${explorador.nationality}</p>
+                    <p class="m-0"><i class="fas fa-birthday-cake"></i> Edad: ${explorador.age}</p>
+                    
+                   <div class="progress rounded-pill border border-black">
+                     <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
+                     ${explorador.reputation}%
+                   </div>
                 </div>
             </div>
         `;
 
+        // Agregamos la tarjeta al contenedor
         contenedor.appendChild(card);
-
-        // Aplicar color al range
-        let inputRange = document.getElementById(`range-${explorador.id_explorer}`);
-        updateRangeColor(inputRange);
     });
 }
 
 // Función para cambiar el color del input range
-function updateRangeColor(rangeInput) {
-    let value = rangeInput.value;
-    let percent = value / 100; // Convertir a porcentaje (0 a 1)
+export function updateRangeColor(reputation) {
+    // Calculamos el porcentaje (0 a 1) basado en la reputación
+    let percent = reputation / 100;
 
+    // Calculamos los valores de rojo y verde según el porcentaje
     let red = Math.round(255 * (1 - percent)); // Más cerca de 0, más rojo
     let green = Math.round(255 * percent);     // Más cerca de 100, más verde
 
-    rangeInput.style.background = `linear-gradient(to right, rgb(${red}, ${green}, 0) ${value}%, #ddd ${value}%)`;
+    // Devolvemos el degradado en formato CSS
+    return `linear-gradient(to right, rgb(${red}, ${green}, 0), rgb(${red}, ${green}, 0))`;
 }
 
-// Llamar la función al cargar la página
+// Llamamos a la función para obtener exploradores al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-    getAllExplorer();
+    getAllExplorer(); // Ejecutamos la función al cargar el DOM
 });
+
