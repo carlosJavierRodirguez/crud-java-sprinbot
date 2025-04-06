@@ -240,7 +240,7 @@
 
                                 <div>
                                     <button class="btn btn-primary btn-block py-3" type="button"
-                                        onclick="registerExplorer()">Regístrate
+                                        id="registerButton">Regístrate
                                         Ahora</button>
                                 </div>
                             </form>
@@ -258,7 +258,7 @@
         <div class="container pb-5">
             <div class="bg-light shadow" style="padding: 30px;">
                 <div class="row align-items-center" style="min-height: 60px;">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <div class="row">
                             <!-- Input para Nombre -->
                             <div class="col-md-3">
@@ -290,10 +290,17 @@
                         </div>
                     </div>
                     <!-- Botón para aplicar el filtro -->
-                    <div class="col-md-2">
-                        <button class="btn btn-primary btn-block" type="button" onclick="filterExplorer()"
+                    <div class="col-md-1">
+                        <button class="btn btn-primary btn-block" type="button" id="filterButton"
                             style="height: 47px; margin-top: -2px;">
-                            <i class="fa-solid fa-magnifying-glass"></i> Filtrar
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-md-2 p-3">
+                        <button class="btn btn-primary btn-block" type="button" id="deleteFiltersButton"
+                            style="height: 47px; margin-top: -2px;">
+                            <i class="fa-solid fa-trash"></i> Borrar Filtros
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,7 @@
-// Importamos la función showExplorers desde el archivo getDataExplorer.js
+
 import { showExplorers } from "./getDataExplorer.js";
+import { getAllExplorer } from "./getDataExplorer.js";
+import { clearInput } from "../input.js";
 
 /**
  * Genera la URL con el filtro seleccionado
@@ -38,7 +40,7 @@ async function fetchExplorers() {
             return;
         }
 
-        console.log("URL de la petición:", url); // Depuración: mostramos la URL generada en la consola
+        //console.log("URL de la petición:", url); 
 
         // Realizamos la solicitud GET al backend
         let response = await fetch(url, {
@@ -55,7 +57,7 @@ async function fetchExplorers() {
 
         // Convertimos la respuesta a JSON
         let data = await response.json();
-        console.log("Exploradores filtrados:", data); // Depuración: mostramos los datos obtenidos en la consola
+        //console.log("Exploradores filtrados:", data); 
 
         // Obtenemos el contenedor donde se mostrarán los exploradores
         let contenedor = document.getElementById("exploradoresContainer");
@@ -82,5 +84,35 @@ async function fetchExplorers() {
     }
 }
 
-// Hacemos la función fetchExplorers accesible desde el HTML
-window.filterExplorer = fetchExplorers;
+// Función para eliminar los filtros
+function deleteFilters() {
+    // Obtenemos los elementos de los inputs de filtro
+    let name = document.getElementById("filterName");
+    let age = document.getElementById("filterAge");
+    let nationality = document.getElementById("filterNationality");
+    let reputation = document.getElementById("filterReputation");
+
+    // Limpiamos los valores de los inputs
+    clearInput(name);
+    clearInput(age);
+    clearInput(nationality);
+    clearInput(reputation);
+
+    // Llamamos a la función para mostrar todos los exploradores sin filtros
+    getAllExplorer();
+}
+
+// Asociamos los eventos a los botones después de que el DOM esté cargado
+document.addEventListener("DOMContentLoaded", () => {
+    // Botón para aplicar el filtro
+    const filterButton = document.getElementById("filterButton");
+    if (filterButton) {
+        filterButton.addEventListener("click", fetchExplorers);
+    }
+
+    // Botón para borrar los filtros
+    const deleteFiltersButton = document.getElementById("deleteFiltersButton");
+    if (deleteFiltersButton) {
+        deleteFiltersButton.addEventListener("click", deleteFilters);
+    }
+});

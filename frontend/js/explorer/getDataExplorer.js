@@ -1,5 +1,5 @@
 // Función para obtener todos los exploradores desde el backend
-async function getAllExplorer() {
+export async function getAllExplorer() {
     try {
         // Realizamos una solicitud GET al endpoint del backend
         let response = await fetch("http://localhost:8085/api/v1/explorer/", {
@@ -71,24 +71,35 @@ export function showExplorers(exploradores, containerId) {
 
         // Definimos el contenido HTML de la tarjeta
         card.innerHTML = `
-            <div class="team-item bg-white mb-4">
-                <div class="team-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100 largo-imagen" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
+        <div class="team-item bg-white mb-4">
+            <div class="team-img position-relative overflow-hidden">
+               <!-- Botones de acción -->
+                <div class="icon position-absolute top-0 end-0 m-2 d-flex gap-4">
+                    <!-- Botón de borrar -->
+                    <button class="btn btn-danger btn-sm rounded-circle" title="Borrar">
+                        <i class="fa-solid fa-trash text-white p-2"></i>
+                    </button>
+                    <!-- Botón de editar -->
+                    <button class="btn btn-primary btn-sm rounded-circle" title="Editar">
+                        <i class="fa-solid fa-pen text-white p-2"></i>
+                    </button>
                 </div>
-                <div class="text-center py-4 p-3">
-                    <h5 class="text-truncate">${explorador.name}</h5>
-                    <p class="m-0"><i class="fas fa-flag"></i> ${explorador.nationality}</p>
-                    <p class="m-0"><i class="fas fa-birthday-cake"></i> Edad: ${explorador.age}</p>
-                    <p class="m-0"><i class="fa-solid fa-star"></i> Reputación </p>
-                    
-                   <div class="progress rounded-pill border border-black">
-                     <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
-                     ${explorador.reputation}%
-                   </div>
-                </div>
+                <!-- Imagen del explorador -->
+                <img class="img-fluid w-100 largo-imagen" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
             </div>
-        `;
-
+            <div class="text-center py-4 p-3">
+                <h5 class="text-truncate">${explorador.name}</h5>
+                <p class="m-0"><i class="fas fa-flag"></i> ${explorador.nationality}</p>
+                <p class="m-0"><i class="fas fa-birthday-cake"></i> Edad: ${explorador.age}</p>
+                <p class="m-0"><i class="fa-solid fa-star"></i> Reputación </p>
+                
+               <div class="progress rounded-pill border border-black">
+                 <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
+                 ${explorador.reputation}%
+               </div>
+            </div>
+        </div>
+    `;
         // Agregamos la tarjeta al contenedor
         contenedor.appendChild(card);
     });
@@ -116,4 +127,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("topExplorersContainer")) {
         getTopExplorer(); // Solo ejecuta si el ID existe
     }
+
 });

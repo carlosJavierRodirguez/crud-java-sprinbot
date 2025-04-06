@@ -10961,3 +10961,26 @@ h6,
   border-radius: 8px;
   /* Opcional: bordes redondeados */
 }
+
+/* Asegura que el contenedor de la imagen sea relativo */
+.team-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.team-img:hover img {
+  transform: scale(1.1);
+  /* Amplía la imagen al pasar el cursor */
+}
+
+/* Estilo para el ícono de borrar */
+.icon {
+  /* Asegura que el ícono esté por encima de la imagen */
+  z-index: 10;
+}
+
+/* Evita que el ícono se amplíe junto con la imagen */
+.team-img:hover .delete-icon {
+  transform: scale(1);
+  /* Mantiene el tamaño del ícono */
+}

@@ -1,6 +1,7 @@
-// Importamos las funciones necesarias desde otros módulos
+
 import { alertas } from "../alertas/alertas.js"; // Función para mostrar alertas
 import { updateRangeColor } from "./getDataExplorer.js"; // Función para actualizar el color del rango
+import { clearInput } from "../input.js"; // Función para limpiar el input
 
 // Función principal para registrar un explorador
 async function registerExplorer() {
@@ -32,14 +33,20 @@ async function registerExplorer() {
 
         // Convertimos la respuesta del backend a un objeto JSON
         let data = await response.json();
-        console.log("Explorador registrado:", data); // Mostramos en la consola el explorador registrado
-
+        // console.log("Explorador registrado:", data); 
         // Convertimos el cuerpo de la solicitud a un objeto y lo pasamos al DOM
         let explorador = JSON.parse(bodyContent); // Convertimos el string JSON a un objeto
         agregarExploradorAlDOM(explorador); // Agregamos el explorador al DOM
 
         // Mostramos una alerta de éxito
         alertas("success", "¡Registro exitoso!", "El explorador se ha guardado correctamente.");
+
+        // Limpiamos los inputs del formulario
+        clearInput(document.getElementById("txtNombre"));
+        clearInput(document.getElementById("txtNacionalidad"));
+        clearInput(document.getElementById("txtEdad"));
+        clearInput(document.getElementById("txtReputacion"));
+        clearInput(document.getElementById("txtImagen"));
 
     } catch (error) {
         // Capturamos y mostramos cualquier error que ocurra durante el proceso
@@ -82,5 +89,9 @@ function agregarExploradorAlDOM(explorador) {
 
 }
 
-// Hacemos la función accesible globalmente para que pueda ser llamada desde el HTML
-window.registerExplorer = registerExplorer;
+document.addEventListener("DOMContentLoaded", () => {
+    const filterButton = document.getElementById("registerButton");
+    if (filterButton) {
+        filterButton.addEventListener("click", registerExplorer);
+    }
+});
