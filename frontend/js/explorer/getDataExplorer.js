@@ -1,3 +1,5 @@
+import { deleteExplorer } from "./deleteExplorer.js";
+import { openUpdateExplorerModal } from "./updateExplorer.js"; // Importamos la función para abrir el modal
 // Función para obtener todos los exploradores desde el backend
 export async function getAllExplorer() {
     try {
@@ -74,14 +76,14 @@ export function showExplorers(exploradores, containerId) {
         <div class="team-item bg-white mb-4">
             <div class="team-img position-relative overflow-hidden">
                <!-- Botones de acción -->
-                <div class="icon position-absolute top-0 end-0 m-2 d-flex gap-4">
+                <div class="icon position-absolute top-0 end-0 m-2 d-flex gap-1">
                     <!-- Botón de borrar -->
-                    <button class="btn btn-danger btn-sm rounded-circle" title="Borrar">
-                        <i class="fa-solid fa-trash text-white p-2"></i>
+                    <button class="btn btn-danger btn-sm rounded-circle" title="Borrar" data-id="${explorador.id_explorer}">
+                        <i class="fa-solid fa-trash text-white p-1"></i>
                     </button>
                     <!-- Botón de editar -->
-                    <button class="btn btn-primary btn-sm rounded-circle" title="Editar">
-                        <i class="fa-solid fa-pen text-white p-2"></i>
+                    <button class="btn btn-primary btn-sm rounded-circle" title="Editar" data-id="${explorador.id_explorer}">
+                        <i class="fa-solid fa-pen text-white p-1"></i>
                     </button>
                 </div>
                 <!-- Imagen del explorador -->
@@ -102,6 +104,17 @@ export function showExplorers(exploradores, containerId) {
     `;
         // Agregamos la tarjeta al contenedor
         contenedor.appendChild(card);
+
+        // Asociamos el evento click al botón de borrar
+        card.querySelector(".btn-danger").addEventListener("click", (event) => {
+            const explorerId = event.target.closest("button").getAttribute("data-id");
+            deleteExplorer(explorerId); // Llamamos a la función para eliminar el explorador
+        });
+
+        // Asociamos el evento click al botón de editar
+        card.querySelector(".btn-primary").addEventListener("click", () => {
+            openUpdateExplorerModal(explorador); // Llamamos a la función para abrir el modal con los datos del explorador
+        });
     });
 }
 

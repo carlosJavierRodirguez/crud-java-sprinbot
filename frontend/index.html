@@ -21,6 +21,8 @@
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
@@ -405,6 +407,57 @@
     </div>
     <!-- Blog End -->
 
+    <!-- Modal de Bootstrap -->
+    <div class="modal fade" id="updateExplorerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="updateExplorerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateExplorerModalLabel"><i class="fa-solid fa-id-card"></i> Modificar
+                        Explorador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para modificar el explorador -->
+                    <form id="updateExplorerForm">
+                        <div class="mb-3">
+                            <label for="explorerName" class="form-label"><i class="fa-solid fa-user"></i> Nombre</label>
+                            <input type="text" class="form-control" id="explorerName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="explorerNationality" class="form-label"><i class="fas fa-flag"></i>
+                                Nacionalidad</label>
+                            <input type="text" class="form-control" id="explorerNationality" name="nationality"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="explorerAge" class="form-label"><i class="fas fa-birthday-cake"></i>
+                                Edad</label>
+                            <input type="number" class="form-control" id="explorerAge" name="age" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="explorerReputation" class="form-label"><i class="fa-solid fa-star"></i>
+                                Reputación</label>
+                            <input type="number" class="form-control" id="explorerReputation" name="reputation" min="0"
+                                max="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="explorerImage" class="form-label"><i class="fa-solid fa-star"></i>
+                                Imagen de perfil</label>
+                            <input type="text" class="form-control" id="explorerImage" name="image" required>
+                        </div>
+
+                        <input type="hidden" id="explorerId" name="id"> <!-- Campo oculto para el ID -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="saveExplorerChanges">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
@@ -458,10 +511,17 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
 
     <!-- explorer -->
     <script type="module" src="js/explorer/getDataExplorer.js"></script>
+    <script type="module" src="js/explorer/updateExplorer.js"></script>
 
+   <!--Alertas-->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>

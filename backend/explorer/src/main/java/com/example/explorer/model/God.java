@@ -19,9 +19,6 @@ public class God {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "domain", length = 100, nullable = false)
-    private String domain;
-
     // llave foranea
     @ManyToOne
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
@@ -39,7 +36,6 @@ public class God {
     public God(int id_god, String name, String domain, Mythology mythology, String image_god, boolean status) {
         this.id_god = id_god;
         this.name = name;
-        this.domain = domain;
         this.mythology = mythology;
         this.image_god = image_god;
         this.status = status;
@@ -67,14 +63,6 @@ public class God {
 
     public String getName() {
         return name;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getDomain() {
-        return domain;
     }
 
     public void setMythology(Mythology mythology) {

@@ -19,9 +19,6 @@ public class Artifacts {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "power", length = 100, nullable = false)
-    private String power;
-
     // llave foranea
     @ManyToOne
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
@@ -30,9 +27,6 @@ public class Artifacts {
     @Column(name = "image_artifact", nullable = false)
     private String image_artifact;
 
-    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
-    private boolean status;
-
     public Artifacts() {
     }
 
@@ -40,18 +34,8 @@ public class Artifacts {
             boolean status) {
         this.id_artifact = id_artifact;
         this.name = name;
-        this.power = power;
         this.mythology = mythology;
         this.image_artifact = image_artifact;
-        this.status = status;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public void setId(int id_artifact) {
@@ -68,14 +52,6 @@ public class Artifacts {
 
     public String getName() {
         return name;
-    }
-
-    public void setPower(String power) {
-        this.power = power;
-    }
-
-    public String getPower() {
-        return power;
     }
 
     public void setMythology(Mythology mythology) {
