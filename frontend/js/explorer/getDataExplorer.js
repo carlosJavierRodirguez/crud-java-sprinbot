@@ -76,9 +76,8 @@ export function showExplorers(exploradores, containerId) {
         <div class="team-item bg-white mb-4">
             <div class="team-img position-relative overflow-hidden">
                <!-- Botones de acción -->
-               ${
-                   containerId !== "topExplorersContainer"
-                       ? `
+               ${containerId !== "topExplorersContainer"
+                ? `
                     <div class="icon position-absolute top-0 end-0 m-2 d-flex gap-1">
                         <!-- Botón de borrar -->
                         <button class="btn btn-danger btn-sm rounded-circle" title="Borrar" data-id="${explorador.id_explorer}">
@@ -90,8 +89,8 @@ export function showExplorers(exploradores, containerId) {
                         </button>
                     </div>
                    `
-                       : ""
-               }
+                : ""
+            }
                 <!-- Imagen del explorador -->
                 <img class="img-fluid w-100 largo-imagen" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
             </div>

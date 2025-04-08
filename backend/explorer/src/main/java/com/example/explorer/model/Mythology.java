@@ -31,12 +31,6 @@ public class Mythology {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "region", length = 100, nullable = true)
-    private String region;
-
-    @Column(name = "era", length = 100, nullable = true)
-    private String era;
-
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
     private boolean status;
 
@@ -45,11 +39,9 @@ public class Mythology {
     }
 
     // creo el constructor
-    public Mythology(int id_mythology, String name, String region, String era, boolean status) {
+    public Mythology(int id_mythology, String name, boolean status) {
         this.id_mythology = id_mythology;
         this.name = name;
-        this.region = region;
-        this.era = era;
         this.status = status;
     }
 
@@ -78,23 +70,5 @@ public class Mythology {
 
     public String getName() {
         return name;
-    }
-
-    // Encpasulo el region
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    // Encpasulo la era
-    public void setEra(String era) {
-        this.era = era;
-    }
-
-    public String getEra() {
-        return era;
     }
 }

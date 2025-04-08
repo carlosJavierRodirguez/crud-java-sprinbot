@@ -4,14 +4,10 @@ public class MythologyDTO {
 
     private int idMythology;
     private String name;
-    private String region;
-    private String era;
 
-    public MythologyDTO(int idMythology, String name, String region, String era) {
+    public MythologyDTO(int idMythology, String name) {
         this.idMythology = idMythology;
         this.name = name;
-        this.region = region;
-        this.era = era;
     }
 
     public int getIdMythology() {
@@ -30,19 +26,4 @@ public class MythologyDTO {
         this.name = name;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getEra() {
-        return era;
-    }
-
-    public void setEra(String era) {
-        this.era = era;
-    }
 }
