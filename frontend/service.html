@@ -60,7 +60,7 @@
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.html" class="nav-item nav-link">Inicio</a>
                         <a href="about.html" class="nav-item nav-link">Exploradores</a>
-                        <a href="service.html" class="nav-item nav-link active">Leyendas y creaturas</a>
+                        <a href="service.html" class="nav-item nav-link active">Leyendas y criatura</a>
                         <a href="package.html" class="nav-item nav-link">Tour Packages</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -148,71 +148,11 @@
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <div class="text-center mb-3 pb-3">
-                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Services</h6>
-                <h1>Tours & Travel Services</h1>
+                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todas las</h6>
+                <h1>Criaturas encontradas</h1>
             </div>
+            <div class="row" id="containerCreatures">
 
-            <!-- Search Form -->
-            <div class="mb-3">
-                <div class="bg-white" style="padding: 30px;">
-                    <div class="input-group">
-                        <input type="text" class="form-control p-4" placeholder="Keyword">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-primary border-primary text-white"><i
-                                    class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-item bg-white text-center mb-2 py-5 px-4">
-                        <i class="fa fa-2x fa-route mx-auto mb-4"></i>
-                        <h5 class="mb-2">Travel Guide</h5>
-                        <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est
-                            amet labore</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-item bg-white text-center mb-2 py-5 px-4">
-                        <i class="fa fa-2x fa-ticket-alt mx-auto mb-4"></i>
-                        <h5 class="mb-2">Ticket Booking</h5>
-                        <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est
-                            amet labore</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-item bg-white text-center mb-2 py-5 px-4">
-                        <i class="fa fa-2x fa-hotel mx-auto mb-4"></i>
-                        <h5 class="mb-2">Hotel Booking</h5>
-                        <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est
-                            amet labore</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-item bg-white text-center mb-2 py-5 px-4">
-                        <i class="fa fa-2x fa-route mx-auto mb-4"></i>
-                        <h5 class="mb-2">Travel Guide</h5>
-                        <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est
-                            amet labore</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-item bg-white text-center mb-2 py-5 px-4">
-                        <i class="fa fa-2x fa-ticket-alt mx-auto mb-4"></i>
-                        <h5 class="mb-2">Ticket Booking</h5>
-                        <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est
-                            amet labore</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-item bg-white text-center mb-2 py-5 px-4">
-                        <i class="fa fa-2x fa-hotel mx-auto mb-4"></i>
-                        <h5 class="mb-2">Hotel Booking</h5>
-                        <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est
-                            amet labore</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -272,6 +212,8 @@
     <!-- Testimonial End -->
 
     <!-- Modal de Bootstrap -->
+
+    <!-- formulario para actulizar la mitologia -->
     <div class="modal fade" id="updateMythologyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="updateExplorerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -332,7 +274,69 @@
         </div>
     </div>
 
+    <!-- formulario para actualizar las criaturas -->
+    <!-- Modal para modificar criaturas -->
+    <div class="modal fade" id="updateCreatureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="updateCreatureModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateCreatureModalLabel">
+                        <i class="fa-solid fa-dragon"></i> Modificar Criatura
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateCreatureForm">
+                        <!-- Campo para el nombre -->
+                        <div class="mb-3">
+                            <label for="txtCreatureName" class="form-label">Nombre de la Criatura</label>
+                            <input type="text" id="txtCreatureName" name="txtCreatureName" class="form-control"
+                                placeholder="Ej: Dragón" required>
+                        </div>
 
+                        <!-- Campo para el tipo -->
+                        <div class="mb-3">
+                            <label for="txtCreatureType" class="form-label">Tipo</label>
+                            <input type="text" id="txtCreatureType" name="txtCreatureType" class="form-control"
+                                placeholder="Ej: Criatura Mítica" required>
+                        </div>
+
+                        <!-- Campo para el nivel de peligro -->
+                        <div class="mb-3">
+                            <label for="txtCreatureDanger" class="form-label">Nivel de Peligro</label>
+                            <input type="text" id="txtCreatureDanger" name="txtCreatureDanger" class="form-control"
+                                placeholder="Ej: Alto" required>
+                        </div>
+
+                        <!-- Campo para la mitología asociada -->
+                        <div class="mb-3">
+                            <label for="txtCreatureMythology" class="form-label">Mitología Asociada</label>
+                            <select id="txtCreatureMythology" class="form-control" required>
+                                <!-- Las opciones se llenarán dinámicamente -->
+                            </select>
+                        </div>
+
+                        <!-- Campo para la URL de la imagen -->
+                        <div class="mb-3">
+                            <label for="txtCreatureImage" class="form-label">URL de la Imagen</label>
+                            <input type="text" id="txtCreatureImage" name="txtCreatureImage" class="form-control"
+                                placeholder="Ej: https://example.com/imagen.jpg" required>
+                        </div>
+
+                        <!-- Campo oculto para el ID de la criatura -->
+                        <input type="hidden" id="txtCreatureId" name="txtCreatureId">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="saveCreatureChanges">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
@@ -399,6 +403,10 @@
     <script type="module" src="js/mythology/updateMythology.js"></script>
     <script type="module" src="js/mythology/registerMythology.js"></script>
     <script type="module" src="js/mythology/filterMythology.js"></script>
+
+    <!-- creatures -->
+    <script type="module" src="js/creatures/getDataCreature.js"></script>
+    <script type="module" src="js/creatures/updateCreature.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

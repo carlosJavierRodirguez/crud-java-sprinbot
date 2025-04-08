@@ -7,12 +7,14 @@ public class CreatureDTO {
     private String type;
     private String danger;
     private int mythologyId;
+    private String imageCreature;
 
-    public CreatureDTO(int idCreature, String name, String type, String danger, int mythologyId) {
+    public CreatureDTO(int idCreature, String name, String type, String danger, int mythologyId, String imageCreature) {
         this.idCreature = idCreature;
         this.name = name;
         this.type = type;
         this.danger = danger;
+        this.imageCreature = imageCreature;
         this.mythologyId = mythologyId;
     }
 
@@ -55,4 +57,13 @@ public class CreatureDTO {
     public void setMythologyId(int mythologyId) {
         this.mythologyId = mythologyId;
     }
+
+    public String getImageCreature() {
+        return imageCreature;
+    }
+
+    public void setImageCreature(String imageCreature) {
+        this.imageCreature = imageCreature;
+    }
+
 }
