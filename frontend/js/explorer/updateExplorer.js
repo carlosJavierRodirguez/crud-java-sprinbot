@@ -1,5 +1,6 @@
 import { alertas } from "../alertas/alertas.js"; // Importamos la función para mostrar alertas
 import { getAllExplorer } from "./getDataExplorer.js"; // Importamos la función para obtener todos los exploradores
+import { urlApi } from "../urlApis.js";
 
 // Función para abrir el modal y llenar el formulario con los datos del explorador
 export function openUpdateExplorerModal(explorer) {
@@ -29,7 +30,7 @@ async function saveUpdate() {
 
     try {
         // Realizamos una solicitud POST al servidor para actualizar el explorador
-        let response = await fetch("http://localhost:8085/api/v1/explorer/", {
+        let response = await fetch(urlApi.urlExplorers, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json", // Indicamos que enviamos datos en formato JSON

@@ -1,10 +1,12 @@
 import { deleteExplorer } from "./deleteExplorer.js";
 import { openUpdateExplorerModal } from "./updateExplorer.js"; // Importamos la función para abrir el modal
+import { urlApi } from "../urlApis.js";
+
 // Función para obtener todos los exploradores desde el backend
 export async function getAllExplorer() {
     try {
         // Realizamos una solicitud GET al endpoint del backend
-        let response = await fetch("http://localhost:8085/api/v1/explorer/", {
+        let response = await fetch(urlApi.urlExplorers, {
             method: "GET",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
@@ -32,7 +34,7 @@ export async function getAllExplorer() {
 async function getTopExplorer() {
     try {
         // Realizamos una solicitud GET al endpoint del backend
-        let response = await fetch("http://localhost:8085/api/v1/explorer/top", {
+        let response = await fetch(urlApi.urlExplorers + "top", {
             method: "GET",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON

@@ -2,13 +2,14 @@ import { showMythology } from "./getDataMythology.js"; // Función para mostrar 
 import { getAllMythology } from "./getDataMythology.js"; // Función para obtener todas las mitologías
 import { clearInput } from "../input.js"; // Función para limpiar los inputs
 import { alertas } from "../alertas/alertas.js";
+import { urlApi } from "../urlApis.js";
 
 /**
  * Genera la URL con el filtro seleccionado
  * Esta función construye dinámicamente la URL del endpoint según el filtro ingresado por el usuario.
  */
 function getFilterUrl() {
-    const baseUrl = "http://localhost:8085/api/v1/mythology/filter/"; // URL base del endpoint de filtros
+    const baseUrl = urlApi.urlMythology + "filter/"; // URL base del endpoint de filtros
 
     // Obtenemos el valor del input de filtro por nombre
     const name = document.getElementById("searchMythology")?.value.trim(); // Filtro por nombre

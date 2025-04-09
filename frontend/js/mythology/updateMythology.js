@@ -1,5 +1,6 @@
 import { alertas } from "../alertas/alertas.js"; // Importamos la función para mostrar alertas
 import { getAllMythology } from "./getDataMythology.js"; // Importamos la función para obtener todas las mitologías
+import { urlApi } from "../urlApis.js";
 
 // Función para abrir el modal y llenar el formulario con los datos de la mitología
 export function openUpdateMythologyModal(mythology) {
@@ -15,13 +16,13 @@ export function openUpdateMythologyModal(mythology) {
 async function saveUpdate() {
     // Obtenemos los datos del formulario
     const mythologyData = {
-        id: document.getElementById("txtMythologyId").value,
+        idMythology: document.getElementById("txtMythologyId").value,
         name: document.getElementById("txtMythologyName").value,
     };
 
     try {
         // Realizamos una solicitud POST al servidor para actualizar la mitología
-        let response = await fetch("http://localhost:8085/api/v1/mythology/", {
+        let response = await fetch(urlApi.urlMythology, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json", // Indicamos que enviamos datos en formato JSON

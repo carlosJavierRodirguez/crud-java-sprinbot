@@ -1,11 +1,12 @@
 import { getAllCreatures } from "./getDataCreature.js"; // Importamos la función para obtener todas las criaturas
 import { alertas } from "../alertas/alertas.js"; // Importamos la función para mostrar alertas
+import { urlApi } from "../urlApis.js";
 
 // Función para realizar la solicitud DELETE al servidor
 export async function serverCreature(id) {
     try {
         // Realizamos la solicitud DELETE al servidor
-        let response = await fetch(`http://localhost:8085/api/v1/creature/${id}`, {
+        let response = await fetch(urlApi.urlCreatures + id, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json"

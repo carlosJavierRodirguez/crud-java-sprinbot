@@ -1,10 +1,11 @@
 import { openUpdateMythologyModal } from "./updateMythology.js"; // Importamos la función para abrir el modal de actualización
-import {deleteMythology} from "./deleteMythology.js";
+import { deleteMythology } from "./deleteMythology.js";
+import { urlApi } from "../urlApis.js";
 
 export async function getAllMythology() {
     try {
         // Realizamos una solicitud GET al endpoint del backend
-        let response = await fetch("http://localhost:8085/api/v1/mythology/", {
+        let response = await fetch(urlApi.urlMythology, {
             method: "GET",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON

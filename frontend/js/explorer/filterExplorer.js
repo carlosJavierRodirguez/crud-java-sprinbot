@@ -2,13 +2,14 @@
 import { showExplorers } from "./getDataExplorer.js";
 import { getAllExplorer } from "./getDataExplorer.js";
 import { clearInput } from "../input.js";
+import { urlApi } from "../urlApis.js";
 
 /**
  * Genera la URL con el filtro seleccionado
  * Esta función construye dinámicamente la URL del endpoint según el filtro ingresado por el usuario.
  */
 function getFilterUrl() {
-    const baseUrl = "http://localhost:8085/api/v1/explorer/filter/"; // URL base del endpoint de filtros
+    const baseUrl = urlApi.urlExplorers + "filter/"; // URL base del endpoint de filtros
 
     // Obtenemos los valores de los inputs de filtro
     const name = document.getElementById("filterName")?.value.trim(); // Filtro por nombre

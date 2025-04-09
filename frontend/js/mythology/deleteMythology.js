@@ -1,11 +1,12 @@
 import { alertas } from "../alertas/alertas.js"; // Importamos la función para mostrar alertas
 import { getAllMythology } from "./getDataMythology.js"; // Importamos la función para actualizar el DOM
+import { urlApi } from "../urlApis.js";
 
 // Función para realizar la solicitud DELETE al servidor
 async function serverDelete(id) {
     try {
         // Realizamos una solicitud DELETE al endpoint del backend
-        let response = await fetch(`http://localhost:8085/api/v1/mythology/${id}`, {
+        let response = await fetch(urlApi.urlMythology + id, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON

@@ -1,5 +1,6 @@
 import { alertas } from "../alertas/alertas.js"; // Importamos la función para mostrar alertas
 import { getAllCreatures } from "./getDataCreature.js"; // Importamos la función para obtener todas las criaturas
+import { urlApi } from "../urlApis.js";
 
 // Función para abrir el modal y llenar el formulario con los datos de la mitología
 export function openUpdateMythologyModal(mythology) {
@@ -13,10 +14,10 @@ export function openUpdateMythologyModal(mythology) {
 }
 
 // Función para obtener todas las mitologías y llenar el select
-async function loadMythologies() {
+export async function loadMythologies() {
     try {
         // Realizamos una solicitud GET al servidor para obtener las mitologías
-        let response = await fetch("http://localhost:8085/api/v1/mythology/", {
+        let response = await fetch(urlApi.urlCreatures, {
             method: "GET",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
@@ -74,13 +75,11 @@ export async function openUpdateCreatureModal(creature) {
 async function saveUpdate() {
     // Obtenemos los datos del formulario
     const creatureData = {
-        id: document.getElementById("txtCreatureId").value,
+        idCreature: document.getElementById("txtCreatureId").value,
         name: document.getElementById("txtCreatureName").value,
         type: document.getElementById("txtCreatureType").value,
         danger: document.getElementById("txtCreatureDanger").value,
-        mythology: {
-            mythologyId: document.getElementById("txtCreatureMythology").value // Obtenemos el ID de la mitología seleccionada
-        },
+        mythologyId: document.getElementById("txtCreatureMythology").value,// Obtenemos el ID de la mitología seleccionada
         imageCreature: document.getElementById("txtCreatureImage").value
     };
 

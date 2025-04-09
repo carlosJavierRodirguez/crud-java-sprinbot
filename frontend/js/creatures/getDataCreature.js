@@ -1,10 +1,11 @@
 import { openUpdateCreatureModal } from "./updateCreature.js"; // Importamos la función para abrir el modal de actualización
 import { deleteCreature } from "./deleteCreature.js"; // Importamos la función para eliminar una criatura
+import { urlApi } from "../urlApis.js";
 
 export async function getAllCreatures() {
     try {
         // Realizamos una solicitud GET al endpoint del backend
-        let response = await fetch("http://localhost:8085/api/v1/creature/", {
+        let response = await fetch(urlApi.urlCreatures, {
             method: "GET",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
@@ -56,11 +57,11 @@ export function showCreature(creatures, containerId) {
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <!-- Botón para editar -->
-                    <button class="btn btn-warning btn-sm edit-button" data-id="${creature.id}">
+                    <button class="btn btn-warning btn-sm edit-button rounded-1" data-id="${creature.id}">
                         <i class="fa-solid fa-pen-to-square"></i> Editar
                     </button>
                     <!-- Botón para borrar -->
-                    <button class="btn btn-danger btn-sm delete-button" data-id="${creature.id}">
+                    <button class="btn btn-danger btn-sm delete-button rounded-1" data-id="${creature.id}">
                         <i class="fa-solid fa-trash"></i> Borrar
                     </button>
                 </div>

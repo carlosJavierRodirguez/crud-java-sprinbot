@@ -60,7 +60,7 @@
                     <div class="navbar-nav ml-auto py-0">
                         <a href="index.html" class="nav-item nav-link">Inicio</a>
                         <a href="about.html" class="nav-item nav-link">Exploradores</a>
-                        <a href="service.html" class="nav-item nav-link active">Leyendas y criatura</a>
+                        <a href="service.html" class="nav-item nav-link active">Leyendas y criaturas</a>
                         <a href="package.html" class="nav-item nav-link">Tour Packages</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -85,7 +85,7 @@
     <div class="container-fluid page-header">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-                <h3 class="display-4 text-white text-uppercase">Leyendas y creaturas</h3>
+                <h3 class="display-4 text-white text-uppercase">Leyendas y criaturas</h3>
                 <div class="d-inline-flex text-white">
                     <p class="m-0 text-uppercase"><a class="text-white">Inicio</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
@@ -142,24 +142,55 @@
         </div>
     </div>
 
-
-
-    <!-- Service Start -->
-    <div class="container-fluid py-5">
-        <div class="container pt-5 pb-3">
+    <!-- Criaturas -->
+    <div class="container-fluid">
+        <div class="container pt-2 pb-3">
             <div class="text-center mb-3 pb-3">
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todas las</h6>
                 <h1>Criaturas encontradas</h1>
             </div>
-            <div class="row" id="containerCreatures">
 
-            </div>
         </div>
     </div>
-    <!-- Service End -->
+    <div class="container">
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+
+            <!-- Botón para abrir el modal -->
+            <div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddCreature">
+                    <i class="fa-solid fa-plus"></i> Agregar Criatura
+                </button>
+            </div>
+
+            <!-- Buscador y botones (derecha) -->
+            <div style="padding: 30px; max-width: 400px; width: 100%;">
+                <div class="input-group">
+                    <input type="text" class="form-control p-4 rounded" placeholder="Buscar Criatura..."
+                        id="searchCreature">
+
+                    <!-- Botón de búsqueda -->
+                    <button type="button" class="input-group-text bg-primary text-white rounded" id="btnSearchCreature">
+                        <i class="fa fa-search"></i>
+                    </button>
+
+                    <!-- Botón de limpiar con espacio entre ellos -->
+                    <button type="button" class="input-group-text bg-primary text-white ms-2 rounded"
+                        id="btnClearCreature">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" id="containerCreatures">
+
+        </div>
+    </div>
+
 
     <!-- Testimonial Start -->
-    <div class="container-fluid py-5">
+    <!-- <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="text-center mb-3 pb-3">
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Testimonial</h6>
@@ -208,7 +239,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Testimonial End -->
 
     <!-- Modal de Bootstrap -->
@@ -260,7 +291,7 @@
                         <div class="mb-3">
                             <label for="txtNombre" class="form-label">Nombre de la Mitología</label>
                             <input type="text" id="txtNombre" name="txtNombre" class="form-control"
-                                placeholder="Ej: Mitología Griega" required>
+                                placeholder="Ej: Griega" required>
                         </div>
                     </form>
                 </div>
@@ -274,7 +305,6 @@
         </div>
     </div>
 
-    <!-- formulario para actualizar las criaturas -->
     <!-- Modal para modificar criaturas -->
     <div class="modal fade" id="updateCreatureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="updateCreatureModalLabel" aria-hidden="true">
@@ -287,6 +317,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- formulario para actualizar las criaturas -->
                     <form id="updateCreatureForm">
                         <!-- Campo para el nombre -->
                         <div class="mb-3">
@@ -338,6 +369,68 @@
         </div>
     </div>
 
+    <!-- Modal para agregar criaturas -->
+    <div class="modal fade" id="modalAddCreature" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="updateCreatureModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddCreature">
+                        <i class="fa-solid fa-dragon"></i> Agregar Criatura
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- formulario para actualizar las criaturas -->
+                    <form id="updateCreatureForm">
+                        <!-- Campo para el nombre -->
+                        <div class="mb-3">
+                            <label for="txtCreatureName" class="form-label">Nombre de la Criatura</label>
+                            <input type="text" id="txtCreatureName" name="txtCreatureName" class="form-control"
+                                placeholder="Ej: Dragón" required>
+                        </div>
+
+                        <!-- Campo para el tipo -->
+                        <div class="mb-3">
+                            <label for="txtCreatureType" class="form-label">Tipo</label>
+                            <input type="text" id="txtCreatureType" name="txtCreatureType" class="form-control"
+                                placeholder="Ej: Criatura Mítica" required>
+                        </div>
+
+                        <!-- Campo para el nivel de peligro -->
+                        <div class="mb-3">
+                            <label for="txtCreatureDanger" class="form-label">Nivel de Peligro</label>
+                            <input type="text" id="txtCreatureDanger" name="txtCreatureDanger" class="form-control"
+                                placeholder="Ej: Alto" required>
+                        </div>
+
+                        <!-- Campo para la mitología asociada -->
+                        <div class="mb-3">
+                            <label for="txtCreatureMythology" class="form-label">Mitología Asociada</label>
+                            <select id="txtCreatureMythology" class="form-control" required>
+                                <!-- Las opciones se llenarán dinámicamente -->
+                            </select>
+                        </div>
+
+                        <!-- Campo para la URL de la imagen -->
+                        <div class="mb-3">
+                            <label for="txtCreatureImage" class="form-label">URL de la Imagen</label>
+                            <input type="text" id="txtCreatureImage" name="txtCreatureImage" class="form-control"
+                                placeholder="Ej: https://example.com/imagen.jpg" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="regsiterCreature">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End Modal de Bootstrap -->
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
         <div class="row">
@@ -407,6 +500,7 @@
     <!-- creatures -->
     <script type="module" src="js/creatures/getDataCreature.js"></script>
     <script type="module" src="js/creatures/updateCreature.js"></script>
+    <script type="module" src="js/creatures/registerCreature.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

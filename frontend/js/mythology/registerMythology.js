@@ -1,6 +1,7 @@
 import { alertas } from "../alertas/alertas.js"; // Función para mostrar alertas
 import { clearInput } from "../input.js"; // Función para limpiar el input
 import { getAllMythology } from "./getDataMythology.js";
+import { urlApi } from "../urlApis.js";
 
 // Función principal para registrar una mitología
 async function registerMythology() {
@@ -11,7 +12,7 @@ async function registerMythology() {
         });
 
         // Realizamos una solicitud POST al backend para registrar la mitología
-        let response = await fetch("http://localhost:8085/api/v1/mythology/", {
+        let response = await fetch(urlApi.urlMythology, {
             method: "POST", // Método HTTP POST
             headers: {
                 "Accept": "application/json", // Indicamos que esperamos una respuesta en formato JSON

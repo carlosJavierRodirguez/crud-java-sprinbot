@@ -2,6 +2,7 @@
 import { alertas } from "../alertas/alertas.js"; // Función para mostrar alertas
 import { getAllExplorer } from "./getDataExplorer.js"; // Función para actualizar el color del rango
 import { clearInput } from "../input.js"; // Función para limpiar el input
+import { urlApi } from "../urlApis.js";
 
 // Función principal para registrar un explorador
 async function registerExplorer() {
@@ -16,7 +17,7 @@ async function registerExplorer() {
         });
 
         // Realizamos una solicitud POST al backend para registrar el explorador
-        let response = await fetch("http://localhost:8085/api/v1/explorer/", {
+        let response = await fetch(urlApi.urlExplorers, {
             method: "POST", // Método HTTP POST
             headers: {
                 "Accept": "application/json", // Indicamos que esperamos una respuesta en formato JSON
@@ -34,7 +35,7 @@ async function registerExplorer() {
         // Convertimos la respuesta del backend a un objeto JSON
         let data = await response.json();
         // console.log("Explorador registrado:", data); 
-      
+
         getAllExplorer(); // Agregamos el explorador al DOM
 
         // Mostramos una alerta de éxito
