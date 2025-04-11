@@ -26,21 +26,50 @@ public class CreatureService {
 
     // registra y actualiza
     public responseDTO save(CreatureDTO creatureDTO) {
-        // validación longitud del nombre
-        if (creatureDTO.getName().length() < 1 ||
-                creatureDTO.getName().length() > 45) {
-            responseDTO respuesta = new responseDTO(
+        // Validación del nombre
+        if (creatureDTO.getName() == null || creatureDTO.getName().isEmpty() ||
+                creatureDTO.getName().length() > 100) {
+            return new responseDTO(
                     HttpStatus.BAD_REQUEST.toString(),
-                    "El nombre debe estar entre 1 y 45 caracteres");
-            return respuesta;
+                    "El nombre debe tener entre 1 y 100 caracteres y no puede estar vacío.");
         }
 
+        // Validación del tipo
+        if (creatureDTO.getType() == null || creatureDTO.getType().isEmpty() ||
+                creatureDTO.getType().length() > 100) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "El tipo debe tener entre 1 y 100 caracteres y no puede estar vacío.");
+        }
+
+        // Validación del nivel de peligro (danger)
+        if (creatureDTO.getDanger() == null || creatureDTO.getDanger().isEmpty()) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "El nivel de peligro no puede estar vacío.");
+        }
+
+        // Validación de la mitología
+        if (creatureDTO.getMythologyId() != null && creatureDTO.getMythologyId() <= 0) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "La mitología debe ser válida y no puede ser menor o igual a 0.");
+        }
+
+        // Validación de la URL de la imagen
+        if (creatureDTO.getImageCreature() == null || creatureDTO.getImageCreature().isEmpty() ||
+                !creatureDTO.getImageCreature().matches("^(http|https)://.+\\..+$")) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "La URL de la imagen debe ser válida y comenzar con http:// o https://.");
+        }
+
+        // Si todas las validaciones pasan, se guarda la criatura
         Creature creature = convertToModel(creatureDTO);
         repository.save(creature);
-        responseDTO respuesta = new responseDTO(
+        return new responseDTO(
                 HttpStatus.OK.toString(),
-                "Se guardó correctamente");
-        return respuesta;
+                "La criatura se guardó correctamente.");
     }
 
     // listar por palabra clave en el nombre
@@ -56,16 +85,14 @@ public class CreatureService {
     // borrar por explorador por el ID
     public responseDTO deleteCreature(int id) {
         if (!findById(id).isPresent()) {
-            responseDTO respuesta = new responseDTO(
+            return new responseDTO(
                     HttpStatus.OK.toString(),
-                    "The register does not exist");
-            return respuesta;
+                    "El registro no existe.");
         }
         repository.deleteById(id);
-        responseDTO respuesta = new responseDTO(
+        return new responseDTO(
                 HttpStatus.OK.toString(),
-                "Se eliminó correctamente");
-        return respuesta;
+                "Se eliminó correctamente.");
     }
 
     // Convertir de CreatureDTO a Creature (Modelo)
@@ -73,7 +100,7 @@ public class CreatureService {
         Mythology mythology = null;
 
         // Si el ID de la mitología es válido, creamos un objeto Mythology con ese ID
-        if (creatureDTO.getMythologyId() > 0) {
+        if (creatureDTO.getMythologyId() != null && creatureDTO.getMythologyId() > 0) {
             mythology = new Mythology();
             mythology.setMythologyId(creatureDTO.getMythologyId());
         }
@@ -97,9 +124,11 @@ public class CreatureService {
                 creature.getName(),
                 creature.getType(),
                 creature.getDanger(),
-                creature.getMythology() != null ? creature.getMythology().getMythologyId() : 0, // Extraemos el ID de la
-                                                                                                // mitología o asignamos
-                                                                                                // 0 si es null
+                creature.getMythology() != null ? creature.getMythology().getMythologyId() : null, // Extraemos el ID de
+                                                                                                   // la
+                                                                                                   // mitología o
+                                                                                                   // asignamos
+                                                                                                   // null si es null
                 creature.getImageCreature());
     }
 }

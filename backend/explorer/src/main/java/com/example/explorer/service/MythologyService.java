@@ -20,21 +20,41 @@ public class MythologyService {
 
     // registra y actualiza
     public responseDTO save(MythologyDTO mythologyDTO) {
-        // validación longitud del nombre
-        if (mythologyDTO.getName().length() < 3 ||
-                mythologyDTO.getName().length() > 100) {
-            responseDTO respuesta = new responseDTO(
+        // Validación del nombre
+        if (mythologyDTO.getName() == null || mythologyDTO.getName().isEmpty()) {
+            return new responseDTO(
                     HttpStatus.BAD_REQUEST.toString(),
-                    "El nombre debe estar entre 3 y 100 caracteres");
-            return respuesta;
+                    "El nombre no puede estar vacío.");
         }
 
+        if (mythologyDTO.getName().length() < 3 || mythologyDTO.getName().length() > 100) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "El nombre debe tener entre 3 y 100 caracteres.");
+        }
+
+        if (!mythologyDTO.getName().matches("^[a-zA-Z\\s]+$")) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "El nombre solo puede contener letras y espacios.");
+        }
+
+        // Si el ID es mayor que 0, se está actualizando una mitología existente
+        if (mythologyDTO.getIdMythology() > 0) {
+            Optional<Mythology> existingMythology = repository.findById(mythologyDTO.getIdMythology());
+            if (!existingMythology.isPresent()) {
+                return new responseDTO(
+                        HttpStatus.BAD_REQUEST.toString(),
+                        "La mitología con el ID proporcionado no existe.");
+            }
+        }
+
+        // Si todas las validaciones pasan, se guarda la mitología
         Mythology mythology = convertToModel(mythologyDTO);
         repository.save(mythology);
-        responseDTO respuesta = new responseDTO(
+        return new responseDTO(
                 HttpStatus.OK.toString(),
-                "Se guardó correctamente");
-        return respuesta;
+                "La mitología se guardó correctamente.");
     }
 
     // listar todas las columnas
@@ -55,16 +75,14 @@ public class MythologyService {
     // borrar por explorador por el ID
     public responseDTO deleteMythology(int id) {
         if (!findById(id).isPresent()) {
-            responseDTO respuesta = new responseDTO(
+            return new responseDTO(
                     HttpStatus.OK.toString(),
-                    "The register does not exist");
-            return respuesta;
+                    "El registro no existe.");
         }
         repository.deleteById(id);
-        responseDTO respuesta = new responseDTO(
+        return new responseDTO(
                 HttpStatus.OK.toString(),
-                "Se eliminó correctamente");
-        return respuesta;
+                "Se eliminó correctamente.");
     }
 
     public Mythology convertToModel(MythologyDTO mythologyDTO) {

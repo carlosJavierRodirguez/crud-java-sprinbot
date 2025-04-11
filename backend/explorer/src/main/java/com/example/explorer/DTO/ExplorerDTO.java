@@ -6,10 +6,10 @@ public class ExplorerDTO {
     private String name;
     private String nationality;
     private int age;
-    private int reputation;
+    private Integer reputation; // Cambiado de int a Integer
     private String image_explorer;
 
-    public ExplorerDTO(int id, String name, String nationality, int age, int reputation, String image_explorer) {
+    public ExplorerDTO(int id, String name, String nationality, int age, Integer reputation, String image_explorer) {
         this.id = id;
         this.name = name;
         this.nationality = nationality;
@@ -50,11 +50,11 @@ public class ExplorerDTO {
         this.age = age;
     }
 
-    public int getReputation() {
+    public Integer getReputation() { // Cambiado de int a Integer
         return reputation;
     }
 
-    public void setReputation(int reputation) {
+    public void setReputation(Integer reputation) { // Cambiado de int a Integer
         this.reputation = reputation;
     }
 

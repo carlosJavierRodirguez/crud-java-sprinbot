@@ -1,8 +1,45 @@
-
 import { showExplorers } from "./getDataExplorer.js";
 import { getAllExplorer } from "./getDataExplorer.js";
 import { clearInput } from "../input.js";
 import { urlApi } from "../urlApis.js";
+
+/**
+ * Valida los valores ingresados en los filtros
+ * Esta función verifica que los valores de los filtros sean válidos antes de construir la URL.
+ */
+function validateFilters() {
+    const name = document.getElementById("filterName")?.value.trim();
+    const age = document.getElementById("filterAge")?.value.trim();
+    const nationality = document.getElementById("filterNationality")?.value.trim();
+    const reputation = document.getElementById("filterReputation")?.value.trim();
+
+    // Validar el campo Nombre
+    if (name && !/^[a-zA-Z\s]+$/.test(name)) {
+        alert("El nombre solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo Edad
+    if (age && (!/^\d+$/.test(age) || parseInt(age) < 1 || parseInt(age) > 100)) {
+        alert("La edad debe ser un número entre 1 y 100.");
+        return false;
+    }
+
+    // Validar el campo Nacionalidad
+    if (nationality && !/^[a-zA-Z\s]+$/.test(nationality)) {
+        alert("La nacionalidad solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo Reputación
+    if (reputation && (!/^\d+$/.test(reputation) || parseInt(reputation) < 0 || parseInt(reputation) > 100)) {
+        alert("La reputación debe ser un número entre 0 y 100.");
+        return false;
+    }
+
+    // Si todas las validaciones pasan, retorna true
+    return true;
+}
 
 /**
  * Genera la URL con el filtro seleccionado
@@ -32,6 +69,11 @@ function getFilterUrl() {
  */
 async function fetchExplorers() {
     try {
+        // Validar los filtros antes de construir la URL
+        if (!validateFilters()) {
+            return; // Detenemos el proceso si los filtros no son válidos
+        }
+
         // Obtenemos la URL generada por la función getFilterUrl
         const url = getFilterUrl();
 

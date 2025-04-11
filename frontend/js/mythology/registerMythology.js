@@ -3,8 +3,27 @@ import { clearInput } from "../input.js"; // Función para limpiar el input
 import { getAllMythology } from "./getDataMythology.js";
 import { urlApi } from "../urlApis.js";
 
+// Función para validar los datos del formulario
+function validateMythologyForm() {
+    const name = document.getElementById("txtNombre").value.trim();
+
+    // Validar el campo Nombre
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        alertas("error", "Error en el formulario", "El nombre solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Si todas las validaciones pasan, retorna true
+    return true;
+}
+
 // Función principal para registrar una mitología
 async function registerMythology() {
+    // Validar los datos del formulario antes de enviarlos
+    if (!validateMythologyForm()) {
+        return; // Detenemos el proceso si los datos no son válidos
+    }
+
     try {
         // Creamos un objeto JSON con los datos del formulario
         let bodyContent = JSON.stringify({

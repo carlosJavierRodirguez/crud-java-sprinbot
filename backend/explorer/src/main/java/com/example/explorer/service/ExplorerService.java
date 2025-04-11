@@ -23,11 +23,11 @@ public class ExplorerService {
         return repository.getListExplorerActive();
     }
 
-    //listar mejores 4 exploradores
+    // listar mejores 4 exploradores
     public List<Explorer> getTopExplorer() {
         return repository.getTopExplorer();
     }
-    
+
     // listar por palabra clave en el nombre
     public List<Explorer> getListExplorerForName(String filter) {
 
@@ -57,21 +57,53 @@ public class ExplorerService {
 
     // registra y actualiza
     public responseDTO save(ExplorerDTO explorerDTO) {
-        // validación longitud del nombre
-        if (explorerDTO.getName().length() < 1 ||
-                explorerDTO.getName().length() > 45) {
-            responseDTO respuesta = new responseDTO(
+        // Validación del nombre
+        if (explorerDTO.getName() == null || explorerDTO.getName().isEmpty() ||
+                explorerDTO.getName().length() > 45 ||
+                !explorerDTO.getName().matches("^[a-zA-Z\\s]+$")) {
+            return new responseDTO(
                     HttpStatus.BAD_REQUEST.toString(),
-                    "El nombre debe estar entre 1 y 45 caracteres");
-            return respuesta;
+                    "El nombre debe tener un máximo de 45 caracteres y solo puede contener letras y espacios.");
         }
 
+        // Validación de la nacionalidad
+        if (explorerDTO.getNationality() == null || explorerDTO.getNationality().isEmpty() ||
+                explorerDTO.getNationality().length() > 45 ||
+                !explorerDTO.getNationality().matches("^[a-zA-Z\\s]+$")) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "La nacionalidad debe tener un máximo de 45 caracteres y solo puede contener letras y espacios.");
+        }
+
+        // Validación de la edad
+        if (explorerDTO.getAge() < 1 || explorerDTO.getAge() > 100) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "La edad debe ser un número entre 1 y 100.");
+        }
+
+        // Validación de la reputación
+        if (explorerDTO.getReputation() == null || explorerDTO.getReputation() < 0
+                || explorerDTO.getReputation() > 100) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "La reputación debe ser un número entre 0 y 100.");
+        }
+
+        // Validación de la URL de la imagen
+        if (explorerDTO.getImageExplorer() == null || explorerDTO.getImageExplorer().isEmpty() ||
+                !explorerDTO.getImageExplorer().matches("^(http|https)://.+\\..+$")) {
+            return new responseDTO(
+                    HttpStatus.BAD_REQUEST.toString(),
+                    "La URL de la imagen debe ser válida y comenzar con http:// o https://.");
+        }
+
+        // Si todas las validaciones pasan, se guarda el explorador
         Explorer explorer = convertToModel(explorerDTO);
         repository.save(explorer);
-        responseDTO respuesta = new responseDTO(
+        return new responseDTO(
                 HttpStatus.OK.toString(),
                 "Se guardó correctamente");
-        return respuesta;
     }
 
     public Explorer convertToModel(ExplorerDTO explorerDTO) {

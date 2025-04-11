@@ -1,6 +1,8 @@
 import { alertas } from "../alertas/alertas.js"; // Importamos la función para mostrar alertas
 import { getAllCreatures } from "./getDataCreature.js"; // Importamos la función para obtener todas las criaturas
-import { urlApi } from "../urlApis.js";
+import { configureCreatureForm } from "./creatureForm.js"; // Importamos la función para configurar el formulario
+import { urlApi } from "../urlApis.js"; // Importamos las URLs de la API
+import { clearInput } from "../input.js"; // Importamos la función para limpiar los inputs
 
 // Función para abrir el modal y llenar el formulario con los datos de la mitología
 export function openUpdateMythologyModal(mythology) {
@@ -17,7 +19,7 @@ export function openUpdateMythologyModal(mythology) {
 export async function loadMythologies() {
     try {
         // Realizamos una solicitud GET al servidor para obtener las mitologías
-        let response = await fetch(urlApi.urlCreatures, {
+        let response = await fetch(urlApi.urlMythology, {
             method: "GET",
             headers: {
                 "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
@@ -53,69 +55,52 @@ export async function loadMythologies() {
 
 // Función para abrir el modal y llenar el formulario con los datos de la criatura
 export async function openUpdateCreatureModal(creature) {
-    // Llenamos el formulario con los datos de la criatura
-    document.getElementById("txtCreatureName").value = creature.name;
-    document.getElementById("txtCreatureType").value = creature.type;
-    document.getElementById("txtCreatureDanger").value = creature.danger;
-    document.getElementById("txtCreatureImage").value = creature.imageCreature;
-    document.getElementById("txtCreatureId").value = creature.id;
-
-    // Cargamos las mitologías en el select
-    await loadMythologies();
-
-    // Seleccionamos la mitología actual de la criatura en el select
-    const mythologySelect = document.getElementById("txtCreatureMythology");
-    mythologySelect.value = creature.mythology?.mythologyId || "";
-
-    // Mostramos el modal
-    const updateCreatureModal = new bootstrap.Modal(document.getElementById("updateCreatureModal"));
-    updateCreatureModal.show();
+    // Configuramos el formulario en modo edición
+    await configureCreatureForm("edit", creature);
+    const actionButton = document.getElementById("saveCreature");
+    actionButton.textContent = "Guardar Cambios";
+    actionButton.onclick = () => saveUpdate(); // Asociamos la función de actualizar
 }
 
-async function saveUpdate() {
-    // Obtenemos los datos del formulario
+// Función para actualizar una criatura existente
+export async function saveUpdate() {
+    console.log("Actualizando criatura...");
     const creatureData = {
         idCreature: document.getElementById("txtCreatureId").value,
         name: document.getElementById("txtCreatureName").value,
         type: document.getElementById("txtCreatureType").value,
         danger: document.getElementById("txtCreatureDanger").value,
-        mythologyId: document.getElementById("txtCreatureMythology").value,// Obtenemos el ID de la mitología seleccionada
+        mythologyId: document.getElementById("txtCreatureMythology").value,
         imageCreature: document.getElementById("txtCreatureImage").value
     };
 
     try {
-        // Realizamos una solicitud POST al servidor para actualizar la criatura
-        let response = await fetch("http://localhost:8085/api/v1/creature/", {
+        let response = await fetch(urlApi.urlCreatures, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json", // Indicamos que enviamos datos en formato JSON
-                "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             },
-            body: JSON.stringify(creatureData) // Convertimos los datos de la criatura a JSON
+            body: JSON.stringify(creatureData)
         });
 
-        // Verificamos si la respuesta no es exitosa
         if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
-        // Mostramos una alerta de éxito
         alertas("success", "Criatura actualizada", "La criatura ha sido actualizada correctamente.");
-
-        // Cerramos el modal
-        const updateCreatureModal = bootstrap.Modal.getInstance(document.getElementById("updateCreatureModal"));
+        clearInput(document.getElementById("txtCreatureId"));
+        clearInput(document.getElementById("txtCreatureName"));
+        clearInput(document.getElementById("txtCreatureType"));
+        clearInput(document.getElementById("txtCreatureDanger"));
+        clearInput(document.getElementById("txtCreatureImage"));
+        clearInput(document.getElementById("txtCreatureMythology"));
+        const updateCreatureModal = bootstrap.Modal.getInstance(document.getElementById("modalCreature"));
         updateCreatureModal.hide();
 
-        // Actualizamos la lista de criaturas
         getAllCreatures();
-
     } catch (error) {
         console.error("Error al actualizar la criatura:", error);
         alertas("error", "Error al actualizar", "No se pudo actualizar la criatura.");
     }
 }
-
-// Asociamos el evento al botón "Guardar cambios"
-document.getElementById("saveCreatureChanges").addEventListener("click", () => {
-    saveUpdate(); // Llamamos a la función para guardar los cambios
-});

@@ -6,10 +6,11 @@ public class CreatureDTO {
     private String name;
     private String type;
     private String danger;
-    private int mythologyId;
+    private Integer mythologyId;
     private String imageCreature;
 
-    public CreatureDTO(int idCreature, String name, String type, String danger, int mythologyId, String imageCreature) {
+    public CreatureDTO(int idCreature, String name, String type, String danger, Integer mythologyId,
+            String imageCreature) {
         this.idCreature = idCreature;
         this.name = name;
         this.type = type;
@@ -50,11 +51,11 @@ public class CreatureDTO {
         this.danger = danger;
     }
 
-    public int getMythologyId() {
+    public Integer getMythologyId() {
         return mythologyId;
     }
 
-    public void setMythologyId(int mythologyId) {
+    public void setMythologyId(Integer mythologyId) {
         this.mythologyId = mythologyId;
     }
 

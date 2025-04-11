@@ -17,7 +17,55 @@ export function openUpdateExplorerModal(explorer) {
     updateExplorerModal.show();
 }
 
+// Función para validar los datos del formulario
+function validateExplorerUpdateForm() {
+    const name = document.getElementById("explorerName").value.trim();
+    const age = document.getElementById("explorerAge").value.trim();
+    const nationality = document.getElementById("explorerNationality").value.trim();
+    const reputation = document.getElementById("explorerReputation").value.trim();
+    const image = document.getElementById("explorerImage").value.trim();
+
+    // Validar el campo Nombre
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        alertas("error", "Error en el formulario", "El nombre solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo Edad
+    if (!/^\d+$/.test(age) || parseInt(age) < 1 || parseInt(age) > 100) {
+        alertas("error", "Error en el formulario", "La edad debe ser un número entre 1 y 100.");
+        return false;
+    }
+
+    // Validar el campo Nacionalidad
+    if (!/^[a-zA-Z\s]+$/.test(nationality)) {
+        alertas("error", "Error en el formulario", "La nacionalidad solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo Reputación
+    if (!/^\d+$/.test(reputation) || parseInt(reputation) < 0 || parseInt(reputation) > 100) {
+        alertas("error", "Error en el formulario", "La reputación debe ser un número entre 0 y 100.");
+        return false;
+    }
+
+    // Validar el campo Imagen
+    if (!/^https?:\/\/.+\..+/.test(image)) {
+        alertas("error", "Error en el formulario", "La URL de la imagen debe ser válida y comenzar con http:// o https://.");
+        return false;
+    }
+
+    // Si todas las validaciones pasan, retorna true
+    return true;
+}
+
+// Función para guardar los cambios del explorador
 async function saveUpdate() {
+    // Validar los datos del formulario antes de enviarlos
+    if (!validateExplorerUpdateForm()) {
+        return; // Detenemos el proceso si los datos no son válidos
+    }
+
     // Obtenemos los datos del formulario
     const explorerData = {
         id: document.getElementById("explorerId").value,
@@ -60,8 +108,6 @@ async function saveUpdate() {
         alertas("error", "Error al actualizar", "No se pudo actualizar el explorador.");
     }
 }
-
-
 
 // Asociamos el evento al botón "Guardar cambios"
 document.getElementById("saveExplorerChanges").addEventListener("click", () => {

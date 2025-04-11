@@ -1,11 +1,57 @@
-
 import { alertas } from "../alertas/alertas.js"; // Función para mostrar alertas
 import { getAllExplorer } from "./getDataExplorer.js"; // Función para actualizar el color del rango
 import { clearInput } from "../input.js"; // Función para limpiar el input
 import { urlApi } from "../urlApis.js";
 
+// Función para validar los datos del formulario
+function validateExplorerForm() {
+    const nombre = document.getElementById("txtNombre").value.trim();
+    const nacionalidad = document.getElementById("txtNacionalidad").value.trim();
+    const edad = document.getElementById("txtEdad").value.trim();
+    const reputacion = document.getElementById("txtReputacion").value.trim();
+    const imagen = document.getElementById("txtImagen").value.trim();
+
+    // Validar el campo Nombre
+    if (!/^[a-zA-Z\s]+$/.test(nombre)) {
+        alertas("error", "Error en el formulario", "El nombre solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo Nacionalidad
+    if (!/^[a-zA-Z\s]+$/.test(nacionalidad)) {
+        alertas("error", "Error en el formulario", "La nacionalidad solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo Edad
+    if (!/^\d+$/.test(edad) || parseInt(edad) < 1 || parseInt(edad) > 100) {
+        alertas("error", "Error en el formulario", "La edad debe ser un número entre 1 y 100.");
+        return false;
+    }
+
+    // Validar el campo Reputación
+    if (!/^\d+$/.test(reputacion) || parseInt(reputacion) < 0 || parseInt(reputacion) > 100) {
+        alertas("error", "Error en el formulario", "La reputación debe ser un número entre 0 y 100.");
+        return false;
+    }
+
+    // Validar el campo Imagen
+    if (!/^https?:\/\/.+\..+/.test(imagen)) {
+        alertas("error", "Error en el formulario", "La URL de la imagen debe ser válida y comenzar con http:// o https://.");
+        return false;
+    }
+
+    // Si todas las validaciones pasan, retorna true
+    return true;
+}
+
 // Función principal para registrar un explorador
 async function registerExplorer() {
+    // Validar los datos del formulario antes de enviarlos
+    if (!validateExplorerForm()) {
+        return; // Detenemos el proceso si los datos no son válidos
+    }
+
     try {
         // Creamos un objeto JSON con los datos del formulario
         let bodyContent = JSON.stringify({
@@ -34,7 +80,6 @@ async function registerExplorer() {
 
         // Convertimos la respuesta del backend a un objeto JSON
         let data = await response.json();
-        // console.log("Explorador registrado:", data); 
 
         getAllExplorer(); // Agregamos el explorador al DOM
 
@@ -55,6 +100,7 @@ async function registerExplorer() {
     }
 }
 
+// Agregar el evento al botón de registro cuando el DOM esté cargado
 document.addEventListener("DOMContentLoaded", () => {
     const filterButton = document.getElementById("registerButton");
     if (filterButton) {

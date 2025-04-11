@@ -13,7 +13,34 @@ export function openUpdateMythologyModal(mythology) {
     updateMythologyModal.show();
 }
 
+// Función para validar los datos del formulario
+function validateMythologyForm() {
+    const name = document.getElementById("txtMythologyName").value.trim();
+    const id = document.getElementById("txtMythologyId").value.trim();
+
+    // Validar el campo Nombre
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        alertas("error", "Error en el formulario", "El nombre solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Validar el campo ID (opcional, si es necesario)
+    if (!/^\d+$/.test(id)) {
+        alertas("error", "Error en el formulario", "El ID debe ser un número válido.");
+        return false;
+    }
+
+    // Si todas las validaciones pasan, retorna true
+    return true;
+}
+
+// Función para guardar los cambios de la mitología
 async function saveUpdate() {
+    // Validar los datos del formulario antes de enviarlos
+    if (!validateMythologyForm()) {
+        return; // Detenemos el proceso si los datos no son válidos
+    }
+
     // Obtenemos los datos del formulario
     const mythologyData = {
         idMythology: document.getElementById("txtMythologyId").value,

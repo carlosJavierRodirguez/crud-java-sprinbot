@@ -5,6 +5,28 @@ import { alertas } from "../alertas/alertas.js";
 import { urlApi } from "../urlApis.js";
 
 /**
+ * Valida el valor ingresado en el filtro
+ * Esta función verifica que el valor del filtro sea válido antes de construir la URL.
+ */
+function validateFilter() {
+    const name = document.getElementById("searchMythology")?.value.trim();
+
+    // Validar el campo Nombre
+    if (!name) {
+        alertas("info", "Campo vacío", "Por favor, ingresa un nombre para filtrar.");
+        return false;
+    }
+
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        alertas("error", "Error en el filtro", "El nombre solo puede contener letras y espacios.");
+        return false;
+    }
+
+    // Si todas las validaciones pasan, retorna true
+    return true;
+}
+
+/**
  * Genera la URL con el filtro seleccionado
  * Esta función construye dinámicamente la URL del endpoint según el filtro ingresado por el usuario.
  */
@@ -14,7 +36,7 @@ function getFilterUrl() {
     // Obtenemos el valor del input de filtro por nombre
     const name = document.getElementById("searchMythology")?.value.trim(); // Filtro por nombre
 
-    // Construimos la URL según el filtro ingresbtnSearchado
+    // Construimos la URL según el filtro ingresado
     if (name) return `${baseUrl}${encodeURIComponent(name)}`; // Filtro por nombre
 
     return null; // Si no se ingresó ningún filtro, retornamos null
@@ -26,12 +48,17 @@ function getFilterUrl() {
  */
 async function fetchMythology() {
     try {
+        // Validar el filtro antes de construir la URL
+        if (!validateFilter()) {
+            return; // Detenemos el proceso si el filtro no es válido
+        }
+
         // Obtenemos la URL generada por la función getFilterUrl
         const url = getFilterUrl();
 
         // Si no hay URL (es decir, no se ingresaron filtros), mostramos una alerta y detenemos la ejecución
         if (!url) {
-            alertas("info", "Sin datos", "Por favor, ingresa un nombre para filtrar");
+            alertas("info", "Sin datos", "Por favor, ingresa un nombre para filtrar.");
             return;
         }
 
@@ -72,7 +99,7 @@ async function fetchMythology() {
     } catch (error) {
         // Capturamos y mostramos cualquier error que ocurra durante el proceso
         console.error("Error al filtrar mitologías:", error); // Mostramos el error en la consola
-        alert("Ocurrió un error al filtrar mitologías. Inténtalo de nuevo más tarde."); // Mostramos una alerta al usuario
+        alertas("error", "Error al filtrar", "Ocurrió un error al filtrar mitologías. Inténtalo de nuevo más tarde.");
     }
 }
 
