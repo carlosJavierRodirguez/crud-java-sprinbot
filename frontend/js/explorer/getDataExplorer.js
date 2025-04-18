@@ -1,154 +1,138 @@
 import { deleteExplorer } from "./deleteExplorer.js";
-import { openUpdateExplorerModal } from "./updateExplorer.js"; // Importamos la función para abrir el modal
+import { openUpdateExplorerModal } from "./updateExplorer.js";
 import { urlApi } from "../urlApis.js";
+import { paginateData } from "../paginateData.js";
 
 // Función para obtener todos los exploradores desde el backend
 export async function getAllExplorer() {
     try {
-        // Realizamos una solicitud GET al endpoint del backend
         let response = await fetch(urlApi.urlExplorers, {
             method: "GET",
             headers: {
-                "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
+                "Accept": "application/json"
             }
         });
 
-        // Verificamos si la respuesta no es exitosa
         if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`); // Lanzamos un error con el código y mensaje
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
-        // Convertimos la respuesta a JSON
         let data = await response.json();
 
-        // Llamamos a la función para mostrar los exploradores en el DOM
-        showExplorers(data, "exploradoresContainer");
+        paginateData({
+            data,
+            containerId: "exploradoresContainer",
+            paginationId: "paginationContainer",
+            renderItemFn: renderExplorerCard,
+            itemsPerPage: 4
+        });
 
     } catch (error) {
-        // Mostramos el error en la consola si ocurre algún problema
         console.error("Error al obtener los exploradores:", error);
     }
 }
 
-//Función que obtene los mejores 4 exploradores
+// Función para obtener los mejores exploradores (sin paginación)
 async function getTopExplorer() {
     try {
-        // Realizamos una solicitud GET al endpoint del backend
         let response = await fetch(urlApi.urlExplorers + "top", {
             method: "GET",
             headers: {
-                "Accept": "application/json" // Indicamos que esperamos una respuesta en formato JSON
+                "Accept": "application/json"
             }
         });
 
-        // Verificamos si la respuesta no es exitosa
         if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`); // Lanzamos un error con el código y mensaje
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
 
-        // Convertimos la respuesta a JSON
         let data = await response.json();
 
-        // Llamamos a la función para mostrar los exploradores en el DOM
-        showExplorers(data, "topExplorersContainer");
+        const container = document.getElementById("topExplorersContainer");
+        if (!container) return;
 
+        container.innerHTML = "";
+        data.forEach(explorer => {
+            const card = renderExplorerCard(explorer, true);
+            container.appendChild(card);
+        });
 
     } catch (error) {
         console.error("Error al obtener los mejores exploradores:", error);
-
     }
 }
 
-// Función para mostrar los exploradores en el DOM
-export function showExplorers(exploradores, containerId) {
-    // Obtenemos el contenedor donde se mostrarán los exploradores
-    let contenedor = document.getElementById(containerId);
+// Función para renderizar una tarjeta de explorador
+function renderExplorerCard(explorador, isTop = false) {
+    const card = document.createElement("div");
+    card.classList.add("col-lg-3", "col-md-4", "col-sm-6", "pb-1");
 
-    // Limpiamos el contenido del contenedor antes de agregar nuevos datos
-    contenedor.innerHTML = "";
-
-    // Iteramos sobre cada explorador recibido
-    exploradores.forEach(explorador => {
-        // Creamos un elemento div para la tarjeta del explorador
-        let card = document.createElement("div");
-        card.classList.add("col-lg-3", "col-md-4", "col-sm-6", "pb-1"); // Agregamos clases de Bootstrap
-
-        // Definimos el contenido HTML de la tarjeta
-        card.innerHTML = `
+    card.innerHTML = `
         <div class="team-item bg-white mb-4">
             <div class="team-img position-relative overflow-hidden">
-               <!-- Botones de acción -->
-               ${containerId !== "topExplorersContainer"
-                ? `
+                ${!isTop ? `
                     <div class="icon position-absolute top-0 end-0 m-2 d-flex gap-1">
-                        <!-- Botón de borrar -->
                         <button class="btn btn-danger btn-sm rounded-circle" title="Borrar" data-id="${explorador.id_explorer}">
                             <i class="fa-solid fa-trash text-white p-1"></i>
                         </button>
-                        <!-- Botón de editar -->
                         <button class="btn btn-primary btn-sm rounded-circle" title="Editar" data-id="${explorador.id_explorer}">
                             <i class="fa-solid fa-pen text-white p-1"></i>
                         </button>
-                    </div>
-                   `
-                : ""
-            }
-                <!-- Imagen del explorador -->
+                    </div>` : ""
+        }
                 <img class="img-fluid w-100 largo-imagen" src="${explorador.imageExplorer}" alt="Imagen de ${explorador.name}">
             </div>
             <div class="text-center py-4 p-3">
                 <h5 class="text-truncate">${explorador.name}</h5>
                 <p class="m-0"><i class="fas fa-flag"></i> ${explorador.nationality}</p>
                 <p class="m-0"><i class="fas fa-birthday-cake"></i> Edad: ${explorador.age}</p>
-                <p class="m-0"><i class="fa-solid fa-star"></i> Reputación </p>
-                
-               <div class="progress rounded-pill border border-black">
-                 <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
-                 ${explorador.reputation}%
-               </div>
+                <p class="m-0"><i class="fa-solid fa-star"></i> Reputación</p>
+                <div class="progress rounded-pill border border-black">
+                    <div class="progress-bar rounded-pill" role="progressbar" style="width: ${explorador.reputation}%; background: ${updateRangeColor(explorador.reputation)};">
+                        ${explorador.reputation}%
+                    </div>
+                </div>
             </div>
         </div>
     `;
-        // Agregamos la tarjeta al contenedor
-        contenedor.appendChild(card);
 
-        // Asociamos los eventos solo si no es el contenedor de los mejores exploradores
-        if (containerId !== "topExplorersContainer") {
-            // Asociamos el evento click al botón de borrar
-            card.querySelector(".btn-danger").addEventListener("click", (event) => {
-                const explorerId = event.target.closest("button").getAttribute("data-id");
-                deleteExplorer(explorerId); // Llamamos a la función para eliminar el explorador
-            });
+    if (!isTop) {
+        card.querySelector(".btn-danger").addEventListener("click", (event) => {
+            const id = event.target.closest("button").getAttribute("data-id");
+            deleteExplorer(id);
+        });
 
-            // Asociamos el evento click al botón de editar
-            card.querySelector(".btn-primary").addEventListener("click", () => {
-                openUpdateExplorerModal(explorador); // Llamamos a la función para abrir el modal con los datos del explorador
-            });
-        }
+        card.querySelector(".btn-primary").addEventListener("click", () => {
+            openUpdateExplorerModal(explorador);
+        });
+    }
+
+    return card;
+}
+export function showExplorers(data, containerId) {
+    paginateData({
+        data,
+        containerId,
+        paginationId: "paginationContainer",
+        renderItemFn: (explorador) => renderExplorerCard(explorador, containerId),
+        itemsPerPage: 4
     });
 }
-
 // Función para cambiar el color del input range
 export function updateRangeColor(reputation) {
-    // Calculamos el porcentaje (0 a 1) basado en la reputación
     let percent = reputation / 100;
-
-    // Calculamos los valores de rojo y verde según el porcentaje
-    let red = Math.round(255 * (1 - percent)); // Más cerca de 0, más rojo
-    let green = Math.round(255 * percent);     // Más cerca de 100, más verde
-
-    // Devolvemos el degradado en formato CSS
+    let red = Math.round(255 * (1 - percent));
+    let green = Math.round(255 * percent);
     return `linear-gradient(to right, rgb(${red}, ${green}, 0), rgb(${red}, ${green}, 0))`;
 }
 
-// Llamamos a la función para obtener exploradores al cargar la página
+// Al cargar el DOM, iniciamos
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("exploradoresContainer")) {
-        getAllExplorer(); // Solo ejecuta si el ID existe
+        getAllExplorer();
     }
 
     if (document.getElementById("topExplorersContainer")) {
-        getTopExplorer(); // Solo ejecuta si el ID existe
+        getTopExplorer();
     }
-
 });

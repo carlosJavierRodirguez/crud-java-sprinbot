@@ -313,19 +313,25 @@
     <!-- Booking End -->
 
     <!-- Team Start -->
-    <div class="container-fluid ">
+    <div class="container-fluid">
         <div class="container pb-3">
             <div class="text-center mb-3 pb-3">
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todos</h6>
                 <h1>Nuestos Exploradores</h1>
             </div>
+
+            <!-- Contenedor de paginación separado -->
+            <ul id="paginationContainer" class="pagination justify-content-end mt-3"></ul>
+
+            <!-- Aquí van los exploradores -->
             <div class="row" id="exploradoresContainer">
-                <!-- Aquí se mostrarán las tarjetas automáticamente -->
+                <!-- Tarjetas generadas dinámicamente -->
             </div>
 
         </div>
     </div>
     <!-- Team End -->
+
 
     <!-- Modal de Bootstrap -->
     <div class="modal fade" id="updateExplorerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

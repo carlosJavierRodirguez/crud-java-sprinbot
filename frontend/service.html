@@ -134,12 +134,12 @@
             </div>
 
         </div>
-
+        <ul id="paginationContainer" class="pagination justify-content-end mt-3"></ul>
 
         <div class="row" id="containerMythology">
-            <!--muestra Cada mitología en su columna -->
-
+            <!-- Aquí se mostrarán las tarjetas de mitología -->
         </div>
+
     </div>
 
     <!-- Criaturas -->
@@ -157,9 +157,9 @@
 
             <!-- Botón para abrir el modal -->
             <div>
-                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreature">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreature">
                     <i class="fa-solid fa-plus"></i> Agregar Criatura
-                </button> -->
+                </button>
             </div>
 
             <!-- Buscador y botones (derecha) -->
@@ -182,7 +182,7 @@
             </div>
 
         </div>
-
+        <ul id="paginateCreatures" class="pagination justify-content-end mt-3"></ul>
         <div class="row" id="containerCreatures">
 
         </div>
@@ -462,6 +462,9 @@
     <script type="module" src="js/creatures/updateCreature.js"></script>
     <script type="module" src="js/creatures/registerCreature.js"></script>
     <script type="module" src="js/creatures/creatureForm.js"></script>
+
+    <!-- paginación -->
+    <script type="module" src="js/paginateData.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

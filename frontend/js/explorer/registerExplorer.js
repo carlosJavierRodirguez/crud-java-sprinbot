@@ -12,14 +12,14 @@ function validateExplorerForm() {
     const imagen = document.getElementById("txtImagen").value.trim();
 
     // Validar el campo Nombre
-    if (!/^[a-zA-Z\s]+$/.test(nombre)) {
-        alertas("error", "Error en el formulario", "El nombre solo puede contener letras y espacios.");
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre)) {
+        alertas("error", "Error en el formulario", "El nombre solo puede contener letras, espacios, y caracteres especiales como la 'ñ'.");
         return false;
     }
 
     // Validar el campo Nacionalidad
-    if (!/^[a-zA-Z\s]+$/.test(nacionalidad)) {
-        alertas("error", "Error en el formulario", "La nacionalidad solo puede contener letras y espacios.");
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nacionalidad)) {
+        alertas("error", "Error en el formulario", "La nacionalidad solo puede contener letras, espacios, y caracteres especiales como la 'ñ'.");
         return false;
     }
 
