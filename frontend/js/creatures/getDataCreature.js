@@ -15,7 +15,7 @@ export async function getAllCreatures() {
         }
 
         const data = await response.json();
-
+        creatureIndex(data);
         paginateData({
             data,
             containerId: "containerCreatures",
@@ -28,9 +28,66 @@ export async function getAllCreatures() {
         console.error("Error al obtener las criaturas:", error);
     }
 }
+function creatureIndex(creatures) {
+    const carouselContainer = document.getElementById("carouselCreatures");
+
+    if (!carouselContainer) {
+        console.warn("No se encontró el contenedor del carrusel 'carouselCreatures'.");
+        return;
+    }
+
+    carouselContainer.innerHTML = "";
+
+    creatures.forEach(creature => {
+        const creatureCard = `
+           <div class="text-center pb-4">
+    <img 
+        class="img-fluid mx-auto rounded border border-3 border-primary shadow" 
+        src="${creature.imageCreature}" 
+        alt="${creature.name}" 
+        style="width: 100px; height: 100px; object-fit: cover;">
+    
+    <div class="testimonial-text bg-white rounded-4 p-4 shadow mt-n4">
+        <h5 class="text-truncate text-primary fw-bold mb-2">${creature.name}</h5>
+        <p class="mb-1"><strong>Tipo:</strong> ${creature.type}</p>
+        <p class="mb-1"><strong>Peligro:</strong> ${creature.danger}</p>
+        <p class="mb-0"><strong>Mitología:</strong> ${creature.mythology?.name || "Desconocida"}</p>
+    </div>
+</div>
+
+        `;
+        carouselContainer.insertAdjacentHTML("beforeend", creatureCard);
+    });
+
+    // Destruye cualquier carrusel anterior si ya está inicializado
+    if ($('.owl-carousel').hasClass('owl-loaded')) {
+        $('.owl-carousel').trigger('destroy.owl.carousel').removeClass('owl-loaded');
+        $('.owl-carousel').find('.owl-stage-outer').children().unwrap();
+    }
+
+    // Inicializa el carrusel
+    $(".testimonial-carousel").owlCarousel({
+        autoplay: true,
+        smartSpeed: 1000,
+        center: true,
+        margin: 24,
+        dots: true, // 👈 activa los puntitos
+        loop: true,
+        nav: false, // 👈 oculta flechas
+        responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            992: { items: 3 }
+        }
+    });
+
+
+}
+
+
 
 // Función para uso interno de paginación
-function renderCreatureCard(creature) {
+export function renderCreatureCard(creature) {
     const card = document.createElement("div");
     card.classList.add("col-lg-4", "col-md-6", "mb-4");
 
@@ -82,6 +139,12 @@ export function showCreature(creatures, containerId) {
 // Ejecutamos al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("containerCreatures")) {
+        getAllCreatures();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("carouselCreatures")) {
         getAllCreatures();
     }
 });

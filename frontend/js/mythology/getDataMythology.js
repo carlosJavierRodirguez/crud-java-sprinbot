@@ -17,7 +17,6 @@ export async function getAllMythology() {
         }
 
         let data = await response.json();
-        console.log("Datos obtenidos del backend:", data);
 
         paginateData({
             data,
