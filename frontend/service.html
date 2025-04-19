@@ -134,7 +134,7 @@
             </div>
 
         </div>
-        <ul id="paginationContainer" class="pagination justify-content-end mt-3"></ul>
+        <ul id="paginationMythology" class="pagination justify-content-end mt-3"></ul>
 
         <div class="row" id="containerMythology">
             <!-- Aquí se mostrarán las tarjetas de mitología -->
@@ -157,9 +157,11 @@
 
             <!-- Botón para abrir el modal -->
             <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreature">
-                    <i class="fa-solid fa-plus"></i> Agregar Criatura
-                </button>
+                <button type="button" class="btn btn-primary" onclick="configureCreatureForm('register')"
+                    data-bs-toggle="modal" data-bs-target="#modalCreature"> <i class="fa-solid fa-plus"></i> Agregar
+                    Criatura</button>
+
+
             </div>
 
             <!-- Buscador y botones (derecha) -->
@@ -304,51 +306,6 @@
         </div>
     </div>
 
-    <!-- Modal para modificar criaturas o agregarlas -->
-    <div class="modal fade" id="modalCreature" tabindex="-1" aria-labelledby="modalCreatureTitle" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCreatureTitle">Registrar Criatura</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Formulario de la criatura -->
-                    <form>
-                        <input type="hidden" id="txtCreatureId">
-                        <div class="mb-3">
-                            <label for="txtCreatureName" class="form-label">Nombre</label>
-                            <input type="text" id="txtCreatureName" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtCreatureType" class="form-label">Tipo</label>
-                            <input type="text" id="txtCreatureType" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtCreatureDanger" class="form-label">Nivel de Peligro</label>
-                            <input type="text" id="txtCreatureDanger" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtCreatureMythology" class="form-label">Mitología</label>
-                            <select id="txtCreatureMythology" class="form-select">
-                                <!-- Las opciones se llenarán dinámicamente -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtCreatureImage" class="form-label">URL de la Imagen</label>
-                            <input type="text" id="txtCreatureImage" class="form-control" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="saveCreature">Registrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--End Modal de Bootstrap -->
     <!-- Footer Start -->
     <div class="modal fade" id="modalCreature" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-hidden="true">

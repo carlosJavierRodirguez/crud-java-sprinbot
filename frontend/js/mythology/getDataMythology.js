@@ -22,7 +22,7 @@ export async function getAllMythology() {
         paginateData({
             data,
             containerId: "containerMythology",
-            paginationId: "paginationContainer",
+            paginationId: "paginationMythology",
             renderItemFn: (mythology) => renderMythologyCard(mythology), // 🔥 ahora retorna el nodo
             itemsPerPage: 6
         });
@@ -30,16 +30,7 @@ export async function getAllMythology() {
         console.error("Error al obtener las mitologías:", error);
     }
 }
-export function showMythology(mythologies, containerId) {
-    let contenedor = document.getElementById(containerId);
-    contenedor.innerHTML = "";
-
-    mythologies.forEach(mythology => {
-        const card = renderMythologyCard(mythology);
-        contenedor.appendChild(card);
-    });
-}
-function renderMythologyCard(mythology) {
+export function renderMythologyCard(mythology) {
     const card = document.createElement("div");
     card.classList.add("col-lg-4", "col-md-6", "col-sm-12", "mb-4");
 

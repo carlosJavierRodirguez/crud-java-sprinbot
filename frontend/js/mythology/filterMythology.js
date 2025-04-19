@@ -1,8 +1,10 @@
-import { showMythology } from "./getDataMythology.js"; // Función para mostrar mitologías en el DOM
+// import { showMythology } from "./getDataMythology.js"; // Función para mostrar mitologías en el DOM
 import { getAllMythology } from "./getDataMythology.js"; // Función para obtener todas las mitologías
 import { clearInput } from "../input.js"; // Función para limpiar los inputs
 import { alertas } from "../alertas/alertas.js";
 import { urlApi } from "../urlApis.js";
+import { paginateData } from "../paginateData.js";
+import { renderMythologyCard } from "./getDataMythology.js";
 
 /**
  * Valida el valor ingresado en el filtro
@@ -93,8 +95,20 @@ async function fetchMythology() {
             return;
         }
 
-        // Si hay resultados, llamamos a la función showMythology para mostrarlos en el DOM
-        showMythology(data, "containerMythology");
+        // Limpiar el contenedor solo si existe
+        if (contenedor) contenedor.innerHTML = "";
+
+
+        // Si hay resultados, llamamos a la función para mostrarlos en el DOM
+        paginateData({
+            data,
+            containerId: "containerMythology",
+            paginationId: "paginationMythology",
+            renderItemFn: (item) => renderMythologyCard(item), //función para renderizar cada item
+            itemsPerPage: 6,
+        });
+
+
 
     } catch (error) {
         // Capturamos y mostramos cualquier error que ocurra durante el proceso

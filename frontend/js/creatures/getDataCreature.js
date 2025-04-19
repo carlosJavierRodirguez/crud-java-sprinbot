@@ -21,7 +21,7 @@ export async function getAllCreatures() {
             containerId: "containerCreatures",
             paginationId: "paginateCreatures",
             renderItemFn: (creature) => renderCreatureCard(creature),
-            itemsPerPage: 3, 
+            itemsPerPage: 3,
         });
 
     } catch (error) {

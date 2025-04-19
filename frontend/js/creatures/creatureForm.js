@@ -13,9 +13,14 @@ export async function configureCreatureForm(mode, creature = null) {
 
     // Carga las mitologías en el select
     await loadMythologies();
-
+    
+    // Establece la mitología seleccionada SOLO si estamos editando
     const mythologySelect = document.getElementById("txtCreatureMythology");
-    mythologySelect.value = creature?.mythologyId;
+    if (mode === "edit" && creature?.mythologyId) {
+        mythologySelect.value = creature.mythologyId;
+    } else {
+        mythologySelect.selectedIndex = 0; // O puedes poner un placeholder como "Selecciona una mitología"
+    }
 
     // Configura el título del modal
     const modalTitle = document.getElementById("modalCreatureTitle");

@@ -22,7 +22,7 @@ export async function getAllExplorer() {
         paginateData({
             data,
             containerId: "exploradoresContainer",
-            paginationId: "paginationContainer",
+            paginationId: "paginationExplorers",
             renderItemFn: renderExplorerCard,
             itemsPerPage: 4
         });
@@ -113,7 +113,7 @@ export function showExplorers(data, containerId) {
     paginateData({
         data,
         containerId,
-        paginationId: "paginationContainer",
+        paginationId: "paginationExplorers",
         renderItemFn: (explorador) => renderExplorerCard(explorador, containerId),
         itemsPerPage: 4
     });

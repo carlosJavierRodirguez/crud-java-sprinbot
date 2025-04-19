@@ -37,9 +37,6 @@ export async function loadMythologies() {
         // Obtenemos el elemento select del formulario
         const mythologySelect = document.getElementById("txtCreatureMythology");
 
-        // Limpiamos las opciones existentes
-        mythologySelect.innerHTML = "";
-
         // Iteramos sobre las mitologías y las agregamos como opciones
         mythologies.forEach(mythology => {
             const option = document.createElement("option");
