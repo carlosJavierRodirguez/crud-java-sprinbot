@@ -1,25 +1,59 @@
-import { loadMythologies } from "./updateCreature.js"; // Función para cargar mitologías
+import { loadMythologies } from "./updateCreature.js";
 import { saveUpdate } from "./updateCreature.js";
 import { saveCreature } from "./registerCreature.js";
 
-// Función para configurar el formulario dinámicamente
+/**
+ * Configura el formulario de criaturas según el modo (register o edit)
+ * @param {string} mode - 'register' o 'edit'
+ * @param {Object} creature - Datos de la criatura (opcional, solo para modo edit)
+ */
 export async function configureCreatureForm(mode, creature = null) {
+    console.log(`Configurando formulario en modo: ${mode}`);
+    console.log("Datos de la criatura:", creature);
+
     // Limpia los campos del formulario
     document.getElementById("txtCreatureName").value = creature?.name || "";
     document.getElementById("txtCreatureType").value = creature?.type || "";
     document.getElementById("txtCreatureDanger").value = creature?.danger || "";
     document.getElementById("txtCreatureImage").value = creature?.imageCreature || "";
-    document.getElementById("txtCreatureId").value = creature?.id || ""; // Solo se usa en modo edición
+
+    // El ID solo se usa en modo edición
+    const idField = document.getElementById("txtCreatureId");
+    idField.value = creature?.id || "";
 
     // Carga las mitologías en el select
-    await loadMythologies();
-    
-    // Establece la mitología seleccionada SOLO si estamos editando
     const mythologySelect = document.getElementById("txtCreatureMythology");
-    if (mode === "edit" && creature?.mythologyId) {
-        mythologySelect.value = creature.mythologyId;
-    } else {
-        mythologySelect.selectedIndex = 0; // O puedes poner un placeholder como "Selecciona una mitología"
+
+    // Limpia las opciones existentes antes de cargar nuevas
+    mythologySelect.innerHTML = '<option value="">Selecciona una mitología</option>';
+
+    // Carga las mitologías
+    const mythologies = await loadMythologies();
+
+    // Establece la mitología seleccionada si estamos en modo edición
+    if (mode === "edit" && creature?.mythology) {
+        console.log("Mitología a seleccionar:", creature.mythology);
+
+        // Busca si la mitología actual está en la lista y selecciónala
+        const options = mythologySelect.options;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value == creature.mythologyId ||
+                options[i].textContent === creature.mythology.name) {
+                mythologySelect.selectedIndex = i;
+                break;
+            }
+        }
+
+        // Si no se encontró la mitología en la lista, agrega una opción para ella
+        if (mythologySelect.selectedIndex === 0 && creature.mythology.name) {
+            const option = document.createElement("option");
+            option.value = creature.mythologyId;
+            option.textContent = creature.mythology.name;
+            mythologySelect.appendChild(option);
+
+            // Selecciona esta nueva opción
+            mythologySelect.value = creature.mythologyId;
+        }
     }
 
     // Configura el título del modal
@@ -28,17 +62,28 @@ export async function configureCreatureForm(mode, creature = null) {
 
     // Configura el botón de acción
     const actionButton = document.getElementById("saveCreature");
-    actionButton.onclick = null; // Limpia eventos previos
 
+    // Elimina eventos anteriores para evitar duplicaciones
+    actionButton.replaceWith(actionButton.cloneNode(true));
+
+    // Obtenemos la referencia al botón clonado
+    const newActionButton = document.getElementById("saveCreature");
+
+    // Configuramos el texto y la acción del botón según el modo
     if (mode === "edit") {
-        actionButton.textContent = "Guardar Cambios";
-        actionButton.onclick = () => saveUpdate(); // Asocia la función de actualizar
-    } else if (mode === "register") {
-        actionButton.textContent = "Registrar";
-        actionButton.onclick = () => saveCreature(); // Asocia la función de registrar
+        newActionButton.textContent = "Guardar Cambios";
+        newActionButton.addEventListener("click", saveUpdate);
+    } else {
+        newActionButton.textContent = "Registrar";
+        newActionButton.addEventListener("click", saveCreature);
     }
+}
 
-    // Muestra el modal
-    const creatureModal = new bootstrap.Modal(document.getElementById("modalCreature"));
-    creatureModal.show();
+// Exponemos una función específica para editar que también muestra el modal
+export async function openEditCreatureForm(creature) {
+    await configureCreatureForm("edit", creature);
+
+    // Mostramos el modal explícitamente
+    const modal = new bootstrap.Modal(document.getElementById("modalCreature"));
+    modal.show();
 }
