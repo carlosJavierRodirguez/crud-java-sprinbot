@@ -3,13 +3,15 @@ package com.example.explorer.DTO;
 public class LegendDTO {
 
     private int idLegend;
-    private int mythologyId;
+    private Integer mythologyId;
     private String story;
+    private String title; // Nuevo campo agregado
 
-    public LegendDTO(int idLegend, int mythologyId, String story) {
+    public LegendDTO(int idLegend, Integer mythologyId, String story, String title) {
         this.idLegend = idLegend;
         this.mythologyId = mythologyId;
         this.story = story;
+        this.title = title; // Inicialización del nuevo campo
     }
 
     public int getIdLegend() {
@@ -20,7 +22,7 @@ public class LegendDTO {
         this.idLegend = idLegend;
     }
 
-    public int getMythologyId() {
+    public Integer getMythologyId() {
         return mythologyId;
     }
 
@@ -34,5 +36,13 @@ public class LegendDTO {
 
     public void setStory(String story) {
         this.story = story;
+    }
+
+    public String getTitle() { // Getter para title
+        return title;
+    }
+
+    public void setTitle(String title) { // Setter para title
+        this.title = title;
     }
 }

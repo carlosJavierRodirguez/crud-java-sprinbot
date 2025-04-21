@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity(name = "legend")
@@ -22,7 +21,9 @@ public class Legend {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
-    @Lob
+    @Column(name = "title", nullable = false, length = 255)
+    private String title;
+
     @Column(name = "story", nullable = false, columnDefinition = "TEXT")
     private String story;
 
@@ -32,9 +33,10 @@ public class Legend {
     public Legend() {
     }
 
-    public Legend(int id_legend, Mythology mythology, String story, boolean status) {
+    public Legend(int id_legend, Mythology mythology, String title, String story, boolean status) {
         this.id_legend = id_legend;
         this.mythology = mythology;
+        this.title = title; // Asegúrate de que el campo title esté correctamente asignado
         this.story = story;
         this.status = status;
     }
@@ -69,5 +71,13 @@ public class Legend {
 
     public String getStory() {
         return story;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
