@@ -153,70 +153,41 @@
 
                 <!-- Botón para abrir el modal -->
                 <div>
-                    <button type="button" class="btn btn-primary" id="" data-bs-toggle="modal"
-                        data-bs-target="#"> <i class="fa-solid fa-plus"></i> Agregar
-                        Leyenda</button>
+                    <button type="button" class="btn btn-primary" id="btnAgregarLeyenda">
+                        <i class="fa-solid fa-plus"></i> Agregar Leyenda
+                    </button>
                 </div>
 
                 <!-- Buscador y botones (derecha) -->
                 <div style="padding: 30px; max-width: 400px; width: 100%;">
                     <div class="input-group">
                         <input type="text" class="form-control p-4 rounded" placeholder="Buscar Leyenda..."
-                            id="searchCreature">
+                            id="searchLegend">
 
                         <!-- Botón de búsqueda -->
                         <button type="button" class="input-group-text bg-primary text-white rounded"
-                            id="btnSearchCreature">
+                            id="btnSearchLegend">
                             <i class="fa fa-search"></i>
                         </button>
 
                         <!-- Botón de limpiar con espacio entre ellos -->
                         <button type="button" class="input-group-text bg-primary text-white ms-2 rounded"
-                            id="btnClearCreature">
+                            id="btnClearLegend">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </div>
                 </div>
 
             </div>
-            <div class="row g-4 justify-content-center">
-                <!-- Leyenda 1 -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary">Tyr y el lobo Fenrir</h5>
-                            <p class="card-text">Tyr, dios del valor, sacrificó su mano para encadenar al lobo gigante
-                                Fenrir, protegiendo así a los dioses del caos.</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Leyenda 2 -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary">La espada mágica de Freyr</h5>
-                            <p class="card-text">Freyr entregó su espada mágica por amor, pero eso le costó la victoria
-                                durante el Ragnarök.</p>
-                        </div>
-                    </div>
-                </div>
+            <ul id="paginateLegends" class="pagination justify-content-end"></ul>
+            <div class="row g-4 justify-content-center" id="containerLegends">
 
-                <!-- Leyenda 3 -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary">El puente Bifröst</h5>
-                            <p class="card-text">El puente arcoíris conecta el mundo de los dioses con el de los
-                                mortales, pero solo los dignos pueden cruzarlo.</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- aqui se mostrara las leyendas dinamicamente -->
+
             </div>
         </div>
     </div>
-
-
 
     <!-- Criaturas -->
     <div class="container-fluid">
@@ -265,6 +236,20 @@
     </div>
 
     <!-- Modal de Bootstrap -->
+    <!-- formulario de modal para insertar y actualizar leyendas -->
+    <div class="modal fade" id="leyendaModal" tabindex="-1" aria-labelledby="leyendaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="leyendaModalLabel">Registrar Leyenda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <!-- formuario generado dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- formulario para actulizar la mitologia -->
     <div class="modal fade" id="updateMythologyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -443,8 +428,13 @@
     <script type="module" src="js/creatures/main-creatures.js"></script>
     <script type="module" src="js/creatures/filterCreature.js"></script>
 
+    <!-- legendas -->
+    <script type="module" src="js/legend/getDataLegend.js"></script>
+    <script type="module" src="js/legend/leyendaForm.js"></script>
+    <script type="module" src="js/legend/filterLegend.js"></script>
+
     <!-- paginación -->
-    <script type="module" src="js/paginateData.js"></script>
+    <script type="module" src="js/generica/paginateData.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

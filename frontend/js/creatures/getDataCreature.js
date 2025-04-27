@@ -1,7 +1,7 @@
 import { openUpdateCreatureModal } from "./updateCreature.js";
 import { deleteCreature } from "./deleteCreature.js";
 import { urlApi } from "../urlApis.js";
-import { paginateData } from "../paginateData.js";
+import { paginateData } from "../generica/paginateData.js";
 
 export async function getAllCreatures() {
     try {
@@ -32,7 +32,7 @@ function creatureIndex(creatures) {
     const carouselContainer = document.getElementById("carouselCreatures");
 
     if (!carouselContainer) {
-        console.warn("No se encontró el contenedor del carrusel 'carouselCreatures'.");
+        console.log("No se encontró el contenedor del carrusel 'carouselCreatures'.");
         return;
     }
 

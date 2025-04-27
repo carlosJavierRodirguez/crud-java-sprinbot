@@ -29,7 +29,7 @@ public class legendController {
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 
-    // lista los datos de la tabla creature
+    // lista los datos de la tabla 
     @GetMapping("/")
     public ResponseEntity<Object> getAllLegend() {
         var listarLegend = legendService.findAll();

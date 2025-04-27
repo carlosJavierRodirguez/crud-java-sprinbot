@@ -1,7 +1,7 @@
 import { deleteExplorer } from "./deleteExplorer.js";
 import { openUpdateExplorerModal } from "./updateExplorer.js";
 import { urlApi } from "../urlApis.js";
-import { paginateData } from "../paginateData.js";
+import { paginateData } from "../generica/paginateData.js";
 
 // Función para obtener todos los exploradores desde el backend
 export async function getAllExplorer() {

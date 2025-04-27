@@ -3,7 +3,7 @@ import { getAllMythology } from "./getDataMythology.js"; // Función para obtene
 import { clearInput } from "../input.js"; // Función para limpiar los inputs
 import { alertas } from "../alertas/alertas.js";
 import { urlApi } from "../urlApis.js";
-import { paginateData } from "../paginateData.js";
+import { paginateData } from "../generica/paginateData.js";
 import { renderMythologyCard } from "./getDataMythology.js";
 
 /**

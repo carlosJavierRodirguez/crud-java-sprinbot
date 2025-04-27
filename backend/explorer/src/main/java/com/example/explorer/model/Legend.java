@@ -21,7 +21,7 @@ public class Legend {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
-    @Column(name = "title", nullable = false, length = 255)
+    @Column(name = "title", nullable = false, length = 45)
     private String title;
 
     @Column(name = "story", nullable = false, columnDefinition = "TEXT")

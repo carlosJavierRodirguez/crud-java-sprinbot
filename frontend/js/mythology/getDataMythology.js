@@ -1,7 +1,7 @@
 import { openUpdateMythologyModal } from "./updateMythology.js";
 import { deleteMythology } from "./deleteMythology.js";
 import { urlApi } from "../urlApis.js";
-import { paginateData } from "../paginateData.js";
+import { paginateData } from "../generica/paginateData.js";
 
 export async function getAllMythology() {
     try {
@@ -25,8 +25,11 @@ export async function getAllMythology() {
             renderItemFn: (mythology) => renderMythologyCard(mythology), // 🔥 ahora retorna el nodo
             itemsPerPage: 6
         });
+
+        return data;
     } catch (error) {
         console.error("Error al obtener las mitologías:", error);
+        return [];
     }
 }
 export function renderMythologyCard(mythology) {

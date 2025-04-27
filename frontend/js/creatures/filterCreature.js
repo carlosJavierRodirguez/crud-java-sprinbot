@@ -3,7 +3,7 @@ import { alertas } from "../alertas/alertas.js";
 import { clearInput } from "../input.js";
 import { getAllCreatures } from "./getDataCreature.js";
 import { renderCreatureCard } from "./getDataCreature.js"; // Asegúrate de tener esta función para renderizar criaturas
-import { paginateData } from "../paginateData.js";
+import { paginateData } from "../generica/paginateData.js";
 
 /**
  * Valida el valor ingresado en el filtro
