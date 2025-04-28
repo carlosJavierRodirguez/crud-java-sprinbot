@@ -33,7 +33,7 @@ public class God {
     public God() {
     }
 
-    public God(int id_god, String name, String domain, Mythology mythology, String image_god, boolean status) {
+    public God(int id_god, String name, Mythology mythology, String image_god, boolean status) {
         this.id_god = id_god;
         this.name = name;
         this.mythology = mythology;

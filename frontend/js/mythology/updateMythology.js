@@ -81,6 +81,12 @@ async function saveUpdate() {
 }
 
 // Asociamos el evento al botón "Guardar cambios"
-document.getElementById("saveMythologyChanges").addEventListener("click", () => {
-    saveUpdate(); // Llamamos a la función para guardar los cambios
-});
+const saveButton = document.getElementById("saveMythologyChanges");
+
+if (saveButton) {
+    saveButton.addEventListener("click", () => {
+        saveUpdate(); // Llamamos a la función para guardar los cambios
+    });
+} else {
+    // console.error("El botón 'saveMythologyChanges' no se encuentra en el DOM.");
+}

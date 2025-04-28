@@ -1,17 +1,16 @@
 package com.example.explorer.DTO;
 
-
 public class GodDTO {
 
     private int idGod;
     private String name;
-    private String domain;
-    private int mythologyId;
+    private Integer mythologyId;
+    private String imageGod;
 
-    public GodDTO(int idGod, String name, String domain, int mythologyId) {
+    public GodDTO(int idGod, String name, String imageGod, Integer mythologyId) {
         this.idGod = idGod;
         this.name = name;
-        this.domain = domain;
+        this.imageGod = imageGod;
         this.mythologyId = mythologyId;
     }
 
@@ -31,19 +30,19 @@ public class GodDTO {
         this.name = name;
     }
 
-    public String getDomain() {
-        return domain;
+    public String getImageGod() {
+        return imageGod;
     }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
+    public void setImageGod(String imageGod) {
+        this.imageGod = imageGod;
     }
 
-    public int getMythologyId() {
+    public Integer getMythologyId() {
         return mythologyId;
     }
 
-    public void setMythologyId(int mythologyId) {
+    public void setMythologyId(Integer mythologyId) {
         this.mythologyId = mythologyId;
     }
 }

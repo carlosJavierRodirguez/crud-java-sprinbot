@@ -22,7 +22,6 @@ public class corsConfig {
         // permitir solicitudes con estos metodos HTTP
         config.addAllowedMethod("GET");
         config.addAllowedMethod("POST");
-        config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
 
         // permitir el envio de ciertos encabezados en las solicitudes
