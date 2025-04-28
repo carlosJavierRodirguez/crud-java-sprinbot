@@ -86,9 +86,6 @@ export function renderGodCard(god) {
     return card;
 }
 
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
 
     fetchWithPagination({

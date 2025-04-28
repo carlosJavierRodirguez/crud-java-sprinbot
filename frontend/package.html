@@ -98,24 +98,23 @@
     <!-- Localizaciones misticas Start -->
     <div class="container-fluid py-1">
         <div class="container pt-5 pb-3">
-            <div class="text-center mb-3 pb-3">
-                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">localizaciones </h6>
-                <h1>Misticas interezantes</h1>
+            <div class="text-center mb-4 pt-5">
+                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Localizaciones</h6>
+                <h1 class="text-uppercase">Místicas e Interesantes</h1>
             </div>
 
             <div class="mb-3 d-flex justify-content-between align-items-center">
-
                 <!-- Botón para abrir el modal -->
                 <div>
                     <button type="button" class="btn btn-primary" id="btnAgregarlocalizacion">
-                        <i class="fa-solid fa-plus"></i> Agregar localización
+                        <i class="fa-solid fa-plus"></i> Agregar Localización
                     </button>
                 </div>
 
                 <!-- Buscador y botones (derecha) -->
                 <div style="padding: 30px; max-width: 400px; width: 100%;">
                     <div class="input-group">
-                        <input type="text" class="form-control p-4 rounded" placeholder="Nombre localización..."
+                        <input type="text" class="form-control p-4 rounded" placeholder="Nombre Localización..."
                             id="searcLocalitation">
 
                         <!-- Botón de búsqueda -->
@@ -131,12 +130,12 @@
                         </button>
                     </div>
                 </div>
-
             </div>
 
             <ul id="paginateMysticasLocation" class="pagination justify-content-end"></ul>
-            <div class="row" id="containerMysticasLocation">
-                <!-- aquí se generara dinámicamente las localizaciones -->
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="containerMysticasLocation">
+                <!-- Aquí se generarán dinámicamente las localizaciones -->
             </div>
         </div>
     </div>
@@ -255,7 +254,6 @@
         </div>
     </div>
 
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
         <div class="row">
@@ -324,6 +322,8 @@
     <script type="module" src="js/artefacts/filterArtefact.js"></script>
 
     <!-- scrip localizaciones -->
+    <script type="module" src="js/mysticaLocalitation/getDataLocalitation.js"></script>
+    <script type="module" src="js/mysticaLocalitation/filterLocation.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

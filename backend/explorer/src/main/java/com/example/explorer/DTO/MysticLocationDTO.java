@@ -4,14 +4,14 @@ public class MysticLocationDTO {
 
     private int id;
     private String name;
-    private String region;
-    private String description;
+    private String coordinates;
+    private Integer mythologyId;
 
-    public MysticLocationDTO(int id, String name, String region, String description) {
+    public MysticLocationDTO(int id, String name, String coordinates, Integer mythologyId) {
         this.id = id;
         this.name = name;
-        this.region = region;
-        this.description = description;
+        this.coordinates = coordinates;
+        this.mythologyId = mythologyId;
     }
 
     public int getId() {
@@ -30,19 +30,20 @@ public class MysticLocationDTO {
         this.name = name;
     }
 
-    public String getRegion() {
-        return region;
+    public String getCoordinates() {
+        return coordinates;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getMythologyId() {
+        return mythologyId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMythologyId(Integer mythologyId) {
+        this.mythologyId = mythologyId;
     }
+
 }
