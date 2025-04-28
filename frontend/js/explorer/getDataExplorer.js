@@ -109,6 +109,7 @@ function renderExplorerCard(explorador, isTop = false) {
 
     return card;
 }
+
 export function showExplorers(data, containerId) {
     paginateData({
         data,

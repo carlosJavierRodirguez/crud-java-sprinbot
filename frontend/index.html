@@ -116,51 +116,24 @@
     </div>
     <!-- Carousel End -->
 
-    <!-- Destination Start -->
+    <!-- artefactos encontrados -->
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <div class="text-center mb-3 pb-3">
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Algunos Artefactos</h6>
                 <h1>Encontrados en el mundo</h1>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/destination-1.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/destination-2.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/destination-3.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/destination-4.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/destination-5.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/destination-6.jpg" alt="">
-                    </div>
-                </div>
+
+            <ul id="paginateArtefact" class="pagination justify-content-end"></ul>
+            <div class="row" id="containerArtefactIndex">
+                <!-- Aquí se mostrarán las tarjetas automáticamente -->
             </div>
         </div>
     </div>
-    <!-- Destination Start -->
+    <!-- artefactos encontrados -->
 
     <!-- Packages Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid">
         <div class="container pt-5 pb-3">
             <div class="text-center mb-3 pb-3">
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Encuentro</h6>
@@ -478,6 +451,8 @@
     <script type="module" src="js/explorer/getDataExplorer.js"></script>
     <!-- criaturas -->
     <script type="module" src="js/creatures/getDataCreature.js"></script>
+    <!-- artefactos -->
+    <script type="module" src="js/artefacts/getDataArtefact.js"></script>
 
     <!--Alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

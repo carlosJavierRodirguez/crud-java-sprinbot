@@ -24,18 +24,21 @@ public class Artifacts {
     @JoinColumn(name = "id_mythology", referencedColumnName = "id_mythology")
     private Mythology mythology;
 
+    @Column(name = "status", nullable = false, columnDefinition = "boolean default true ")
+    private boolean status;
+
     @Column(name = "image_artifact", nullable = false)
     private String image_artifact;
 
     public Artifacts() {
     }
 
-    public Artifacts(int id_artifact, String name, String power, Mythology mythology, String image_artifact,
-            boolean status) {
+    public Artifacts(int id_artifact, String name, Mythology mythology, String image_artifact, boolean status) {
         this.id_artifact = id_artifact;
         this.name = name;
         this.mythology = mythology;
         this.image_artifact = image_artifact;
+        this.status = status;
     }
 
     public void setId(int id_artifact) {
@@ -60,6 +63,14 @@ public class Artifacts {
 
     public Mythology getMythology() {
         return mythology;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setImageArtifact(String image_artifact) {

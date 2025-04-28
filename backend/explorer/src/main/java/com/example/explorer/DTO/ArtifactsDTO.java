@@ -4,13 +4,13 @@ public class ArtifactsDTO {
 
     private int idArtifact;
     private String name;
-    private String power;
-    private int mythologyId;
+    private Integer mythologyId;
+    private String imageArtifact;
 
-    public ArtifactsDTO(int idArtifact, String name, String power, int mythologyId) {
+    public ArtifactsDTO(int idArtifact, String name, String imageArtifact, Integer mythologyId) {
         this.idArtifact = idArtifact;
         this.name = name;
-        this.power = power;
+        this.imageArtifact = imageArtifact;
         this.mythologyId = mythologyId;
     }
 
@@ -30,19 +30,19 @@ public class ArtifactsDTO {
         this.name = name;
     }
 
-    public String getPower() {
-        return power;
-    }
-
-    public void setPower(String power) {
-        this.power = power;
-    }
-
-    public int getMythologyId() {
+    public Integer getMythologyId() {
         return mythologyId;
     }
 
-    public void setMythologyId(int mythologyId) {
+    public void setMythologyId(Integer mythologyId) {
         this.mythologyId = mythologyId;
+    }
+
+    public String getImageArtifact() {
+        return imageArtifact;
+    }
+
+    public void setImageArtifact(String imageArtifact) {
+        this.imageArtifact = imageArtifact;
     }
 }

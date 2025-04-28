@@ -70,8 +70,6 @@
                                 <a href="blog.html" class="dropdown-item">Blog Grid</a>
                                 <a href="single.html" class="dropdown-item">Blog Detail</a>
                                 <a href="destination.html" class="dropdown-item">Destination</a>
-                                <a href="guide.html" class="dropdown-item">Dioses y artefactos</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             </div>
                         </div>
                     </div>
@@ -86,155 +84,63 @@
     <div class="container-fluid page-header">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-                <h3 class="display-4 text-white text-uppercase">Packages</h3>
+                <h3 class="display-4 text-white text-uppercase">Dioses y artefactos</h3>
                 <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                    <p class="m-0 text-uppercase"><a class="text-white">Inicio</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                    <p class="m-0 text-uppercase">Packages</p>
+                    <p class="m-0 text-uppercase">Descubre el poder ancestral que forjó mundos y leyendas</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- Header End -->
 
-    <!-- Packages Start -->
+    <!-- Localizaciones misticas Start -->
     <div class="container-fluid py-1">
         <div class="container pt-5 pb-3">
             <div class="text-center mb-3 pb-3">
-                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Packages</h6>
-                <h1>Pefect Tour Packages</h1>
+                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">localizaciones </h6>
+                <h1>Misticas interezantes</h1>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-item bg-white mb-2">
-                        <img class="img-fluid" src="img/package-1.jpg" alt="">
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i
-                                        class="fa fa-map-marker-alt text-primary mr-2"></i>Thailand</small>
-                                <small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
-                                <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>2 Person</small>
-                            </div>
-                            <a class="h5 text-decoration-none" href="">Discover amazing places of the world with us</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
-                                    </h6>
-                                    <h5 class="m-0">$350</h5>
-                                </div>
-                            </div>
-                        </div>
+
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+
+                <!-- Botón para abrir el modal -->
+                <div>
+                    <button type="button" class="btn btn-primary" id="btnAgregarlocalizacion">
+                        <i class="fa-solid fa-plus"></i> Agregar localización
+                    </button>
+                </div>
+
+                <!-- Buscador y botones (derecha) -->
+                <div style="padding: 30px; max-width: 400px; width: 100%;">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-4 rounded" placeholder="Nombre localización..."
+                            id="searcLocalitation">
+
+                        <!-- Botón de búsqueda -->
+                        <button type="button" class="input-group-text bg-primary text-white rounded"
+                            id="btnSearcLocalitation">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                        <!-- Botón de limpiar con espacio entre ellos -->
+                        <button type="button" class="input-group-text bg-primary text-white ms-2 rounded"
+                            id="btnClearLocalitation">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-item bg-white mb-2">
-                        <img class="img-fluid" src="img/package-2.jpg" alt="">
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i
-                                        class="fa fa-map-marker-alt text-primary mr-2"></i>Thailand</small>
-                                <small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
-                                <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>2 Person</small>
-                            </div>
-                            <a class="h5 text-decoration-none" href="">Discover amazing places of the world with us</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
-                                    </h6>
-                                    <h5 class="m-0">$350</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-item bg-white mb-2">
-                        <img class="img-fluid" src="img/package-3.jpg" alt="">
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i
-                                        class="fa fa-map-marker-alt text-primary mr-2"></i>Thailand</small>
-                                <small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
-                                <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>2 Person</small>
-                            </div>
-                            <a class="h5 text-decoration-none" href="">Discover amazing places of the world with us</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
-                                    </h6>
-                                    <h5 class="m-0">$350</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-item bg-white mb-2">
-                        <img class="img-fluid" src="img/package-4.jpg" alt="">
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i
-                                        class="fa fa-map-marker-alt text-primary mr-2"></i>Thailand</small>
-                                <small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
-                                <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>2 Person</small>
-                            </div>
-                            <a class="h5 text-decoration-none" href="">Discover amazing places of the world with us</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
-                                    </h6>
-                                    <h5 class="m-0">$350</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-item bg-white mb-2">
-                        <img class="img-fluid" src="img/package-5.jpg" alt="">
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i
-                                        class="fa fa-map-marker-alt text-primary mr-2"></i>Thailand</small>
-                                <small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
-                                <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>2 Person</small>
-                            </div>
-                            <a class="h5 text-decoration-none" href="">Discover amazing places of the world with us</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
-                                    </h6>
-                                    <h5 class="m-0">$350</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="package-item bg-white mb-2">
-                        <img class="img-fluid" src="img/package-6.jpg" alt="">
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between mb-3">
-                                <small class="m-0"><i
-                                        class="fa fa-map-marker-alt text-primary mr-2"></i>Thailand</small>
-                                <small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
-                                <small class="m-0"><i class="fa fa-user text-primary mr-2"></i>2 Person</small>
-                            </div>
-                            <a class="h5 text-decoration-none" href="">Discover amazing places of the world with us</a>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small>
-                                    </h6>
-                                    <h5 class="m-0">$350</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+            </div>
+
+            <ul id="paginateMysticasLocation" class="pagination justify-content-end"></ul>
+            <div class="row" id="containerMysticasLocation">
+                <!-- aquí se generara dinámicamente las localizaciones -->
             </div>
         </div>
     </div>
-    <!-- Packages End -->
+    <!-- Localizaciones misticas End -->
 
 
     <!-- container de Dioses -->
@@ -293,8 +199,6 @@
                 <h1>Descubiertos en el mundo</h1>
             </div>
 
-
-
             <div class="mb-3 d-flex justify-content-between align-items-center">
 
                 <!-- Botón para abrir el modal -->
@@ -325,10 +229,11 @@
                 </div>
 
             </div>
+
             <ul id="paginateArtefact" class="pagination justify-content-end"></ul>
             <div class="row" id="containerArtefact">
 
-                <!-- Aquí se generarán dinámicamente las tarjetas de los dioses -->
+                <!-- Aquí se generarán dinámicamente las tarjetas de los artefactos -->
 
             </div>
         </div>
@@ -415,7 +320,10 @@
     <script type="module" src="js/god/filterGod.js"></script>
 
     <!-- Scripts de artefactos -->
-     
+    <script type="module" src="js/artefacts/getDataArtefact.js"></script>
+    <script type="module" src="js/artefacts/filterArtefact.js"></script>
+
+    <!-- scrip localizaciones -->
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

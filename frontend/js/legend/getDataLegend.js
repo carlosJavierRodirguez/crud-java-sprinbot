@@ -2,6 +2,7 @@ import { deleteResource } from "../generica/eliminarDato.js";
 import { fetchWithPagination } from "../generica/obtenerDatos.js";
 import { urlApi } from "../urlApis.js";
 import { renderLeyendaForm } from "./leyendaForm.js";
+import { alertas } from "../alertas/alertas.js";
 
 
 export const reloadLegends = () => {
