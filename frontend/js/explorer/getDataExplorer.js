@@ -26,9 +26,10 @@ export async function getAllExplorer() {
             renderItemFn: renderExplorerCard,
             itemsPerPage: 4
         });
-
+        return data;
     } catch (error) {
         console.error("Error al obtener los exploradores:", error);
+        return [];
     }
 }
 

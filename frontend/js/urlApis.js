@@ -6,5 +6,6 @@ export const urlApi = {
     urlGods: "http://localhost:8085/api/v1/god/",
     urlArtefacts: "http://localhost:8085/api/v1/artifacts/",
     urlMysticLocation: "http://localhost:8085/api/v1/mysticLocation/",
+    urlLanguages: "http://localhost:8085/api/v1/languages/",
 };
 
