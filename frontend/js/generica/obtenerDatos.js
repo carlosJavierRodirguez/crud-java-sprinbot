@@ -36,3 +36,29 @@ export async function fetchWithPagination({ url, containerId, paginationId, rend
         console.error("Error al obtener los datos:", error);
     }
 }
+
+/**
+ * Función genérica para obtener datos sin renderizar ni paginar.
+ * @param {string} url - URL del endpoint de la API.
+ * @returns {Promise<any>} - Los datos obtenidos o [] en caso de error.
+ */
+export async function fetchDataSimple(url) {
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+        return [];
+    }
+}

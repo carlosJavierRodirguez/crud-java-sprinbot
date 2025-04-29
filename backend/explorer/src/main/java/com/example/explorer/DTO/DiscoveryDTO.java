@@ -5,11 +5,11 @@ import java.time.LocalDate;
 public class DiscoveryDTO {
 
     private int id;
-    private int explorerId;
-    private int locationId;
+    private Integer explorerId;
+    private Integer locationId;
     private LocalDate date;
 
-    public DiscoveryDTO(int id, int explorerId, int locationId, LocalDate date) {
+    public DiscoveryDTO(int id, Integer explorerId, Integer locationId, LocalDate date) {
         this.id = id;
         this.explorerId = explorerId;
         this.locationId = locationId;
@@ -20,19 +20,19 @@ public class DiscoveryDTO {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getExplorerId() {
+    public Integer getExplorerId() {
         return explorerId;
     }
 
-    public void setExplorerId(int explorerId) {
+    public void setExplorerId(Integer explorerId) {
         this.explorerId = explorerId;
     }
 
-    public int getLocationId() {
+    public Integer getLocationId() {
         return locationId;
     }
 

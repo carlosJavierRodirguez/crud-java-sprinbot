@@ -7,5 +7,6 @@ export const urlApi = {
     urlArtefacts: "http://localhost:8085/api/v1/artifacts/",
     urlMysticLocation: "http://localhost:8085/api/v1/mysticLocation/",
     urlLanguages: "http://localhost:8085/api/v1/languages/",
+    urlDiscovery: "http://localhost:8085/api/v1/discovery/",
 };
 
