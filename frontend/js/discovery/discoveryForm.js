@@ -28,9 +28,11 @@ export async function renderDiscoveryForm(data = null) {
     const locationOptions = `<option disabled ${!data ? "selected" : ""}>Selecciona una ubicación</option>` +
         locations
             .sort((a, b) => a.name.localeCompare(b.name))
-            .map(l => `<option value="${l.id_location}" ${l.id_location === data?.locationId ? "selected" : ""}>${l.name}</option>`)
+            .map(l => `<option value="${l.id}" ${l.id === data?.id ? "selected" : ""}>${l.name}</option>`)
+
             .join("");
 
+    //console.log(data);
     // HTML del formulario
     const formHtml = `
         <form id="discoveryForm">
@@ -45,7 +47,7 @@ export async function renderDiscoveryForm(data = null) {
             </div>
             <div class="mb-3">
                 <label for="inputDate" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="inputDate" value="${data?.date || ""}">
+                <input type="date" class="form-control" id="inputDate" value="${data?.discoveryDate || ""}">
             </div>
             <button type="submit" class="btn btn-primary">${data ? "Actualizar" : "Guardar"}</button>
         </form>
@@ -67,9 +69,9 @@ export async function renderDiscoveryForm(data = null) {
 
         // Obtener los datos del formulario
         const discoveryData = {
-            date: document.getElementById("inputDate").value, // Valor de la fecha
             explorerId: parseInt(document.getElementById("selectExplorer").value), // Valor del explorador
-            locationId: parseInt(document.getElementById("selectLocation").value) // Valor de la ubicación
+            locationId: parseInt(document.getElementById("selectLocation").value), // Valor de la ubicación
+            date: document.getElementById("inputDate").value, // Valor de la fecha
         };
 
         // Si estamos editando, agregar el id al objeto
@@ -77,7 +79,7 @@ export async function renderDiscoveryForm(data = null) {
             discoveryData.id = data.id;
         }
 
-        console.log(discoveryData);  // Verifica que los datos sean correctos antes de enviar
+        //console.log(discoveryData);  // Verifica que los datos sean correctos antes de enviar
 
         // Enviar los datos para actualizar o guardar
         await insertarDatos(

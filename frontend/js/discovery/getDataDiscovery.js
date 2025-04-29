@@ -44,7 +44,7 @@ export function renderDiscoveryCard(discovery) {
             </li>
             <li class="text-muted small">
                 <i class="fa-solid fa-magnifying-glass text-success me-2"></i>
-                Fecha de descubrimiento: ${discovery.date || "No disponible"}
+                Fecha de descubrimiento: ${discovery?.date || "No disponible"}
             </li>
             <li class="text-muted small">
                 <i class="fa-solid fa-hat-wizard text-info me-2"></i>
@@ -64,12 +64,13 @@ export function renderDiscoveryCard(discovery) {
     card.querySelector(".btn-edit").addEventListener("click", async (event) => {
         try {
             const adaptedDiscovery = {
-                discoveryDate: discovery.date,
                 id: discovery.id,
-                explorerId: discovery.explorer?.id_explorer || discovery.explorerId,
-                locationId: discovery.mysticLocation.id
+                explorerId: discovery.explorer.id_explorer,
+                locationId: discovery.mysticLocation.id,
+                discoveryDate: discovery.date,
             };
-            console.log(adaptedDiscovery);
+
+            console.log(discovery.explorer.id_explorer);
             renderDiscoveryForm(adaptedDiscovery);
         } catch (error) {
             alertas("error", "Error al cargar el descubrimiento", error.message);
