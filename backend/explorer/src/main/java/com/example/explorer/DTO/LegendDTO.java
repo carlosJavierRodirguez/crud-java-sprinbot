@@ -5,13 +5,13 @@ public class LegendDTO {
     private int idLegend;
     private Integer mythologyId;
     private String story;
-    private String title; // Nuevo campo agregado
+    private String title; 
 
     public LegendDTO(int idLegend, Integer mythologyId, String story, String title) {
         this.idLegend = idLegend;
         this.mythologyId = mythologyId;
         this.story = story;
-        this.title = title; // Inicialización del nuevo campo
+        this.title = title; 
     }
 
     public int getIdLegend() {

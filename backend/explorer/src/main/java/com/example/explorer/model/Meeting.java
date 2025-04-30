@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,11 +14,14 @@ import jakarta.persistence.ManyToOne;
 public class Meeting {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_Meeting")
+    private int id_Meeting;
+
     @ManyToOne
     @JoinColumn(name = "id_explorer", nullable = false, referencedColumnName = "id_explorer")
     private Explorer explorer;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "id_creature", nullable = false, referencedColumnName = "id_creature")
     private Creature creature;
@@ -27,10 +32,19 @@ public class Meeting {
     public Meeting() {
     }
 
-    public Meeting(Explorer explorer, Creature creature, LocalDate date_meeting) {
+    public Meeting(int id_Meeting, Explorer explorer, Creature creature, LocalDate date_meeting) {
+        this.id_Meeting = id_Meeting;
         this.explorer = explorer;
         this.creature = creature;
         this.date_meeting = date_meeting;
+    }
+
+    public int getId_Meeting() {
+        return id_Meeting;
+    }
+
+    public void setId_Meeting(int id_Meeting) {
+        this.id_Meeting = id_Meeting;
     }
 
     public Explorer getExplorer() {
