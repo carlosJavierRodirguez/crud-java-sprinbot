@@ -3,23 +3,23 @@ package com.example.explorer.DTO;
 import java.time.LocalDate;
 
 public class MeetingDTO {
-    private int id_Meeting;
+    private Integer id_Meeting;
     private Integer id_explorer;
     private Integer id_creature;
     private LocalDate date_meeting;
 
-    public MeetingDTO(int id_Meeting, Integer id_explorer, Integer id_creature, LocalDate date_meeting) {
+    public MeetingDTO(Integer id_Meeting, Integer id_explorer, Integer id_creature, LocalDate date_meeting) {
         this.id_Meeting = id_Meeting;
         this.id_explorer = id_explorer;
         this.id_creature = id_creature;
         this.date_meeting = date_meeting;
     }
 
-    public int getId_Meeting() {
+    public Integer getId_Meeting() {
         return id_Meeting;
     }
 
-    public void setId_Meeting(int id_Meeting) {
+    public void setId_Meeting(Integer id_Meeting) {
         this.id_Meeting = id_Meeting;
     }
 

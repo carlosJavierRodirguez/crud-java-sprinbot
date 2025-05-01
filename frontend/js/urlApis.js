@@ -8,5 +8,6 @@ export const urlApi = {
     urlMysticLocation: "http://localhost:8085/api/v1/mysticLocation/",
     urlLanguages: "http://localhost:8085/api/v1/languages/",
     urlDiscovery: "http://localhost:8085/api/v1/discovery/",
+    urlMeeting: "http://localhost:8085/api/v1/meeting/",
 };
 

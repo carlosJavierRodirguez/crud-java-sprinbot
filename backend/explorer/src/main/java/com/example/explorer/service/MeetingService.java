@@ -30,7 +30,7 @@ public class MeetingService {
         return repository.getListMeeting();
     }
 
-    // listar por palabra clave en el nombre
+    // listar por palabra clave en el nombre del explorador
     public List<Meeting> filterForNameExplorer(String filter) {
         return repository.filterForNameExplorer(filter);
     }
@@ -49,50 +49,51 @@ public class MeetingService {
     }
 
     // registra y actualiza
-    public ResponseDTO save(MeetingDTO meetingDTO) {
+    public responseDTO save(MeetingDTO meetingDTO) {
         // Validar la fecha del encuentro
         if (meetingDTO.getDate_meeting() == null) {
-            return new ResponseDTO(
+            return new responseDTO(
                     HttpStatus.BAD_REQUEST.toString(),
                     "La fecha del encuentro no puede ser nula.");
         }
 
         // Validar ID del explorador
         if (meetingDTO.getId_explorer() == null || meetingDTO.getId_explorer() <= 0) {
-            return new ResponseDTO(
+            return new responseDTO(
                     HttpStatus.BAD_REQUEST.toString(),
                     "Debe seleccionar un explorador válido.");
         }
 
         // Validar ID de la criatura
         if (meetingDTO.getId_creature() == null || meetingDTO.getId_creature() <= 0) {
-            return new ResponseDTO(
+            return new responseDTO(
                     HttpStatus.BAD_REQUEST.toString(),
                     "Debe seleccionar una criatura válida.");
         }
 
-        if (existingMeeting.isPresent() && (meetingDTO.getId_Meeting() == null ||
-                !existingMeeting.get().getId_Meeting().equals(meetingDTO.getId_Meeting()))) {
-            return new ResponseDTO(
-                    HttpStatus.CONFLICT.toString(),
-                    "Ya existe un encuentro registrado con los mismos datos.");
+        boolean esActualizacion = false;
+        if (meetingDTO.getId_Meeting() != null && meetingDTO.getId_Meeting() > 0) {
+            Optional<Meeting> existente = repository.findById(meetingDTO.getId_Meeting());
+            esActualizacion = existente.isPresent();
         }
 
         // Convertir y guardar o actualizar
         Meeting meeting = convertToModel(meetingDTO);
         repository.save(meeting);
 
-        String mensaje = (meetingDTO.getId_Meeting() != null && meetingDTO.getId_Meeting() > 0)
+        String mensaje = esActualizacion
                 ? "El encuentro fue actualizado correctamente."
                 : "El encuentro fue guardado exitosamente.";
 
-        return new ResponseDTO(HttpStatus.OK.toString(), mensaje);
+        return new responseDTO(HttpStatus.OK.toString(), mensaje);
     }
 
     // Convertir de MeetingDTO a Meeting (Modelo)
     public Meeting convertToModel(MeetingDTO meetingDTO) {
         Explorer explorer = null;
         Creature creature = null;
+
+        int id = (meetingDTO.getId_Meeting() != null) ? meetingDTO.getId_Meeting() : 0;
 
         // Si el ID del explorador es válido, creamos un objeto Explorer con ese ID
         if (meetingDTO.getId_explorer() != null && meetingDTO.getId_explorer() > 0) {
@@ -108,11 +109,11 @@ public class MeetingService {
 
         // Retornamos el objeto Meeting con los datos del DTO
         return new Meeting(
-                meetingDTO.getId_Meeting(), // ID del encuentro
-                explorer, // Relación con el explorador
-                creature, // Relación con la criatura
-                meetingDTO.getDate_meeting() // Fecha del encuentro
-        );
+                id,
+                explorer,
+                creature,
+                meetingDTO.getDate_meeting());
+
     }
 
     // Convertir de Meeting (Modelo) a MeetingDTO
