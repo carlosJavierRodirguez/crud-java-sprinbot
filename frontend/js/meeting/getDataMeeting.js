@@ -1,28 +1,28 @@
 import { deleteResource } from "../generica/eliminarDato.js";
 import { fetchWithPagination } from "../generica/obtenerDatos.js";
 import { urlApi } from "../urlApis.js";
-//import { renderMysticLocationForm } from "./mysticLocationForm.js"; //
-//import { alertas } from "../alertas/alertas.js";
+import { renderMeetingForm } from "./meetingForm.js";
+import { alertas } from "../alertas/alertas.js";
 
 // Función para recargar las localizaciones místicas
 export const reloadMeeting = () => {
-    const container = document.getElementById("containerMeeting");
-    container.innerHTML = ""; // Limpia el contenedor
-    fetchWithPagination({
-        url: urlApi.urlMeeting,
-        containerId: "containerMeeting",
-        paginationId: "paginateMeeting",
-        renderItemFn: renderMeetingCard,
-        itemsPerPage: 3
-    });
+  const container = document.getElementById("containerMeeting");
+  container.innerHTML = ""; // Limpia el contenedor
+  fetchWithPagination({
+    url: urlApi.urlMeeting,
+    containerId: "containerMeeting",
+    paginationId: "paginateMeeting",
+    renderItemFn: renderMeetingCard,
+    itemsPerPage: 3
+  });
 };
 
 // Función para renderizar las tarjetas de 
 export function renderMeetingCard(meeting) {
-    const card = document.createElement("div");
-    card.classList.add("col-lg-4", "col-md-6", "mb-4");
+  const card = document.createElement("div");
+  card.classList.add("col-lg-4", "col-md-6", "mb-4");
 
-    card.innerHTML = `
+  card.innerHTML = `
     <div class="bg-white border rounded p-3 h-100 shadow">
       <div class="d-flex justify-content-end mb-2">
         <i class="fa-solid fa-pen-to-square text-warning mx-2 btn-edit" 
@@ -53,39 +53,40 @@ export function renderMeetingCard(meeting) {
 
 
 
-    // Evento eliminar
-    card.querySelector(".btn-delete").addEventListener("click", (event) => {
-        const id = event.currentTarget.getAttribute("data-id");
-        deleteResource(id, urlApi.urlMeeting, "Encuentro", reloadMeeting);
-    });
+  // Evento eliminar
+  card.querySelector(".btn-delete").addEventListener("click", (event) => {
+    const id = event.currentTarget.getAttribute("data-id");
+    deleteResource(id, urlApi.urlMeeting, "Encuentro", reloadMeeting);
+  });
 
-    // Evento editar (descomentado si quieres usarlo)
-    // card.querySelector(".btn-edit").addEventListener("click", async (event) => {
-    //     try {
-    //         const adaptedDiscovery = {
-    //             id: discovery.id,
-    //             explorerId: discovery.explorer.id_explorer,
-    //             locationId: discovery.mysticLocation.id,
-    //             discoveryDate: discovery.date,
-    //         };
+  // Evento editar
+  card.querySelector(".btn-edit").addEventListener("click", async (event) => {
+    try {
+      const adaptedMeeting = {
+        id_Meeting: meeting.id_Meeting,
+        explorerId: meeting.explorer.id_explorer,
+        creatureId: meeting.creature.id,
+        Date: meeting.date_meeting,
+      };
 
-    //         console.log(discovery.explorer.id_explorer);
-    //         renderDiscoveryForm(adaptedDiscovery);
-    //     } catch (error) {
-    //         alertas("error", "Error al cargar el descubrimiento", error.message);
-    //     }
-    // });
+      console.log(adaptedMeeting)
+      
+      renderMeetingForm(adaptedMeeting);
+    } catch (error) {
+      alertas("error", "Error al cargar el descubrimiento", error.message);
+    }
+  });
 
-    return card;
+  return card;
 }
 
 // Carga inicial de localizaciones al cargar el documento
 document.addEventListener("DOMContentLoaded", () => {
-    fetchWithPagination({
-        url: urlApi.urlMeeting,
-        containerId: "containerMeeting",
-        paginationId: "paginateMeeting",
-        renderItemFn: renderMeetingCard,
-        itemsPerPage: 3
-    });
+  fetchWithPagination({
+    url: urlApi.urlMeeting,
+    containerId: "containerMeeting",
+    paginationId: "paginateMeeting",
+    renderItemFn: renderMeetingCard,
+    itemsPerPage: 3
+  });
 });
