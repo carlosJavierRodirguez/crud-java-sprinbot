@@ -25,8 +25,6 @@ public class AncientLanguage {
     @Column(name = "writing_system", length = 100) // Sistema de escritura
     private String writingSystem;
 
-    // Relación con Explorer (en caso de que quieras asociar un explorador con un
-    // lenguaje)
     @ManyToOne
     @JoinColumn(name = "id_explorer", referencedColumnName = "id_explorer") // Relación de clave foránea
     private Explorer explorer;
