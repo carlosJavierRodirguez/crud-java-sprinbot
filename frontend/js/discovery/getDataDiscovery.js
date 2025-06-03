@@ -60,7 +60,7 @@ export function renderDiscoveryCard(discovery) {
         deleteResource(id, urlApi.urlDiscovery, "Descubrimiento", reloadDiscovery);
     });
 
-    // Evento editar (descomentado si quieres usarlo)
+    // Evento editar
     card.querySelector(".btn-edit").addEventListener("click", async (event) => {
         try {
             const adaptedDiscovery = {
