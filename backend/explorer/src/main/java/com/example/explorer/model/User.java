@@ -11,22 +11,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Id;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
-
-    @Column(name = "last-name", length = 100)
-    private String lastName;
+    @Column(name = "user-name", length = 100, nullable = false)
+    private String userName;
 
     @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
@@ -40,5 +44,15 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.getName()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
 
 }
