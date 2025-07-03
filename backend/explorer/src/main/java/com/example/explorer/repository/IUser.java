@@ -9,10 +9,10 @@ import com.example.explorer.model.User;
 
 public interface IUser extends JpaRepository<User, Integer> {
 
-    Optional<User> findByUserName(String userName);
+    Optional<User> findByUserName(String username);
 
     Optional<User> findByEmail(String email);
 
-    // List<User> findAllByEnabled(boolean enabled);
+    List<User> findAllByEnabled(boolean enabled);
 
 }

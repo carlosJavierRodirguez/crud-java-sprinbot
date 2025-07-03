@@ -1,5 +1,6 @@
 package com.example.explorer.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +28,6 @@ public class PermissionRole {
     @JoinColumn(name = "page_id")
     private Page page;
 
-    private boolean canRead;
-    private boolean canWrite;
-    private boolean canUpdate;
-    private boolean canDelete;
+    @Column(name = "type", nullable = false)
+    private String type;
 }

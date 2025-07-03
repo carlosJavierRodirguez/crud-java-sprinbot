@@ -1,7 +1,5 @@
 package com.example.explorer.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,14 +21,14 @@ public class RecoveryRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "email", length = 100, nullable = false)
+    private String email;
+
     @Column(nullable = false, unique = true)
     private String token;
 
-    @Column(nullable = false)
-    private boolean isUsed;
-
-    @Column(nullable = false)
-    private LocalDateTime expiresAt;
+    @Column(name = "expiration_time", nullable = false)
+    private long expirationTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
