@@ -16,7 +16,7 @@ import com.example.explorer.service.UserService;
 import com.example.explorer.DTO.responseDTO;
 
 @RestController
-@RequestMapping("/api/v1/user/")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("profile")
+    @GetMapping("/profile")
     public ResponseEntity<Object> profile(@AuthenticationPrincipal UserDetails userDetails) {
 
         return new ResponseEntity<Object>(userDetails, HttpStatus.OK);
