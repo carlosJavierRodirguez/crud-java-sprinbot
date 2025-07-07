@@ -7,7 +7,10 @@ import io.jsonwebtoken.security.Keys;
 
 import java.security.Key;
 import java.util.Base64;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.EnableAsync;
 
+@EnableScheduling
 @SpringBootApplication
 public class ExplorerApplication {
 
@@ -20,7 +23,7 @@ public class ExplorerApplication {
 		// Mostrar la clave generada
 		// byte[] keyBytes = key.getEncoded();
 		// System.out.println("Clave generada: " +
-		// 		Base64.getEncoder().encodeToString(keyBytes));
+		// Base64.getEncoder().encodeToString(keyBytes));
 	}
 
 }
