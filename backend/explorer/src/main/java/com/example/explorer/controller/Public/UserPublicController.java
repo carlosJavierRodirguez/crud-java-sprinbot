@@ -35,7 +35,7 @@ public class UserPublicController {
         return new ResponseEntity<ResponseLogin>(response, HttpStatus.OK);
     }
 
-    // @PostMapping("/forgot") // falta desarrollar
+    // @PostMapping("/forgot") 
     // public ResponseEntity<Object> forgot(@RequestBody UserDTO userDTO) {
     // responseDTO response = userService.save(userDTO);
     // return new ResponseEntity<>(response, HttpStatus.OK);

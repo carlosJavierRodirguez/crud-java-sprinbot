@@ -1,4 +1,4 @@
-package com.example.explorer.controller;
+package com.example.explorer.controller.Private;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.example.explorer.controller;
+package com.example.explorer.controller.Private;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
