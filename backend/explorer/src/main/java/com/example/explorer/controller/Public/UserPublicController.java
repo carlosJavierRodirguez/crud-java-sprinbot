@@ -19,6 +19,7 @@ import com.example.explorer.DTO.ResponseLogin;
 import com.example.explorer.DTO.responseDTO;
 import com.example.explorer.service.UserService;
 import com.example.explorer.DTO.ForgotPassword;
+import com.example.explorer.DTO.RecoveryCodeValidationDTO;
 import com.example.explorer.DTO.RequestLoginDTO;
 import com.example.explorer.service.RecoveryService;
 
@@ -43,6 +44,11 @@ public class UserPublicController {
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgot(@RequestBody ForgotPassword forgot) {
         return recoveryService.generateRecoveryCode(forgot.getUserName());
+    }
+
+    @PostMapping("/validate-code")
+    public ResponseEntity<?> validateCode(@RequestBody RecoveryCodeValidationDTO dto) {
+        return recoveryService.validateRecoveryCode(dto);
     }
 
     @PostMapping("/register")

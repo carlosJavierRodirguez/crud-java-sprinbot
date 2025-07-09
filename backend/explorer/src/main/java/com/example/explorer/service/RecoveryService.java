@@ -11,6 +11,7 @@ import com.example.explorer.repository.IUser;
 
 import lombok.RequiredArgsConstructor;
 
+import com.example.explorer.DTO.RecoveryCodeValidationDTO;
 import com.example.explorer.model.RecoveryRequest;
 import com.example.explorer.repository.IRecoveryRequest;
 import com.example.explorer.model.User;
@@ -50,6 +51,38 @@ public class RecoveryService {
         emailService.emailRecoveryPassword(user.getEmail(), user.getUsername(), code);
 
         return ResponseEntity.ok("Se ha enviado un código de verificación al correo.");
+    }
+
+    public ResponseEntity<?> validateRecoveryCode(RecoveryCodeValidationDTO dto) {
+        Optional<User> userOpt = userRepository.findByUserName(dto.getUserName());
+
+        if (!userOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado.");
+        }
+
+        User user = userOpt.get();
+
+        Optional<RecoveryRequest> requestOpt = recoveryRequestRepository
+                .findTopByUserOrderByCreatedAtDesc(user);
+
+        if (!requestOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró una solicitud de recuperación.");
+        }
+
+        RecoveryRequest request = requestOpt.get();
+
+        if (!request.getCode().equals(dto.getCode())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Código incorrecto.");
+        }
+
+        if (request.getExpirationTime().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.status(HttpStatus.GONE).body("El código ha expirado.");
+        }
+
+        // eliminamos el codigo verificado
+        recoveryRequestRepository.delete(request);
+
+        return ResponseEntity.ok("Código verificado correctamente.");
     }
 
 }
