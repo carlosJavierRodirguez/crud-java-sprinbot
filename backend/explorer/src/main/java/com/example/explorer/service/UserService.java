@@ -147,6 +147,8 @@ public class UserService {
         return ResponseEntity.ok(new responseDTO("Usuario actualizado correctamente", "200"));
     }
 
+    
+
     public User convertToModelRegister(RequestRegisterUserDTO usuario) {
         Role rol = new Role();
         // asignamos rol por defecto
