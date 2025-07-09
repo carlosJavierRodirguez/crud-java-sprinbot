@@ -23,10 +23,6 @@ import com.example.explorer.model.User;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Optional;
-
-import com.example.explorer.repository.IUser;
-
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
@@ -52,16 +48,13 @@ public class UserController {
         return new ResponseEntity<Object>(userDetails, HttpStatus.OK);
     }
 
-    // Actuliza los datos del usuario autenticado
     @PutMapping("/{id}")
     public ResponseEntity<?> updateDataUser(@PathVariable int id, @Valid @RequestBody UserDTO userDTO) {
 
         // Obtener el usuario autenticado desde el token JWT
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // Delegar al servicio toda la lógica
-        responseDTO response = userService.updateUser(id, userDTO, currentUser);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return userService.updateUser(id, userDTO, currentUser);
     }
 
     // Borra por id un usuario

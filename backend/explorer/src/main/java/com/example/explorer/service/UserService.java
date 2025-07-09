@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,6 @@ import com.example.explorer.repository.IRole;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final IUser data;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
@@ -74,67 +75,76 @@ public class UserService {
     }
 
     public ResponseLogin login(RequestLoginDTO login) {
+        // Autentica credenciales
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         login.getUserName(),
                         login.getPassword()));
-        UserDetails user = data.findByUserName(login.getUserName()).orElseThrow();
-        ResponseLogin response = new ResponseLogin(jwtService.getToken(user));
-        return response;
 
+        // Busca el usuario completo
+        User user = data.findByUserName(login.getUserName())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        // Genera el token con los claims personalizados
+        String token = jwtService.generateToken(user);
+
+        return new ResponseLogin(token);
     }
 
-    public responseDTO updateUser(int id, UserDTO userDTO, User currentUser) {
+    public ResponseEntity<?> updateUser(int id, UserDTO userDTO, User currentUser) {
+
         Optional<User> userOpt = userRepository.findById(id);
 
         if (currentUser.getRole().getId() != 2 && currentUser.getId() != id) {
-            return new responseDTO("No tienes permiso para modificar a otros usuarios",
-                    HttpStatus.FORBIDDEN.toString());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new responseDTO("No tienes permiso para modificar a otros usuarios", "403"));
         }
 
         if (!userOpt.isPresent()) {
-            return new responseDTO("El usuario no existe", HttpStatus.NOT_FOUND.toString());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new responseDTO("El usuario no existe", "404"));
         }
 
         User user = userOpt.get();
 
-        // Si el email cambia, verificar que no esté en uso por otro
         if (!user.getEmail().equals(userDTO.getEmail())) {
             Optional<User> existing = userRepository.findByEmail(userDTO.getEmail());
             if (existing.isPresent() && existing.get().getId() != user.getId()) {
-                return new responseDTO("El correo ya está en uso", HttpStatus.CONFLICT.toString());
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(new responseDTO("El correo ya está en uso", "409"));
             }
             user.setEmail(userDTO.getEmail());
         }
 
-        // Nombre de usuario
         if (userDTO.getUserName() != null && !userDTO.getUserName().isBlank()) {
             user.setUserName(userDTO.getUserName());
         }
 
-        // Estado
         user.setEnabled(userDTO.isEnabled());
 
-        // Solo el admin puede cambiar el rol
         if (currentUser.getRole().getId() == 2) {
             Optional<Role> roleOpt = roleRepository.findById(userDTO.getRole());
             if (!roleOpt.isPresent()) {
-                return new responseDTO("El rol no existe", HttpStatus.NOT_FOUND.toString());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new responseDTO("El rol no existe", "404"));
             }
             user.setRole(roleOpt.get());
-        } else {
-            // Si no es admin, se mantiene el mismo rol
-            user.setRole(user.getRole());
         }
 
-        // Cambiar contraseña si viene una nueva
         if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
             String encoded = passwordEncoder.encode(userDTO.getPassword());
             user.setPassword(encoded);
         }
 
         userRepository.save(user);
-        return new responseDTO("Usuario actualizado correctamente", HttpStatus.OK.toString());
+
+        // Si el usuario se está actualizando a sí mismo → nuevo token
+        if (currentUser.getId() == id) {
+            String newToken = jwtService.generateToken(user);
+            return ResponseEntity.ok(new ResponseLogin(newToken));
+        }
+
+        return ResponseEntity.ok(new responseDTO("Usuario actualizado correctamente", "200"));
     }
 
     public User convertToModelRegister(RequestRegisterUserDTO usuario) {
