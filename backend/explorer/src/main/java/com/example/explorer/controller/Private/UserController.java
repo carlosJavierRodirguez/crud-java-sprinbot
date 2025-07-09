@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +17,8 @@ import com.example.explorer.service.UserService;
 
 import jakarta.validation.Valid;
 
+import com.example.explorer.DTO.ChangePasswordDTO;
+import com.example.explorer.DTO.RoleDTO;
 import com.example.explorer.DTO.UserDTO;
 import com.example.explorer.DTO.responseDTO;
 import com.example.explorer.model.User;
@@ -68,6 +70,13 @@ public class UserController {
 
         responseDTO response = userService.deleteUser(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // actualiza contraseña
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO dto) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userService.changePassword(currentUser, dto);
     }
 
 }

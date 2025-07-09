@@ -17,6 +17,7 @@ import com.example.explorer.repository.IUser;
 
 import lombok.RequiredArgsConstructor;
 
+import com.example.explorer.DTO.ChangePasswordDTO;
 import com.example.explorer.DTO.RequestLoginDTO;
 import com.example.explorer.DTO.RequestRegisterUserDTO;
 import com.example.explorer.DTO.ResponseLogin;
@@ -147,7 +148,17 @@ public class UserService {
         return ResponseEntity.ok(new responseDTO("Usuario actualizado correctamente", "200"));
     }
 
-    
+    public ResponseEntity<?> changePassword(User currentUser, ChangePasswordDTO dto) {
+        if (dto.getNewPassword() == null || dto.getNewPassword().isBlank()) {
+            return ResponseEntity.badRequest().body("La nueva contraseña no puede estar vacía.");
+        }
+
+        String encodedPassword = passwordEncoder.encode(dto.getNewPassword());
+        currentUser.setPassword(encodedPassword);
+        userRepository.save(currentUser);
+
+        return ResponseEntity.ok("Contraseña actualizada correctamente.");
+    }
 
     public User convertToModelRegister(RequestRegisterUserDTO usuario) {
         Role rol = new Role();

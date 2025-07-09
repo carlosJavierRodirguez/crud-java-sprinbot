@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.explorer.repository.IUser;
+import com.example.explorer.service.JWT.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
 import com.example.explorer.DTO.RecoveryCodeValidationDTO;
+import com.example.explorer.DTO.ResponseLogin;
 import com.example.explorer.model.RecoveryRequest;
 import com.example.explorer.repository.IRecoveryRequest;
 import com.example.explorer.model.User;
@@ -25,6 +27,7 @@ public class RecoveryService {
     private final IUser userRepository;
     private final IRecoveryRequest recoveryRequestRepository;
     private final EmailService emailService;
+    private final JwtService jwtService;
 
     public ResponseEntity<?> generateRecoveryCode(String userName) {
 
@@ -76,13 +79,18 @@ public class RecoveryService {
         }
 
         if (request.getExpirationTime().isBefore(LocalDateTime.now())) {
+            // código expirado y se elimina de la db
+            recoveryRequestRepository.delete(request);
             return ResponseEntity.status(HttpStatus.GONE).body("El código ha expirado.");
         }
 
         // eliminamos el codigo verificado
         recoveryRequestRepository.delete(request);
 
-        return ResponseEntity.ok("Código verificado correctamente.");
+        // Generar nuevo token
+        String token = jwtService.generateToken(user);
+
+        return ResponseEntity.ok(new ResponseLogin(token));
     }
 
 }
