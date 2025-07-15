@@ -3,8 +3,13 @@ export interface IRequestLogin {
   password: string;
 
 }
+
 export interface IRequestRegister {
   userName: string;
   password: string;
-  email:string;
+  email: string;
+}
+
+export interface IRequestRecoverPassword {
+  userName: string;
 }

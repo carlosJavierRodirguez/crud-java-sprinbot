@@ -1,8 +1,15 @@
-import { USER_END_POINT, USER_PUBLIC_END_POINT } from "../constants/endPoinst";
+import { USER_END_POINT, USER_PUBLIC_END_POINT, FORGOT_PASSWORD_PUBLIC } from "../constants/endPoinst";
 import { getToken, setToken } from "./Token";
-import { IRequestLogin, IRequestRegister } from "./types/IUser";
+import { IRequestLogin, IRequestRegister, IRequestRecoverPassword } from "./types/IUser";
+import { validateLoginForm } from "../utils/validators";
 
 export const login = async (register: IRequestLogin) => {
+    const error = validateLoginForm(register);
+
+    if (error) {
+        return { error };
+    }
+
     try {
         const response = await fetch(`${USER_PUBLIC_END_POINT}login`, {
             method: "POST",
@@ -43,11 +50,9 @@ export const register = async (register: IRequestRegister) => {
             body: JSON.stringify(register),
         });
 
-        if (!response.ok) throw new Error("Error en el registro");
+        // if (!response.ok) throw new Error("Error en el registro");
 
         let data = await response.json();
-
-        console.log(data);
 
         return data;
 
@@ -77,3 +82,26 @@ export const getProfile = async () => {
         return error;
     }
 };
+
+export const recoverPassword = async (useName: IRequestRecoverPassword) => {
+    try {
+        const response = await fetch(`${FORGOT_PASSWORD_PUBLIC}forgot-password`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(useName),
+        });
+
+        if (!response.ok) throw new Error("Error al recuperar la contraseña");
+
+        let data = await response.json();
+
+        console.log(data);
+
+        return data;
+
+    } catch (error) {
+        return { error: "Error en la conexión" };
+    }
+}

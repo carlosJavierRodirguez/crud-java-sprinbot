@@ -13,14 +13,16 @@ import { getProfile, register } from "../api/UserApi";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../navigations/types";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { showToast } from "../utils/showToast";
 
 export default function RegisterScreen() {
+
     const [form, setForm] = useState<IRequestRegister>({
         userName: "",
         password: "",
         email: ""
     });
-    //
+
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     //Aquí se guarda el error
     const [error, setError] = useState<string | null>(null);
@@ -30,26 +32,30 @@ export default function RegisterScreen() {
     };
 
     const registerUser = async () => {
-        setError(null); // Limpiar error anterior
+        setError(null);
+
         if (!form.userName || !form.password || !form.email) {
-            let error = "Por favor completa todos los campos";
-            return setError(error); // mesaje de error;
+            return setError("Por favor completa todos los campos");
         }
 
         const response = await register(form);
 
-        if (response?.data?.token) {
-            Alert.alert("Éxito", "Sesión iniciada correctamente.");
+        if (response?.status === "200 OK") {
+
+            showToast("success", "Éxito", "Usuario registrado correctamente porfavor inicia sesión");
+            navigation.navigate("Login");
 
         } else if (response?.error) {
 
-            setError(response.error); // mesaje de error
+            showToast("error", "Error", response.error);
 
         } else {
-            setError("Error inesperado al iniciar sesión.");
-        }
 
+            showToast("error", "Error", "Error inesperado al registrar usuario");
+
+        }
     };
+
 
     const Profile = async () => {
         const response = await getProfile();
@@ -79,7 +85,9 @@ export default function RegisterScreen() {
 
                 {/* ya tiene una cuenta */}
                 <View style={styles.registerContainer}>
+
                     <Text style={styles.registerText}>Ya tiene una cuenta</Text>
+
                     <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                         <Text style={styles.registerLink}>Iniciar Sesión</Text>
                     </TouchableOpacity>

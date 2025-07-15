@@ -2,6 +2,9 @@ import React from "react";
 import { View, TextInput, StyleSheet, ScrollView, TouchableOpacity, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { IRequestLogin } from "../api/types/IUser";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../navigations/types";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface Props {
   form: IRequestLogin;
@@ -9,6 +12,9 @@ interface Props {
 }
 
 const LoginForm: React.FC<Props> = ({ form, handleChange }) => {
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
       {/* Usuario */}
@@ -37,9 +43,10 @@ const LoginForm: React.FC<Props> = ({ form, handleChange }) => {
       </View>
 
       {/* Enlace olvidó contraseña */}
-      <TouchableOpacity style={styles.forgotContainer}>
+      <TouchableOpacity style={styles.forgotContainer} onPress={() => navigation.navigate("PasswordRecover")}>
         <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
       </TouchableOpacity>
+
     </ScrollView>
 
   );

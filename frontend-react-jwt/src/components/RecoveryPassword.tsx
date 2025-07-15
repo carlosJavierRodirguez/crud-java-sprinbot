@@ -1,55 +1,28 @@
 import React from "react";
 import { View, TextInput, StyleSheet, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { IRequestRegister } from "../api/types/IUser";
+import { IRequestRecoverPassword } from "../api/types/IUser";
 
 interface Props {
-    form: IRequestRegister;
-    handleChange: (field: keyof IRequestRegister, value: string) => void;
+    form: IRequestRecoverPassword;
+    handleChange: (field: keyof IRequestRecoverPassword, value: string) => void;
 }
 
-const RegisterForm: React.FC<Props> = ({ form, handleChange }) => {
+const RecoverPasswordForm: React.FC<Props> = ({ form, handleChange }) => {
     return (
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
 
-            {/* Usuario */}
+            {/* email */}
             <View style={styles.inputWrapper}>
                 <MaterialCommunityIcons name="account" size={24} color="#000" style={styles.icon} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Usuario"
+                    placeholder="Nombre de usuario"
                     placeholderTextColor="#aaa"
                     value={form.userName}
                     onChangeText={(text) => handleChange("userName", text)}
                 />
             </View>
-
-            {/* email */}
-            <View style={styles.inputWrapper}>
-                <MaterialCommunityIcons name="email" size={24} color="#000" style={styles.icon} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Correo electrónico"
-                    placeholderTextColor="#aaa"
-                    value={form.email}
-                    onChangeText={(text) => handleChange("email", text)}
-                />
-            </View>
-
-            {/* Contraseña */}
-            <View style={styles.inputWrapper}>
-                <MaterialCommunityIcons name="lock" size={24} color="#000" style={styles.icon} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Contraseña"
-                    placeholderTextColor="#aaa"
-                    secureTextEntry
-                    value={form.password}
-                    onChangeText={(text) => handleChange("password", text)}
-                />
-            </View>
-
-
         </ScrollView>
 
     );
@@ -99,4 +72,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default RegisterForm;
+export default RecoverPasswordForm;

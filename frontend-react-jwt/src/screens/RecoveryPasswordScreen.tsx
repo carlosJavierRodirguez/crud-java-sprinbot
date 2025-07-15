@@ -7,55 +7,40 @@ import {
     Alert,
     Image
 } from "react-native";
-import LoginForm from "../components/LoginForm";
-import { IRequestLogin } from "../api/types/IUser";
-import { getProfile, login } from "../api/UserApi";
-import { useNavigation } from "@react-navigation/native";
+import RecoverPasswordForm from "../components/RecoveryPassword";
+import { IRequestRecoverPassword } from "../api/types/IUser";
+import { recoverPassword } from "../api/UserApi";
+import { useNavigation, } from "@react-navigation/native";
 import { RootStackParamList } from "../navigations/types";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export default function LoginScreen() {
-    const [form, setForm] = useState<IRequestLogin>({
-        userName: "",
-        password: ""
-    });
-
+export default function RecoverPasswordScreen() {
+    const [form, setForm] = useState<IRequestRecoverPassword>({ userName: "" });
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-
-    //Aquí se guarda el error
     const [error, setError] = useState<string | null>(null);
 
     const handleChange = (name: string, value: string) => {
         setForm({ ...form, [name]: value });
     };
 
-    const loginUser = async () => {
-        setError(null); // Limpiar error anterior
-        if (!form.userName || !form.password) {
-            let error = "Por favor completa todos los campos";
-            return setError(error); // mesaje de error;
+    const recoverPasswordUser = async () => {
+        setError(null);
+        if (!form.userName) {
+            return setError("Por favor completa el campo nombre de usuario.");
         }
 
-        const response = await login(form);
+        const response = await recoverPassword(form);
 
-        if (response?.data?.token) {
-            Alert.alert("Éxito", "Sesión iniciada correctamente.");
+        if (response?.success) {
+            Alert.alert("Éxito", "Revisa tu correo para continuar.");
 
         } else if (response?.error) {
-
-            setError(response.error); // mesaje de error
-
+            setError(response.error);
         } else {
-            setError("Error inesperado al iniciar sesión.");
+            setError("Error inesperado al recuperar la contraseña.");
         }
-
     };
 
-    const Profile = async () => {
-        const response = await getProfile();
-        console.log(response);
-    };
 
     return (
         <View style={styles.container}>
@@ -67,32 +52,21 @@ export default function LoginScreen() {
                     />
                 </View>
 
-                <Text style={styles.title}>Bienvenido</Text>
+                <Text style={styles.title}>Recuperación de contraseña</Text>
 
-                {/* Mensaje de error */}
                 {error && <Text style={styles.errorText}>{error}</Text>}
 
-                <LoginForm form={form} handleChange={handleChange} />
+                <RecoverPasswordForm form={form} handleChange={handleChange} />
 
-                {/* Enlace olvidó contraseña
-                <TouchableOpacity style={styles.forgotContainer} onPress={() => navigation.navigate("PasswordRecover")}>
-                    <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
-                </TouchableOpacity> */}
-
-                <TouchableOpacity style={styles.button} onPress={loginUser}>
-                    <Text style={styles.buttonText}>Iniciar sesión</Text>
+                <TouchableOpacity style={styles.button} onPress={recoverPasswordUser}>
+                    <Text style={styles.buttonText}>Recuperar</Text>
                 </TouchableOpacity>
 
-                <View style={styles.registerContainer}>
-                    <Text style={styles.registerText}>¿No tienes una cuenta? </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                        <Text style={styles.registerLink}>Regístrate</Text>
-                    </TouchableOpacity>
-                </View>
-
+                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                    <Text style={styles.buttonTextReturn}>Volver</Text>
+                </TouchableOpacity>
             </View>
         </View>
-
     );
 }
 
@@ -142,7 +116,14 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "600",
         fontSize: 16,
-    }, registerContainer: {
+    },
+    buttonTextReturn: {
+        color: "#000",
+        textAlign: "center",
+        fontSize: 16,
+        marginTop: 10,
+    },
+    registerContainer: {
         flexDirection: "row",
         justifyContent: "center",
         width: "100%",
@@ -165,15 +146,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         marginBottom: -16,
-    }, forgotContainer: {
-        alignSelf: "flex-end",
-        marginBottom: 10,
-    },
-    forgotText: {
-        color: "#000",
-        fontSize: 15,
-        fontWeight: "500",
-        textDecorationLine: "underline",
     },
 
 });
