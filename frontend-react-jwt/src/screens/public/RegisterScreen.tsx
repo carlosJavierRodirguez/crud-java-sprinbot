@@ -4,69 +4,97 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Alert,
     Image
 } from "react-native";
-import RecoverPasswordForm from "../components/RecoveryPassword";
-import { IRequestRecoverPassword } from "../api/types/IUser";
-import { recoverPassword } from "../api/UserApi";
-import { useNavigation, } from "@react-navigation/native";
-import { RootStackParamList } from "../navigations/types";
+import RegisterForm from "../../components/RegisterForm";
+import { IRequestRegister } from "../../api/types/IUser";
+import { getProfile, register } from "../../api/UserApi";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../navigations/types";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { showToast } from "../../utils/showToast";
 
-export default function RecoverPasswordScreen() {
-    const [form, setForm] = useState<IRequestRecoverPassword>({ userName: "" });
+export default function RegisterScreen() {
+
+    const [form, setForm] = useState<IRequestRegister>({
+        userName: "",
+        password: "",
+        email: ""
+    });
+
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    //Aquí se guarda el error
     const [error, setError] = useState<string | null>(null);
 
     const handleChange = (name: string, value: string) => {
         setForm({ ...form, [name]: value });
     };
 
-    const recoverPasswordUser = async () => {
+    const registerUser = async () => {
         setError(null);
-        if (!form.userName) {
-            return setError("Por favor completa el campo nombre de usuario.");
+
+        if (!form.userName || !form.password || !form.email) {
+            return setError("Por favor completa todos los campos");
         }
 
-        const response = await recoverPassword(form);
+        const response = await register(form);
 
-        if (response?.success) {
-            Alert.alert("Éxito", "Revisa tu correo para continuar.");
+        if (response?.status === "200 OK") {
+
+            showToast("success", "Éxito", "Usuario registrado correctamente porfavor inicia sesión");
+            navigation.navigate("Login");
 
         } else if (response?.error) {
-            setError(response.error);
+
+            showToast("error", "Error", response.error);
+
         } else {
-            setError("Error inesperado al recuperar la contraseña.");
+
+            showToast("error", "Error", "Error inesperado al registrar usuario");
+
         }
     };
 
+
+    const Profile = async () => {
+        const response = await getProfile();
+        console.log(response);
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.card}>
                 <View style={styles.logoContainer}>
                     <Image resizeMode="contain"
-                        source={require("../../assets/img/logo.jpg")}
+                        source={require("../../../assets/img/logo.jpg")}
                         style={styles.logo}
                     />
                 </View>
 
-                <Text style={styles.title}>Recuperación de contraseña</Text>
+                <Text style={styles.title}>Bienvenido</Text>
 
+                {/* Mensaje de error */}
                 {error && <Text style={styles.errorText}>{error}</Text>}
 
-                <RecoverPasswordForm form={form} handleChange={handleChange} />
+                <RegisterForm form={form} handleChange={handleChange} />
 
-                <TouchableOpacity style={styles.button} onPress={recoverPasswordUser}>
-                    <Text style={styles.buttonText}>Recuperar</Text>
+                <TouchableOpacity style={styles.button} onPress={registerUser}>
+                    <Text style={styles.buttonText}>Registrarse</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                    <Text style={styles.buttonTextReturn}>Volver</Text>
-                </TouchableOpacity>
+                {/* ya tiene una cuenta */}
+                <View style={styles.registerContainer}>
+
+                    <Text style={styles.registerText}>Ya tiene una cuenta</Text>
+
+                    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                        <Text style={styles.registerLink}>Iniciar Sesión</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </View>
+
     );
 }
 
@@ -116,14 +144,7 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "600",
         fontSize: 16,
-    },
-    buttonTextReturn: {
-        color: "#000",
-        textAlign: "center",
-        fontSize: 16,
-        marginTop: 10,
-    },
-    registerContainer: {
+    }, registerContainer: {
         flexDirection: "row",
         justifyContent: "center",
         width: "100%",

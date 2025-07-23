@@ -30,8 +30,6 @@ export const login = async (register: IRequestLogin) => {
 
         setToken(data.token);
 
-        console.log(data);
-
         return data;
 
     } catch (error) {

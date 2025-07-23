@@ -4,15 +4,16 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Alert,
     Image
 } from "react-native";
-import LoginForm from "../components/LoginForm";
-import { IRequestLogin } from "../api/types/IUser";
-import { getProfile, login } from "../api/UserApi";
+import LoginForm from "../../components/LoginForm";
+import { IRequestLogin } from "../../api/types/IUser";
+import { getProfile, login } from "../../api/UserApi";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../navigations/types";
+import { RootStackParamList } from "../../navigations/types";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { showToast } from "../../utils/showToast";
+
 
 export default function LoginScreen() {
     const [form, setForm] = useState<IRequestLogin>({
@@ -38,9 +39,12 @@ export default function LoginScreen() {
         }
 
         const response = await login(form);
+        //verifica si la respuesta contiene un token
+        if (response?.token) {
 
-        if (response?.data?.token) {
-            Alert.alert("Éxito", "Sesión iniciada correctamente.");
+            //redidirige a la pagina de aterrizaje
+            showToast("success", "Éxito", "Sesión iniciada correctamente.");
+            navigation.navigate("Home");
 
         } else if (response?.error) {
 
@@ -58,11 +62,11 @@ export default function LoginScreen() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container}> 
             <View style={styles.card}>
                 <View style={styles.logoContainer}>
                     <Image resizeMode="contain"
-                        source={require("../../assets/img/logo.jpg")}
+                        source={require("../../../assets/img/logo.jpg")}
                         style={styles.logo}
                     />
                 </View>
@@ -74,11 +78,6 @@ export default function LoginScreen() {
 
                 <LoginForm form={form} handleChange={handleChange} />
 
-                {/* Enlace olvidó contraseña
-                <TouchableOpacity style={styles.forgotContainer} onPress={() => navigation.navigate("PasswordRecover")}>
-                    <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
-                </TouchableOpacity> */}
-
                 <TouchableOpacity style={styles.button} onPress={loginUser}>
                     <Text style={styles.buttonText}>Iniciar sesión</Text>
                 </TouchableOpacity>
@@ -89,6 +88,15 @@ export default function LoginScreen() {
                         <Text style={styles.registerLink}>Regístrate</Text>
                     </TouchableOpacity>
                 </View>
+
+
+                <View style={styles.registerContainer}>
+
+                    <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                        <Text style={styles.registerLink}>home</Text>
+                    </TouchableOpacity>
+                </View>
+
 
             </View>
         </View>
