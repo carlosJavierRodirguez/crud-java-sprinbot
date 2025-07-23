@@ -43,7 +43,7 @@ export default function NavbarScreen() {
                 <Text style={styles.brandText}>
                     EXPLOR<Text style={styles.textGreen}>ER</Text>
                 </Text>
-                
+
             </View>
 
             {isMobile ? (
@@ -59,10 +59,6 @@ export default function NavbarScreen() {
                                 <Text style={getNavItemStyle("Home")}>Inicio</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => { setMenuVisible(false); navigation.navigate("Register"); }}>
-                                <Text style={getNavItemStyle("Register")}>Registrar</Text>
-                            </TouchableOpacity>
-
                         </View>
                     )}
                 </>
@@ -71,10 +67,6 @@ export default function NavbarScreen() {
 
                     <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                         <Text style={getNavItemStyle("Home")}>Inicio</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                        <Text style={getNavItemStyle("Register")}>Registrar</Text>
                     </TouchableOpacity>
 
                 </View>
