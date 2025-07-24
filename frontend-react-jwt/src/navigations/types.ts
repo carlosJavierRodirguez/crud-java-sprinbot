@@ -3,4 +3,7 @@ export type RootStackParamList = {
     Register: undefined;
     PasswordRecover: undefined;
     Home: undefined;
+    Explorer: undefined;
+    LegendsCreatures: undefined;
+    GodsArtifacts: undefined;
 };

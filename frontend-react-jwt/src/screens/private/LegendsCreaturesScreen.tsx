@@ -6,10 +6,9 @@ import {
     Platform,
 } from "react-native";
 import NavbarScreen from "../../components/Navbar";
-import CarruselComponent from "../../components/Carrusel";
 import FooterComponent from "../../components/Footer";
 
-export default function HomeScreen() {
+export default function LegendsCreaturesScreen() {
     return (
         <View style={styles.container}>
             <ScrollView
@@ -19,7 +18,6 @@ export default function HomeScreen() {
 
                 <View style={styles.mainContent}>
                     <NavbarScreen />
-                    <CarruselComponent />
                 </View>
 
                 {/* El footer siempre estará al final */}

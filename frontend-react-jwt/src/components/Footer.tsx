@@ -7,46 +7,86 @@ const { width } = Dimensions.get('window');
 export default function FooterComponent() {
     const handleLinkPress = (url: string) => {
         if (Platform.OS === 'web') {
-            window.open(url);
+            window.open(url, '_blank');
         } else {
             Linking.openURL(url);
         }
     };
 
+    const handleEmailPress = () => {
+        handleLinkPress('mailto:carlosjavi1887@gmail.com');
+    };
+
+    const handleLinkedInPress = () => {
+        handleLinkPress('https://www.linkedin.com/in/carlos-javier-rodriguez-manchola');
+    };
+
+    const handlePhonePress = () => {
+        handleLinkPress('https://wa.me/3117657164');
+    };
+
     return (
         <View style={styles.footerContainer}>
             <View style={styles.footer}>
-                <View style={styles.footerTop}>
-                    <Text style={styles.brandText}>
-                        EXPLOR<Text style={styles.textGreen}>ER</Text>
-                    </Text>
-
-                    <Text style={styles.description}>
-                        Explora el mundo sin límites. Aventuras épicas, destinos ocultos y experiencias inolvidables
-                        te esperan. Únete a la comunidad de exploradores.
-                    </Text>
-                </View>
-
-                <View style={styles.footerBottom}>
-                    <View style={styles.socials}>
-                        <TouchableOpacity
-                            onPress={() => handleLinkPress('www.linkedin.com/in/carlos-javier-rodriguez-manchola')}
-                            style={styles.socialButton}
-                            accessibilityLabel="LinkedIn"
-                        >
-                            <FontAwesome name="linkedin-square" size={24} color="#0077B5" />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => handleLinkPress('carlosjavi1887@gmail.com')}
-                            style={styles.socialButton}
-                            accessibilityLabel="Email"
-                        >
-                            <FontAwesome name="envelope" size={24} color="#888" />
-                        </TouchableOpacity>
+                <View style={styles.footerContent}>
+                    {/* Columna Izquierda - Brand */}
+                    <View style={styles.leftColumn}>
+                        <Text style={styles.brandText}>
+                            EXPLOR<Text style={styles.textGreen}>ER</Text>
+                        </Text>
+                        <Text style={styles.description}>
+                            Embárcate en una aventura sin fronteras. Descubre lugares ocultos, vive historias legendarias y
+                            conecta con una comunidad apasionada por explorar lo desconocido.
+                            Tu próxima gran aventura comienza aquí.
+                        </Text>
                     </View>
 
-                    <Text style={styles.smallText}>Hecho en Colombia 🇨🇴</Text>
-                    <Text style={styles.copyright}>© 2025 Explorer. Todos los derechos reservados.</Text>
+                    {/* Columna Derecha - Contacto */}
+                    <View style={styles.rightColumn}>
+                        <Text style={styles.contactTitle}>Contacto</Text>
+
+                        <View style={styles.contactItem}>
+                            <TouchableOpacity
+                                onPress={handleLinkedInPress}
+                                style={styles.contactButton}
+                                accessibilityLabel="LinkedIn"
+                            >
+                                <FontAwesome name="linkedin-square" size={20} color="#0077B5" />
+                                <Text style={styles.contactText}>Carlos Javier Rodriguez Manchola</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.contactItem}>
+                            <TouchableOpacity
+                                onPress={handleEmailPress}
+                                style={styles.contactButton}
+                                accessibilityLabel="Email"
+                            >
+                                <FontAwesome name="envelope" size={20} color="#888" />
+                                <Text style={styles.contactText}>carlosjavi1887@gmail.com</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.contactItem}>
+                            <TouchableOpacity
+                                onPress={handlePhonePress}
+                                style={styles.contactButton}
+                                accessibilityLabel="Email"
+                            >
+                                <FontAwesome name="phone" size={20} color="#888" />
+                                <Text style={styles.contactText}>+57 311 765 7164</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    </View>
+                </View>
+
+                {/* Footer Bottom - Copyright */}
+                <View style={styles.footerBottom}>
+                    <View style={styles.divider} />
+                    <View style={styles.bottomContent}>
+                        <Text style={styles.copyright}>© 2025 Explorer. Todos los derechos reservados.</Text>
+                    </View>
                 </View>
             </View>
         </View>
@@ -55,16 +95,14 @@ export default function FooterComponent() {
 
 const styles = StyleSheet.create({
     footerContainer: {
-        marginTop: 50, // Esto empuja el footer hacia abajo
+        marginTop: 50,
         ...Platform.select({
             web: {
                 position: 'relative',
                 bottom: 0,
                 width: '100%',
             },
-            default: {
-                // Para móvil no necesitamos position absolute
-            }
+            default: {},
         }),
     },
     footer: {
@@ -90,17 +128,32 @@ const styles = StyleSheet.create({
             }
         }),
     },
-    footerTop: {
-        marginBottom: 20,
-        alignItems: 'center',
-        maxWidth: width > 768 ? 600 : '100%',
+    footerContent: {
+        flexDirection: width > 768 ? 'row' : 'column',
+        justifyContent: 'space-between',
+        alignItems: width > 768 ? 'flex-start' : 'center',
+        maxWidth: 1200,
         alignSelf: 'center',
+        width: '100%',
+    },
+    leftColumn: {
+        flex: width > 768 ? 2 : 1,
+        alignItems: width > 768 ? 'flex-start' : 'center',
+        marginBottom: width > 768 ? 0 : 24,
+        paddingRight: width > 768 ? 20 : 0,
+    },
+    rightColumn: {
+        flex: width > 768 ? 1 : 1,
+        alignItems: width > 768 ? 'flex-start' : 'stretch', // 'stretch' hace que los elementos ocupen todo el ancho
+        minWidth: width > 768 ? 250 : '100%',
+        width: '100%', // Asegura que ocupe todo el ancho disponible
     },
     brandText: {
         fontSize: Platform.OS === 'web' ? 28 : 24,
         fontWeight: 'bold',
         color: '#222',
-        marginBottom: 8,
+        marginBottom: 12,
+        textAlign: width > 768 ? 'left' : 'center',
         ...Platform.select({
             web: {
                 fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -113,53 +166,74 @@ const styles = StyleSheet.create({
     description: {
         fontSize: Platform.OS === 'web' ? 16 : 14,
         color: '#444',
-        textAlign: 'center',
+        textAlign: width > 768 ? 'left' : 'center',
         lineHeight: Platform.OS === 'web' ? 24 : 20,
-        paddingHorizontal: 10,
-        maxWidth: Platform.OS === 'web' ? 500 : '100%',
+        maxWidth: width > 768 ? 400 : '100%',
     },
-    footerBottom: {
-        alignItems: 'center',
-        paddingTop: 16,
-        borderTopWidth: 1,
-        borderTopColor: '#ccc',
-    },
-    socials: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+    contactTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#222',
         marginBottom: 16,
-        ...Platform.select({
-            web: {
-                gap: 24,
-            },
-            default: {
-                // Para móvil usamos marginHorizontal en socialButton
-            }
-        }),
+        textAlign: width > 768 ? 'left' : 'center',
     },
-    socialButton: {
-        padding: 8,
+    contactItem: {
+        marginBottom: 12,
+        width: '100%',
+        minHeight: 40, // Altura mínima consistente para todos los items
+    },
+    contactButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         borderRadius: 8,
-        marginHorizontal: Platform.OS === 'web' ? 0 : 12,
+        backgroundColor: 'rgba(255,255,255,0.3)',
+        width: '100%', // Ocupa todo el ancho disponible
+        justifyContent: 'flex-start', // Alinea el contenido a la izquierda
         ...Platform.select({
             web: {
                 cursor: 'pointer',
-                transition: 'transform 0.2s ease',
+                transition: 'all 0.2s ease',
                 ':hover': {
-                    transform: 'scale(1.1)',
+                    backgroundColor: 'rgba(255,255,255,0.5)',
+                    transform: 'translateX(5px)',
                 },
             },
         }),
     },
+    contactText: {
+        marginLeft: 12,
+        fontSize: 14,
+        color: '#444',
+        fontWeight: '500',
+        flex: 1, // Permite que el texto ocupe el espacio restante
+        flexWrap: 'wrap', // Permite que el texto se divida en líneas si es necesario
+    },
+    footerBottom: {
+        alignItems: 'center',
+        width: '100%',
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#ccc',
+        width: '100%',
+        marginBottom: 16,
+    },
+    bottomContent: {
+        alignItems: 'center',
+        justifyContent: width > 768 ? 'space-between' : 'center',
+        width: '100%',
+        maxWidth: 1200,
+    },
     smallText: {
         fontSize: 12,
         color: '#888',
-        marginBottom: 4,
+        marginBottom: width > 768 ? 0 : 4,
         fontWeight: '500',
     },
     copyright: {
-        fontSize: 10,
+        fontSize: 14,
         color: '#aaa',
         textAlign: 'center',
     },

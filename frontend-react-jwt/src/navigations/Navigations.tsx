@@ -4,6 +4,9 @@ import LoginScreen from "../screens/public/LoginScreen";
 import RegisterScreen from "../screens/public/RegisterScreen";
 import RecoverPasswordScreen from "../screens/public/RecoveryPasswordScreen";
 import HomeScreen from "../screens/private/HomeScreen";
+import ExplorerScreen from "../screens/private/ExplorerScreen";
+import LegendsCreaturesScreen from "../screens/private/LegendsCreaturesScreen";
+import GodsArtifactsScreen from "../screens/private/GodsArtifactsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +31,21 @@ export default function Navigations() {
             <Stack.Screen
                 name="Home"
                 component={HomeScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Explorer"
+                component={ExplorerScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="LegendsCreatures"
+                component={LegendsCreaturesScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="GodsArtifacts"
+                component={GodsArtifactsScreen}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
