@@ -32,29 +32,25 @@ export default function LoginScreen() {
     };
 
     const loginUser = async () => {
-        setError(null); // Limpiar error anterior
+        setError(null);
+
         if (!form.userName || !form.password) {
-            let error = "Por favor completa todos los campos";
-            return setError(error); // mesaje de error;
+            setError("Por favor completa todos los campos");
+            return;
         }
 
         const response = await login(form);
-        //verifica si la respuesta contiene un token
+
         if (response?.token) {
-
-            //redidirige a la pagina de aterrizaje
             showToast("success", "Éxito", "Sesión iniciada correctamente.");
-            navigation.navigate("Home");
-
+            navigation.navigate("Home"); // solo si ya guardaste el token
         } else if (response?.error) {
-
-            setError(response.error); // mesaje de error
-
+            setError(response.error);
         } else {
             setError("Error inesperado al iniciar sesión.");
         }
-
     };
+
 
     const Profile = async () => {
         const response = await getProfile();
@@ -62,7 +58,7 @@ export default function LoginScreen() {
     };
 
     return (
-        <View style={styles.container}> 
+        <View style={styles.container}>
             <View style={styles.card}>
                 <View style={styles.logoContainer}>
                     <Image resizeMode="contain"
@@ -88,15 +84,6 @@ export default function LoginScreen() {
                         <Text style={styles.registerLink}>Regístrate</Text>
                     </TouchableOpacity>
                 </View>
-
-
-                <View style={styles.registerContainer}>
-
-                    <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                        <Text style={styles.registerLink}>home</Text>
-                    </TouchableOpacity>
-                </View>
-
 
             </View>
         </View>

@@ -3,8 +3,9 @@ import { getToken, setToken } from "./Token";
 import { IRequestLogin, IRequestRegister, IRequestRecoverPassword } from "./types/IUser";
 import { validateLoginForm } from "../utils/validators";
 
-export const login = async (register: IRequestLogin) => {
-    const error = validateLoginForm(register);
+export const login = async (credentials: IRequestLogin) => {
+
+    const error = validateLoginForm(credentials);
 
     if (error) {
         return { error };
@@ -15,9 +16,8 @@ export const login = async (register: IRequestLogin) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-
             },
-            body: JSON.stringify(register),
+            body: JSON.stringify(credentials),
         });
 
         if (response.status === 403) {
@@ -28,15 +28,19 @@ export const login = async (register: IRequestLogin) => {
 
         let data = await response.json();
 
-        setToken(data.token);
 
-        return data;
+        if (data.token) {
+            await setToken(data.token);
+            return data;
+        } else {
+            return { error: "No se recibió token" };
+        }
 
     } catch (error) {
-
         return { error: "Error en la conexión" };
     }
 };
+
 
 export const register = async (register: IRequestRegister) => {
     try {
@@ -47,8 +51,6 @@ export const register = async (register: IRequestRegister) => {
             },
             body: JSON.stringify(register),
         });
-
-        // if (!response.ok) throw new Error("Error en el registro");
 
         let data = await response.json();
 
@@ -61,21 +63,24 @@ export const register = async (register: IRequestRegister) => {
 
 export const getProfile = async () => {
     try {
-        const token = await getToken();
-        const response = await fetch(`${USER_END_POINT}profile`, {
 
+        // Obtenemos el token
+        const token = await getToken();
+
+        const response = await fetch(`${USER_END_POINT}profile`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
-            // body: JSON.stringify(register),
         });
 
         if (!response.ok) throw new Error("Error en el login");
+
         let data = await response.json();
-        // data=data("token");
-        console.log(data);
+
         return data;
+
     } catch (error) {
         return error;
     }

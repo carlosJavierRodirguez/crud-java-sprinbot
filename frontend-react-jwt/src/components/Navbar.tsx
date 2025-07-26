@@ -12,22 +12,27 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigations/types";
 import { Ionicons } from "@expo/vector-icons";
-
-// Datos del usuario de ejemplo
-const userData = {
-    name: "Carlos Javier Rodriguez",
-    email: "carlosjavi1887@gmail.com",
-    role: "Explorador Principal",
-    avatar: "https://sm.ign.com/t/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.600.jpg",
-};
+import { removeToken } from "../api/Token";
+import { getProfile } from "../api/UserApi";
+import { useEffect } from 'react';
 
 export default function NavbarScreen() {
+
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const route = useRoute();
     const currentRoute = route.name;
 
+    // Datos del usuario 
+    const [userData, setUserData] = useState({
+        username: '',
+        email: '',
+        role: '',
+        // avatar: ''
+    });
+
     const [menuVisible, setMenuVisible] = useState(false);
     const [profileVisible, setProfileVisible] = useState(false);
+
     const screenWidth = Dimensions.get("window").width;
     const isMobile = screenWidth < 768;
 
@@ -36,6 +41,24 @@ export default function NavbarScreen() {
             ? [styles.navItem, styles.activeNavItem]
             : styles.navItem;
     };
+
+    // Cargar el perfil cuando se monta el componente
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const data = await getProfile();
+                if (data && data.username && data.email) {
+                    setUserData(data);
+                } else {
+                    console.warn("No se pudo obtener información del usuario:", data);
+                }
+            } catch (error) {
+                console.error("Error al obtener el perfil:", error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     const toggleMenu = () => setMenuVisible(prev => !prev);
     const toggleProfile = () => setProfileVisible(prev => !prev);
@@ -54,12 +77,12 @@ export default function NavbarScreen() {
             >
                 <View style={styles.profileModal}>
                     <View style={styles.profileHeader}>
-                        <Image
+                        {/* <Image
                             source={{ uri: userData.avatar }}
                             style={styles.avatarLarge}
-                        />
+                        /> */}
                         <View style={styles.profileInfo}>
-                            <Text style={styles.profileName}>{userData.name}</Text>
+                            <Text style={styles.profileName}>{userData.username}</Text>
                             <Text style={styles.profileRole}>{userData.role}</Text>
                             <Text style={styles.profileEmail}>{userData.email}</Text>
                         </View>
@@ -69,11 +92,18 @@ export default function NavbarScreen() {
                         <TouchableOpacity
                             style={[styles.actionButton, styles.logoutButton]}
                             onPress={() => {
+                                // Elimina el token
+                                removeToken();
+
+                                // Cierra el modal
                                 setProfileVisible(false);
-                                // Lógica de logout aquí
+
+                                // Navega a la pantalla de inicio
+                                navigation.navigate("Login");
+
                                 console.log("Cerrando sesión...");
-                            }}
-                        >
+                            }}>
+
                             <Ionicons name="log-out-outline" size={16} color="#fff" />
                             <Text style={styles.actionButtonText}>Cerrar Sesión</Text>
                         </TouchableOpacity>
@@ -121,13 +151,13 @@ export default function NavbarScreen() {
                     style={styles.profileButton}
                     onPress={toggleProfile}
                 >
-                    <Image
+                    {/* <Image
                         source={{ uri: userData.avatar }}
                         style={styles.avatar}
-                    />
+                    /> */}
                     {!isMobile && (
                         <View style={styles.userInfo}>
-                            <Text style={styles.userName}>{userData.name.split(' ')[0]}</Text>
+                            <Text style={styles.userName}>{userData.username.split(' ')[0]}</Text>
                             <Text style={styles.userRole}>{userData.role}</Text>
                         </View>
                     )}
